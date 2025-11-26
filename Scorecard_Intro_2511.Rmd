@@ -1,0 +1,732 @@
+---
+title: '\begin{center} Predictive Analytics: Application in the Credit Risk Domain \\ Case Study Teaching (CST)-Vignette in cheat sheet style \\ ("group project cover sheet") \end{center}'
+author: "Prof. Walter S.A. Schwaiger (IMW/TU Wien)"
+date: "Nov. 05, 2025 (Scorecard_Intro_2511.Rmd)"
+output:
+  bookdown::pdf_document2:
+ #pdf_document:
+    toc: yes
+    number_sections: TRUE
+    #keep_tex: TRUE
+    citation_package: natbib
+bibliography: literature.bib
+biblio-style: humannat
+include-before:
+  \pagebreak
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+\newpage
+
+# Contextualization: Credit risk management domain - Specification
+
+## Methodological and linguistic overview
+
+### Empirical research methodology in the credit risk management domain
+
+Two predicting models will be of special importance, i.e. Generalized
+Linear Models (glm) and Score Card Models (scm). As will be shown, the
+scm-models add two special concepts to the glm-models, i.e. the
+
+1.  **Classing/Binning/Grouping** concept, where the predictor variables
+    are partioned into bins
+
+2.  **Weight-of-Evidence (woe)** concept for evaluating the predictive
+    importance of the variables' bins (attributes)
+
+The empirical research methodology deals with the construction,
+calibration and validation of credit scoring models.
+
+**Hint**: "Risk Model Management" lecture at the TU Wien by Dr. Thomas
+Lederer, where the focus lies on the **construction, calibration and
+validation (CCV)** framework for predictive analytics in the risk
+management domain.
+
+### Credit risk management domain language
+
+'Vocabulary and Syntax' of domain language, i.e. key domain concepts are
+
+-   Credit scoring model: **Scorecard model**, **logistic regression
+    model**, decision tree model...
+
+-   Model **construction** step
+
+    -   Distinction between **binary response** (dependent) vs.
+        **interval/nominal/ordinal predictor** (independent) variable
+
+    -   **Classing** predictor variables via **binning** interval
+        (numeric) variables and **grouping** nominal
+        (categorical/ordinal) variables
+
+    -   Using the **Weight-of-Evidence (woe)** metric in the predictor
+        variables' classing
+
+-   Model **calibration** step: Stastistical **estimation of the models
+    parameters** and statistical **testing of the model fit** via test
+    statistics (e.g. Akaike Information Criteria abbreviated as **AIC**)
+
+-   Model **validation** step: Statistical **testing of the fitted
+    models prediction accuracy** via in-sample and out-of-sample
+    forecast accuracy tests (e.g. Area Under Curve abbreviated as
+    **AUC** and **Gini** coefficient)
+
+## Literature References
+
+**Weight-of-Evidence (woe)**: Origins
+
+-   \cite{Good}
+
+-   \cite{Kullback}
+
+**Scorecard Model**: Up-to-date article
+
+Yap/Ong/Husain: Using data mining to improve assessment of credit
+worthiness via credit scoring models, Expert Systems with Applications,
+38, 2011, 13274–13283
+
+**Scorecard Model - Reference Manual**: Package ‘scorecard’, April 13,
+2024
+
+-   <https://cran.r-project.org/web/packages/scorecard/scorecard.pdf>
+
+**Scorecard Model - Vignette**: Developing a Credit Scorecard (Shichen
+Xie, Michael Thomas)
+
+-   <https://cran.r-project.org/web/packages/scorecard/vignettes/demo.html>
+
+**Credit Scoring Development Using R**, Ng Yong Kad, 11/9/2020:
+
+-   <https://rpubs.com/ngyongkad/scorecard>
+
+**WoE, IV and Scorecards in Credit Risk Modelling**, OEB, March 2018:
+
+-   <https://rstudio-pubs-static.s3.amazonaws.com/376828_032c59adbc984b0ab892ce0026370352.html>
+
+**Credit scorecard using Logistic Regression on R**:
+
+-   <https://stats.stackexchange.com/questions/419160/credit-scorecard-using-logistic-regression-on-r>
+
+# Use Case Preparation: Loading and preparing data
+
+## Loading libraries: scorecard, tidyverse, knitr
+
+```{r}
+library(scorecard)
+library(tidyverse)
+library(knitr)
+```
+
+## Loading external data: germancredit
+
+The variables are distinguished among predictor (feature, independent)
+variables and response (label, dependent) variables.
+
+```{r}
+data("germancredit") 
+```
+
+Variables: Names
+
+```{r}
+germancredit %>% names()
+```
+
+## Selecting response and predictor variables for the use case: data.df
+
+For demonstrating special considerations the following variables from
+the germancredit data are chosen:
+
+-   Response variable is (as always): **creditability** (binary)
+
+-   Five predictor variables:
+
+    -   **credit.amount** (numeric)
+
+    -   **duration.in.month** (numeric)
+
+    -   **credit.history** (factor)
+
+    -   **purpose** (character)
+
+    -   **property** (factor)
+
+**Hint**: Consider the different primitive data types in R, i.e. numeric
+(num), factor (Factor), character (chr) and integer (int).
+
+Selecting the response and the five predictor variables
+
+```{r}
+data.df <- germancredit %>%
+  select(creditability,
+         credit.amount,
+         duration.in.month,
+         credit.history,
+         purpose,
+         property)
+```
+
+**Hint**: Consider the different data types applied in R, i.e. vector,
+matrix, array, data frame (df) and list. Theses types will be indicated
+in the names of the variables, e.g. data.df is a data frame that
+contains the data.
+
+Exemplarily showing the variables' contents
+
+```{r}
+data.df %>%
+  select(creditability,
+         credit.amount,
+         duration.in.month,
+         purpose) %>%
+  head()  
+```
+
+The following chunk contains the code for generating Table
+\@ref(tab:testTable).
+
+```{r testTable}
+data.df[,1:3] %>% 
+  head() %>% 
+  kable(align = 'lccc',
+        digits = 2,
+        caption = "data.df")
+```
+
+```{r}
+data.df %>%
+  select(creditability,
+         credit.history) %>%
+  head()  
+```
+
+```{r}
+data.df %>%
+  select(creditability,
+         property) %>%
+  head()
+```
+
+For checking the statistical relevance of the five predictor variables
+in the use case their information value is calclulated
+
+```{r}
+data.df %>% iv(y="creditability")
+```
+
+**Hint**: All predictor variable have info_value \> 0.02 so that they
+have relevance in predicting creditability
+
+## Filtering data and transforming data types: data_f.df
+
+For filtering missing values, information values and identical values
+the var_filter() function is applied
+
+```{r}
+data_f.df <- data.df %>% 
+  var_filter("creditability")
+```
+
+Exemplarily showing the variables' contents
+
+```{r}
+data_f.df %>% 
+  select(creditability,
+         credit.amount,
+         duration.in.month) %>%
+  head()
+```
+
+**Hint**: Consider the change of the data type of creditability from
+"factor" to "integer". This is important as now the **language of data
+science and machine learning** is applied, where the occurrence of the
+event is labeled with the number "1" as positive. Think of a medical
+test. A positive event means that something unwanted was found, so the
+positive test result is interpreted as "bad". The same reasoning applies
+in the credit risk context, where a positive occurrence of the default
+event is interpreted as "bad".
+
+## Splitting filtered data into train and validate samples: data_f.list
+
+For having two independent samples for training and evaluation the
+filtered data frame is split into a list that contains two data frames,
+i.e. for the train and the validate samples
+
+```{r}
+data_f.list <- data_f.df %>% 
+  split_df("creditability",
+           ratios = c(0.75,0.25),
+           name_dfs = c('train','validate'))
+```
+
+**Hint**: For the use case the splitting is set to 75/25 % and the
+splitted samples are named **train** and **evaluate** instead of
+**test** for making clear that it belongs to the **validation step** of
+the risk model management process.
+
+**Hint**: By default the splitting is 70/30 % for the train/validate
+samples, i.e. the argument is ratios=c(0.7,0.3) in the split_df()
+function. The standard names for the splitted samples are train and test
+in the function's argument name_dfs=c('train','test').
+
+Exemplarily showing the content of the data_f.list
+
+```{r}
+data_f.list %>% class()
+data_f.list %>% lapply(class)
+data_f.list %>% lapply(dim)
+data_f.list$train %>% str()
+```
+
+## Specifying dummy variable for credit defaults: default.list
+
+For being able to statistically analyze and test the results from the
+scorecard the default.list is established that contains the default
+values of the response variable
+
+```{r}
+default.list <- data_f.list %>% 
+  lapply(function(x) x$creditability)
+```
+
+**Hint**: The default.list is needed for calculating the population
+stability indes (PSI) with the function perf_psi() and the gains table
+with the function gains_table().
+
+Exemplarily showing the content of the default.list
+
+```{r}
+default.list %>% str()
+```
+
+\newpage
+
+# Weight-Of-Evidence (WoE)-based transformation of predictor variables
+
+## WoE-based binning of train and validate samples: bins.list
+
+WoE-based classing, i.e. binning and grouping of predictor variables
+
+```{r}
+bins.list <- data_f.list$train %>% 
+  woebin("creditability") 
+```
+
+**Hint**: The default binning method is method="width". Other methods are
+
+-   "frequ" that support numerical variables as well as
+
+-   "tree" and "chimerge" supporting both, i.e. numerical and
+    categorical variables which are used in the optimal binning
+    approach.
+
+```{r}
+bins.list %>% names()
+```
+
+Plotting the bins (including bin statistics)
+
+```{r fig.height=2.5, fig.align='center'}
+bins.list$credit.amount %>% 
+  woebin_plot()
+```
+
+**Hint**: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g. a linear or u-curve structure; hence it should not be included in the scorecard model!
+
+```{r fig.height=2.5, fig.align='center'}
+bins.list$duration.in.month %>% 
+  woebin_plot()
+```
+
+**Hint**: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
+
+**Excursion**: Manual bin-adjustments
+
+Bins can be altered manually by
+
+1.  Saving the bin list generated in the woebin() function via e.g.
+    save_as="breaks2410.list"
+
+2.  Loading the saved R-file "breaks2410.list.R", editing the breaks as
+    needed and storing the file
+
+3.  Sourcing the edited and stored "breaks2410.list.R" file with the
+    "source(...)\$value" function
+
+4.  Binning the data again with the "woebin()" function with the
+    additional argument "break_list"
+
+ad 1)
+
+```{r eval=FALSE}
+bins.list <- data_f.list$train %>% 
+  woebin("creditability",
+         save_as = "breaks2410.list") 
+```
+
+ad 3)
+
+```{r eval=FALSE}
+breaksList <- source("breaks2410.list.R")$value
+```
+
+ad 4)
+
+```{r eval=FALSE}
+bins.list <- data_f.list$train %>% 
+  woebin("creditability",
+         breaks_list = "breaksList") 
+```
+
+**Hint**: The above code chunks are not yet evaluated, as they are
+performed only when the original binning does not deliver beneficial
+results.
+
+## WoE-based transforming of predictor variables: data_woe.list
+
+### WoE-based transforming of train and validate data: data_woe.list
+
+Transforming splitted sample: Needed for train/validate analysis
+
+```{r}
+data_woe.list <- data_f.list %>% 
+  lapply(function(x) woebin_ply(x, bins.list))
+```
+
+```{r}
+data_woe.list %>% lapply(class)
+data_woe.list %>% lapply(dim)
+```
+
+```{r}
+data_woe.list$train %>% 
+  select(creditability, credit.amount_woe, duration.in.month_woe) %>% 
+  head()
+```
+
+\newpage
+
+# Generalized linear model (glm): Regressing predictors against responses
+
+## Logistic regression of WoE-transformed predictors: glm(.,data_woe.list\$train)
+
+The WoE-based logistic regression is the preferred regression approach
+as it delivers the most compact regression models.
+
+### Constructing and calibrating the WoE-based logistic regression model
+
+```{r}
+data_woe.glm <- glm(creditability ~ ., 
+                    family = binomial(), 
+                    data = data_woe.list$train) 
+```
+
+### Investigating the fitted regression model
+
+```{r}
+data_woe.glm$aic
+```
+
+Summary of regression: summary()
+
+```{r}
+data_woe.glm %>% summary()
+```
+
+## Logistic regression of original predictors: glm(.,data_f.list\$train)
+
+```{r}
+data_f.glm <- glm(creditability ~ ., 
+                  family = binomial(), 
+                  data = data_f.list$train %>% 
+                    select(creditability,
+                           credit.amount,
+                           duration.in.month,
+                           credit.history)) 
+```
+
+**Hint**: For simplicity only three original predictors are included in the logistic regression model  
+
+```{r}
+data_f.glm$aic
+```
+
+```{r}
+data_f.glm$xlevels
+```
+
+For getting a compact summary the function summary() is customized and formatted 
+
+```{r}
+formatSummary <- function(model_summary) {
+  aux_coeff <- model_summary$coefficients[, 1]
+  aux_prob <- model_summary$coefficients[, 4]
+  aux_stars <- symnum(aux_prob, 
+                       corr = FALSE, 
+                       na = FALSE,
+                       cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                       symbols = c("***", "**", "*", ".", " "))
+  names(aux_coeff) <- str_trunc(names(aux_coeff), 
+                                width = 40)
+  aux_result <- data.frame(Estimate = aux_coeff, 
+                           Prob_z = aux_prob, 
+                           "Stars" = aux_stars)
+  return(aux_result)
+}
+```
+
+```{r}
+summary(data_f.glm) %>% formatSummary()
+```
+
+\newpage
+
+# Building scorecard-models (scm) and calculating scorepoints
+
+Scorepoints are calculated by combing scorecard-model, which combines
+bin and glm information, with individual data
+
+## Building scm-models: Combining bins.list & data_woe.glm in scorecard()
+
+Building the scorecard via bin and glm information resulting from train
+sample
+
+```{r}
+scorecard.scm <- bins.list %>% scorecard(data_woe.glm)
+```
+
+```{r}
+scorecard.scm %>% names()
+```
+
+Investigating the content of the "woe-based" scorecard model
+
+```{r}
+scorecard.scm$basepoints
+```
+
+```{r}
+scorecard.scm$duration.in.month[,1:8]
+```
+
+```{r}
+scorecard.scm$duration.in.month[,c(1,9:13)]
+```
+
+## Calculating scorepoints: Combinig individual data.df & scm-model in scorecard_ply()
+
+Generating a score list
+
+```{r}
+score.list <- data_f.list %>% 
+  lapply(function(x) scorecard_ply(x, scorecard.scm)) 
+```
+
+**Hint**: The only_total_score=TRUE (= default argument) has to be used
+for providing two compatible lists for further processing. If scores to
+the different predictors are of interest, the two separate, i.e. train
+and validate samples have to analyzed individually with the argument
+only_total_score=FALSE.
+
+```{r}
+score.list %>% names()
+```
+
+```{r}
+score.list$train %>%
+  head()
+```
+
+```{r}
+score.list$validate %>%
+  head()
+```
+
+\newpage
+
+# WoE-based predicting (forecasting) of probabilities and scorepoints
+
+## Predicting probabilities: Combining data_woe.list & data_woe.glm in predict()
+
+```{r}
+predProb.list <- data_woe.list %>% 
+  lapply(function(x) predict(data_woe.glm,
+                             type = 'response',
+                             x))
+```
+
+**Hint**: Due to the fact that the data_woe.glm was calibrated for the
+train sample two different types of prediction can be destinguished,
+i.e. the in-sample (IS) prediction by using the train sample in the
+predict()-function, and the out-of-sample (OoS) prediction by using the
+test sample in the predict()-function.
+
+```{r}
+predProb.list %>% names()
+```
+
+```{r}
+predProb.list$train %>% head() # In-Sample prediction
+```
+
+```{r}
+predProb.list$validate %>% head() # Out-of-Sample prediction
+```
+
+## Predicting scorepoints: Retrieving predictions from score.list generated in scorecard_ply()
+
+The prediction of the scorepoints is alread incorported in the built
+scorecard.
+
+```{r}
+score.list$train %>% 
+  head()
+```
+
+```{r}
+score.list$validate %>% 
+  head()
+```
+
+\newpage
+
+# Scorecard Validation: Statistical testing of forecasting accuracy
+
+## Checking stability of score and probility distributions: Population Stability Index (PSI)
+
+```{r fig.height=2.5}
+psi.list <- perf_psi(score = score.list, 
+                     label = default.list,
+                     return_distr_dat = TRUE)
+```
+
+**Hint**: More details of per_psi() function are given \@
+<https://www.rdocumentation.org/packages/scorecard/versions/0.1.9/topics/perf_psi>
+
+```{r fig.height=3}
+psi.list$pic
+```
+
+```{r}
+psi.list %>% names()
+psi.list$dat %>% names()
+psi.list$dat$score[,1:9] %>% head()
+psi.list$psi
+```
+
+```{r eval=FALSE}
+perf_psi(score, label = NULL, title = NULL, x_limits = NULL,
+  x_tick_break = 50, show_plot = TRUE, seed = 186,
+  return_distr_dat = FALSE)
+# e.g. # x_limits = c(250, 700),
+#      # x_tick_break = 50,
+```
+
+## IS & OoS testing probability prediction accuracy: perf_eva(.,predProb.list)
+
+probability prediction accuracy
+
+```{r}
+ProbPredAccuracy <- perf_eva(pred = predProb.list,
+                             label = default.list,
+                             binomial_metric = c("rmse","auc","gini"),
+                             show_plot=c("roc","ks"),
+                             confusion_matrix = TRUE)
+```
+
+```{r}
+names(ProbPredAccuracy)
+```
+
+```{r}
+ProbPredAccuracy$binomial_metric
+```
+
+```{r}
+ProbPredAccuracy$confusion_matrix
+```
+
+Excursion
+
+```{r}
+perf_eva(pred = predProb.list, 
+         label = default.list,
+         binomial_metric = c("rmse","auc","gini"),
+         show_plot= FALSE,
+         confusion_matrix = FALSE)
+```
+
+## IS & OoS testing scorepoint prediction accuracy: perf_eva(.,score.list)
+
+scorepoint prediction accuracy
+
+```{r}
+ScorePredAccuracy <- perf_eva(pred = score.list,
+                             label = default.list,
+                             binomial_metric = c("rmse","auc","gini"),
+                             show_plot=c("roc","ks"),
+                             confusion_matrix = TRUE)
+```
+
+```{r}
+names(ScorePredAccuracy)
+```
+
+```{r}
+ScorePredAccuracy$binomial_metric
+```
+
+```{r}
+ScorePredAccuracy$confusion_matrix
+```
+
+\newpage
+
+# Appendix
+
+## Appendix: Essay style with formulas in LaTeX language
+
+**Group project assignment**: Write a scholarly essay with full
+sentences, correct citations and LaTeX formulas.
+
+**Example essay style**: From a statistical perspective the transition
+from the $MPS$ to the VaR framework is related to switching the
+perspective from considering moments (parameters) of random variables,
+i.e. $\mu$ and $\sigma$, to considering the quantiles and corresponding
+probabilities of these variables. Specifically, the VaR measure
+specifies the risk of a random variable ($\tilde{P}$) via the threshold
+quantile ($VaR$) that is exceeded into the negative direction (i.e.
+$P \leq VaR$) with the loss probability ($\alpha$) or respectively, is
+exceeded into the positive direction (i.e. $P > VaR$) with the
+complementary probability, i.e. the confidence level ($1-\alpha$).
+
+## Appendix: Generating tables, figures, cross references and citations
+
+```{r testFigure, fig.cap="Amount vs. Duration", fig.width=4, fig.height=3, fig.align='center'}
+data.df[1:100,2:3] %>% plot()
+```
+
+Figure \@ref(fig:testFigure) is a sample figure where the credit.amount
+is scatter plotted against the duration.in.month.
+
+Formulas without numbering \begin{align*}
+\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
+\end{align*}
+
+Formulas with numbering (and labeling which is needed for referencing)
+\begin{align} \label{eq:VaR}
+\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
+\end{align}
+
+Formula \@ref(eq:VaR) is a sample formula defining the Value at Risk.
+
+Always cite original literature to avoid plagiarism: e.g.
+\cite{SchwaigerIUF} or \citep{SchwaigerIUF}. Don't forget to cite page
+numbers as well for literal citations, e.g. \cite[p. 100]{SchwaigerIUF}.
+
+\newpage
