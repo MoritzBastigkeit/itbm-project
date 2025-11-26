@@ -162,13 +162,17 @@ the germancredit data are chosen:
 Selecting the response and the five predictor variables
 
 ```{r}
-data.df <- germancredit %>%
-  select(creditability,
-         credit.amount,
-         duration.in.month,
-         credit.history,
-         purpose,
-         property)
+data.df <- germancredit %>% select(
+creditability,
+status.of.existing.checking.account,
+duration.in.month,
+credit.history,
+savings.account.and.bonds,
+purpose
+)
+
+
+iv.df <- iv(data.df, y = "creditability")
 ```
 
 **Hint**: Consider the different data types applied in R, i.e. vector,
@@ -180,11 +184,15 @@ Exemplarily showing the variables' contents
 
 ```{r}
 data.df %>%
-  select(creditability,
-         credit.amount,
-         duration.in.month,
-         purpose) %>%
-  head()  
+  select(
+    creditability,
+    status.of.existing.checking.account,
+    duration.in.month,
+    credit.history,
+    savings.account.and.bonds,
+    purpose
+  ) %>%
+  head()
 ```
 
 The following chunk contains the code for generating Table
@@ -201,14 +209,14 @@ data.df[,1:3] %>%
 ```{r}
 data.df %>%
   select(creditability,
-         credit.history) %>%
+         status.of.existing.checking.account) %>%
   head()  
 ```
 
 ```{r}
 data.df %>%
   select(creditability,
-         property) %>%
+         duration.in.month) %>%
   head()
 ```
 
@@ -235,11 +243,17 @@ data_f.df <- data.df %>%
 Exemplarily showing the variables' contents
 
 ```{r}
-data_f.df %>% 
-  select(creditability,
-         credit.amount,
-         duration.in.month) %>%
+data_f.df %>%
+  select(
+    creditability,
+    status.of.existing.checking.account,
+    duration.in.month,
+    credit.history,
+    savings.account.and.bonds,
+    purpose
+  ) %>%
   head()
+
 ```
 
 **Hint**: Consider the change of the data type of creditability from
