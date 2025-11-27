@@ -156,96 +156,27 @@ To train our models to predict the creditworthiness, the following variables wer
 
 The five predictor variables are:
 
-\subsubsection{status.of.existing.checking.account (categorical)}\label{status.of.existing.checking.account-categorical}
-
+\textbf(status.of.existing.checking.account) (categorical)
 This is a categorical variable that describes the applicant's checking account condition using qualitative labels such as ``no checking account'', ``\textless0 DM'', etc.
 
-\subsubsection{duration.in.month (numeric)}\label{duration.in.month-numeric}
-
+\textbf(duration.in.month) (numeric)
 This is a numeric variable indicating the length of the loan contract in months, reflecting how long the applicant will take to repay off the credit.
 
-\subsubsection{credit.history (categorical)}\label{credit.history-categorical}
-
+\textbf(credit.history) (categorical)
 This is another categorical variable that describes the applicant's past repayment behaviour, ranging from values of ``no credits taken'' and ``all credits in this bank paid back duly'' to ``critical account''.
 
-\subsubsection{savings.account.and.bonds (categorical)}\label{savings.account.and.bonds-categorical}
-
+\textbf(savings.account.and.bonds) (categorical)
 This is another variable that categorises the applicant's savings level, both in their savings account and bonds. There are several categories such as ``unknown/no savings account'' to '' \textless{} 100 DM'' to separate those into groups.
 
-\subsubsection{purpose (categorical)}\label{purpose-categorical}
-
+\textbf(purpose) (categorical)
 Purpose reflects a categorical variable that gives insight into what the applicant intends to do with the credit. Values range from ``used car'' and ``new car'' to ``education'', etc.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df }\OtherTok{\textless{}{-}}\NormalTok{ germancredit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}
-\NormalTok{creditability,}
-\NormalTok{status.of.existing.checking.account,}
-\NormalTok{duration.in.month,}
-\NormalTok{credit.history,}
-\NormalTok{savings.account.and.bonds,}
-\NormalTok{purpose}
-\NormalTok{)}
-
-\NormalTok{iv.df }\OtherTok{\textless{}{-}} \FunctionTok{iv}\NormalTok{(data.df, }\AttributeTok{y =} \StringTok{"creditability"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}
-\NormalTok{    creditability,}
-\NormalTok{    status.of.existing.checking.account,}
-\NormalTok{    duration.in.month,}
-\NormalTok{    credit.history,}
-\NormalTok{    savings.account.and.bonds,}
-\NormalTok{    purpose}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   creditability status.of.existing.checking.account duration.in.month
-## 1          good                          ... < 0 DM                 6
-## 2           bad                   0 <= ... < 200 DM                48
-## 3          good                 no checking account                12
-## 4          good                          ... < 0 DM                42
-## 5           bad                          ... < 0 DM                24
-## 6          good                 no checking account                36
-##                                                credit.history
-## 1 critical account/ other credits existing (not at this bank)
-## 2                    existing credits paid back duly till now
-## 3 critical account/ other credits existing (not at this bank)
-## 4                    existing credits paid back duly till now
-## 5                             delay in paying off in the past
-## 6                    existing credits paid back duly till now
-##     savings.account.and.bonds             purpose
-## 1 unknown/ no savings account    radio/television
-## 2                ... < 100 DM    radio/television
-## 3                ... < 100 DM           education
-## 4                ... < 100 DM furniture/equipment
-## 5                ... < 100 DM           car (new)
-## 6 unknown/ no savings account           education
-\end{verbatim}
 
 The following chunk contains the code for generating Table
 \ref{tab:testTable}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{head}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{kable}\NormalTok{(}\AttributeTok{align =} \StringTok{\textquotesingle{}lccc\textquotesingle{}}\NormalTok{,}
-        \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
-        \AttributeTok{caption =} \StringTok{"data.df"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{table}
 
-\caption{\label{tab:testTable}data.df}
+\caption{\label{tab:testTable}Exemplary View of the Data Table}
 \centering
 \begin{tabular}[t]{l|c|c}
 \hline
@@ -266,216 +197,38 @@ good & no checking account & 36\\
 \end{tabular}
 \end{table}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(creditability,}
-\NormalTok{         status.of.existing.checking.account) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{()  }
-\end{Highlighting}
-\end{Shaded}
+\subsection{Information Values}\label{information-values}
 
-\begin{verbatim}
-##   creditability status.of.existing.checking.account
-## 1          good                          ... < 0 DM
-## 2           bad                   0 <= ... < 200 DM
-## 3          good                 no checking account
-## 4          good                          ... < 0 DM
-## 5           bad                          ... < 0 DM
-## 6          good                 no checking account
-\end{verbatim}
+In a first step, the information value of the predictor variables is regarded to get a general overview of the data quality. This information value (IV) measures how well each predictor variable can separate ``good borrowers'' from ``bad borrowers'' (in relation to creditability). In practical terms, a higher IV relates to stronger predictive power of the underlying variable, with general thresholds of being good predictors of values larger than 0.3.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(creditability,}
-\NormalTok{         duration.in.month) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\begin{table}
 
-\begin{verbatim}
-##   creditability duration.in.month
-## 1          good                 6
-## 2           bad                48
-## 3          good                12
-## 4          good                42
-## 5           bad                24
-## 6          good                36
-\end{verbatim}
+\caption{\label{tab:unnamed-chunk-4}Information Value of Predictor Variables}
+\centering
+\begin{tabular}[t]{l|c}
+\hline
+variable & info\_value\\
+\hline
+status.of.existing.checking.account & 0.67\\
+\hline
+duration.in.month & 0.33\\
+\hline
+credit.history & 0.29\\
+\hline
+savings.account.and.bonds & 0.20\\
+\hline
+purpose & 0.17\\
+\hline
+\end{tabular}
+\end{table}
 
-For checking the statistical relevance of the five predictor variables
-in the use case their information value is calclulated
+\subsection{Filtering and Splitting Data}\label{filtering-and-splitting-data}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{iv}\NormalTok{(}\AttributeTok{y=}\StringTok{"creditability"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##                               variable info_value
-##                                 <char>      <num>
-## 1: status.of.existing.checking.account  0.6660115
-## 2:                   duration.in.month  0.3345035
-## 3:                      credit.history  0.2932335
-## 4:           savings.account.and.bonds  0.1960096
-## 5:                             purpose  0.1691951
-\end{verbatim}
-
-\textbf{Hint}: All predictor variable have info\_value \textgreater{} 0.02 so that they
-have relevance in predicting creditability
-
-\subsection{Filtering data and transforming data types: data\_f.df}\label{filtering-data-and-transforming-data-types-data_f.df}
-
-For filtering missing values, information values and identical values
-the var\_filter() function is applied
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.df }\OtherTok{\textless{}{-}}\NormalTok{ data.df }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{var\_filter}\NormalTok{(}\StringTok{"creditability"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+In the following step, the data is filtered to exclude rows with missing values and split into train and validation set. The split chosen is at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
 \begin{verbatim}
 ## v Variable filtering on 1000 rows and 5 columns in 00:00:00
 ## v 0 variables are removed in total
-\end{verbatim}
-
-Exemplarily showing the variables' contents
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}
-\NormalTok{    creditability,}
-\NormalTok{    status.of.existing.checking.account,}
-\NormalTok{    duration.in.month,}
-\NormalTok{    credit.history,}
-\NormalTok{    savings.account.and.bonds,}
-\NormalTok{    purpose}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##    creditability status.of.existing.checking.account duration.in.month
-##            <int>                              <fctr>             <num>
-## 1:             0                          ... < 0 DM                 6
-## 2:             1                   0 <= ... < 200 DM                48
-## 3:             0                 no checking account                12
-## 4:             0                          ... < 0 DM                42
-## 5:             1                          ... < 0 DM                24
-## 6:             0                 no checking account                36
-##                                                 credit.history
-##                                                         <fctr>
-## 1: critical account/ other credits existing (not at this bank)
-## 2:                    existing credits paid back duly till now
-## 3: critical account/ other credits existing (not at this bank)
-## 4:                    existing credits paid back duly till now
-## 5:                             delay in paying off in the past
-## 6:                    existing credits paid back duly till now
-##      savings.account.and.bonds             purpose
-##                         <fctr>              <char>
-## 1: unknown/ no savings account    radio/television
-## 2:                ... < 100 DM    radio/television
-## 3:                ... < 100 DM           education
-## 4:                ... < 100 DM furniture/equipment
-## 5:                ... < 100 DM           car (new)
-## 6: unknown/ no savings account           education
-\end{verbatim}
-
-\textbf{Hint}: Consider the change of the data type of creditability from
-``factor'' to ``integer''. This is important as now the \textbf{language of data
-science and machine learning} is applied, where the occurrence of the
-event is labeled with the number ``1'' as positive. Think of a medical
-test. A positive event means that something unwanted was found, so the
-positive test result is interpreted as ``bad''. The same reasoning applies
-in the credit risk context, where a positive occurrence of the default
-event is interpreted as ``bad''.
-
-\subsection{Splitting filtered data into train and validate samples: data\_f.list}\label{splitting-filtered-data-into-train-and-validate-samples-data_f.list}
-
-For having two independent samples for training and evaluation the
-filtered data frame is split into a list that contains two data frames,
-i.e.~for the train and the validate samples
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.df }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{split\_df}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
-           \AttributeTok{ratios   =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.65}\NormalTok{, }\FloatTok{0.35}\NormalTok{),}
-           \AttributeTok{name\_dfs =} \FunctionTok{c}\NormalTok{(}\StringTok{"train"}\NormalTok{, }\StringTok{"validate"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\textbf{Hint}: For the use case the splitting is set to 65/35 \% and the
-splitted samples are named \textbf{train} and \textbf{evaluate} instead of
-\textbf{test} for making clear that it belongs to the \textbf{validation step} of
-the risk model management process.
-
-\textbf{Hint}: By default the splitting is 70/30 \% for the train/validate
-samples, i.e.~the argument is ratios=c(0.7,0.3) in the split\_df()
-function. The standard names for the splitted samples are train and test
-in the function's argument name\_dfs=c(`train',`test').
-
-Exemplarily showing the content of the data\_f.list
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{class}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "list"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(class)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $train
-## [1] "data.table" "data.frame"
-## 
-## $validate
-## [1] "data.table" "data.frame"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(dim)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $train
-## [1] 635   6
-## 
-## $validate
-## [1] 365   6
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Classes 'data.table' and 'data.frame':   635 obs. of  6 variables:
-##  $ status.of.existing.checking.account: Factor w/ 4 levels "... < 0 DM","0 <= ... < 200 DM",..: 1 1 1 4 4 4 2 2 1 4 ...
-##  $ duration.in.month                  : num  6 42 24 36 24 12 30 12 15 24 ...
-##  $ credit.history                     : Factor w/ 5 levels "no credits taken/ all credits paid back duly",..: 5 3 4 3 3 3 5 3 3 5 ...
-##  $ savings.account.and.bonds          : Factor w/ 5 levels "... < 100 DM",..: 5 1 1 5 3 4 1 1 1 5 ...
-##  $ purpose                            : chr  "radio/television" "furniture/equipment" "car (new)" "education" ...
-##  $ creditability                      : int  0 0 1 0 0 0 1 1 0 0 ...
-##  - attr(*, ".internal.selfref")=<externalptr>
 \end{verbatim}
 
 \subsection{Specifying dummy variable for credit defaults: default.list}\label{specifying-dummy-variable-for-credit-defaults-default.list}
@@ -505,8 +258,8 @@ Exemplarily showing the content of the default.list
 
 \begin{verbatim}
 ## List of 2
-##  $ train   : int [1:635] 0 0 1 0 0 0 1 1 0 0 ...
-##  $ validate: int [1:365] 1 0 0 1 0 1 1 1 0 0 ...
+##  $ train   : int [1:727] 0 0 1 0 0 0 1 1 0 1 ...
+##  $ validate: int [1:273] 1 0 0 1 0 1 1 0 0 1 ...
 \end{verbatim}
 
 \newpage
@@ -525,7 +278,7 @@ WoE-based classing, i.e.~binning and grouping of predictor variables
 \end{Shaded}
 
 \begin{verbatim}
-## v Binning on 635 rows and 6 columns in 00:00:10
+## v Binning on 727 rows and 6 columns in 00:00:10
 \end{verbatim}
 
 \textbf{Hint}: The default binning method is method=``width''. Other methods are
@@ -564,7 +317,7 @@ Plotting the bins (including bin statistics)
 ## $status.of.existing.checking.account
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 \textbf{Hint}: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g.~a linear or u-curve structure; hence it should not be included in the scorecard model!
 
@@ -579,7 +332,7 @@ Plotting the bins (including bin statistics)
 ## $duration.in.month
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -592,7 +345,7 @@ Plotting the bins (including bin statistics)
 ## $credit.history
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -605,7 +358,7 @@ Plotting the bins (including bin statistics)
 ## $savings.account.and.bonds
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -618,7 +371,7 @@ Plotting the bins (including bin statistics)
 ## $purpose
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 \textbf{Hint}: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
 
@@ -688,11 +441,11 @@ Transforming splitted sample: Needed for train/validate analysis
 \end{Shaded}
 
 \begin{verbatim}
-## v Woe transformating on 635 rows and 5 columns in 00:00:10
+## v Woe transformating on 727 rows and 5 columns in 00:00:10
 \end{verbatim}
 
 \begin{verbatim}
-## v Woe transformating on 365 rows and 5 columns in 00:00:10
+## v Woe transformating on 273 rows and 5 columns in 00:00:10
 \end{verbatim}
 
 \begin{Shaded}
@@ -717,10 +470,10 @@ Transforming splitted sample: Needed for train/validate analysis
 
 \begin{verbatim}
 ## $train
-## [1] 635   6
+## [1] 727   6
 ## 
 ## $validate
-## [1] 365   6
+## [1] 273   6
 \end{verbatim}
 
 \begin{Shaded}
@@ -759,7 +512,7 @@ as it delivers the most compact regression models.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 619.9392
+## [1] 711.2915
 \end{verbatim}
 
 Summary of regression: summary()
@@ -777,12 +530,12 @@ Summary of regression: summary()
 ## 
 ## Coefficients:
 ##                                         Estimate Std. Error z value Pr(>|z|)
-## (Intercept)                              -0.8628     0.1023  -8.435  < 2e-16
-## status.of.existing.checking.account_woe   0.8195     0.1310   6.254 3.99e-10
-## duration.in.month_woe                     0.9772     0.1897   5.152 2.58e-07
-## credit.history_woe                        0.7643     0.1754   4.357 1.32e-05
-## savings.account.and.bonds_woe             0.8944     0.2697   3.316 0.000912
-## purpose_woe                               0.9840     0.2506   3.927 8.59e-05
+## (Intercept)                             -0.84422    0.09532  -8.857  < 2e-16
+## status.of.existing.checking.account_woe  0.83286    0.12266   6.790 1.12e-11
+## duration.in.month_woe                    0.96608    0.17657   5.471 4.46e-08
+## credit.history_woe                       0.78853    0.16945   4.653 3.26e-06
+## savings.account.and.bonds_woe            0.86020    0.24723   3.479 0.000503
+## purpose_woe                              0.94490    0.22095   4.277 1.90e-05
 ##                                            
 ## (Intercept)                             ***
 ## status.of.existing.checking.account_woe ***
@@ -795,9 +548,9 @@ Summary of regression: summary()
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 769.77  on 634  degrees of freedom
-## Residual deviance: 607.94  on 629  degrees of freedom
-## AIC: 619.94
+##     Null deviance: 886.32  on 726  degrees of freedom
+## Residual deviance: 699.29  on 721  degrees of freedom
+## AIC: 711.29
 ## 
 ## Number of Fisher Scoring iterations: 5
 \end{verbatim}
@@ -899,7 +652,7 @@ Investigating the content of the ``woe-based'' scorecard model
 \begin{verbatim}
 ##      variable    bin    woe points
 ##        <char> <lgcl> <lgcl>  <num>
-## 1: basepoints     NA     NA    450
+## 1: basepoints     NA     NA    449
 \end{verbatim}
 
 \begin{Shaded}
@@ -911,18 +664,18 @@ Investigating the content of the ``woe-based'' scorecard model
 \begin{verbatim}
 ##             variable       bin count count_distr   neg   pos   posprob
 ##               <char>    <char> <int>       <num> <int> <int>     <num>
-## 1: duration.in.month  [-Inf,8)    56  0.08818898    50     6 0.1071429
-## 2: duration.in.month    [8,16)   214  0.33700787   166    48 0.2242991
-## 3: duration.in.month   [16,26)   204  0.32125984   145    59 0.2892157
-## 4: duration.in.month   [26,44)   108  0.17007874    64    44 0.4074074
-## 5: duration.in.month [44, Inf)    53  0.08346457    23    30 0.5660377
-##            woe
-##          <num>
-## 1: -1.24657892
-## 2: -0.36710216
-## 3: -0.02551168
-## 4:  0.49899117
-## 5:  1.13938778
+## 1: duration.in.month  [-Inf,8)    63  0.08665750    57     6 0.0952381
+## 2: duration.in.month    [8,16)   252  0.34662999   195    57 0.2261905
+## 3: duration.in.month   [16,34)   281  0.38651994   191    90 0.3202847
+## 4: duration.in.month   [34,44)    75  0.10316369    43    32 0.4266667
+## 5: duration.in.month [44, Inf)    56  0.07702889    24    32 0.5714286
+##           woe
+##         <num>
+## 1: -1.3967784
+## 2: -0.3754349
+## 3:  0.1020496
+## 4:  0.5590492
+## 5:  1.1421954
 \end{verbatim}
 
 \begin{Shaded}
@@ -932,13 +685,13 @@ Investigating the content of the ``woe-based'' scorecard model
 \end{Shaded}
 
 \begin{verbatim}
-##             variable       bin_iv  total_iv breaks is_special_values points
-##               <char>        <num>     <num> <char>            <lgcl>  <num>
-## 1: duration.in.month 0.0991299271 0.3115523      8             FALSE     88
-## 2: duration.in.month 0.0417950298 0.3115523     16             FALSE     26
-## 3: duration.in.month 0.0002079889 0.3115523     26             FALSE      2
-## 4: duration.in.month 0.0461252338 0.3115523     44             FALSE    -35
-## 5: duration.in.month 0.1242941288 0.3115523    Inf             FALSE    -80
+##             variable      bin_iv  total_iv breaks is_special_values points
+##               <char>       <num>     <num> <char>            <lgcl>  <num>
+## 1: duration.in.month 0.117489928 0.3165171      8             FALSE     97
+## 2: duration.in.month 0.044932100 0.3165171     16             FALSE     26
+## 3: duration.in.month 0.004106144 0.3165171     34             FALSE     -7
+## 4: duration.in.month 0.035304912 0.3165171     44             FALSE    -39
+## 5: duration.in.month 0.114683977 0.3165171    Inf             FALSE    -80
 \end{verbatim}
 
 \subsection{Calculating scorepoints: Combinig individual data.df \& scm-model in scorecard\_ply()}\label{calculating-scorepoints-combinig-individual-data.df-scm-model-in-scorecard_ply}
@@ -978,12 +731,12 @@ only\_total\_score=FALSE.
 \begin{verbatim}
 ##    score
 ##    <num>
-## 1:   630
-## 2:   354
-## 3:   357
-## 4:   496
-## 5:   557
-## 6:   622
+## 1:   633
+## 2:   351
+## 3:   351
+## 4:   477
+## 5:   553
+## 6:   625
 \end{verbatim}
 
 \begin{Shaded}
@@ -996,12 +749,12 @@ only\_total\_score=FALSE.
 \begin{verbatim}
 ##    score
 ##    <num>
-## 1:   350
-## 2:   551
-## 3:   395
-## 4:   285
-## 5:   456
-## 6:   420
+## 1:   349
+## 2:   531
+## 3:   390
+## 4:   287
+## 5:   455
+## 6:   408
 \end{verbatim}
 
 \newpage
@@ -1043,7 +796,7 @@ test sample in the predict()-function.
 
 \begin{verbatim}
 ##          1          2          3          4          5          6 
-## 0.03390496 0.61729222 0.60866854 0.18293009 0.08764694 0.03756245
+## 0.03257030 0.62644835 0.62511261 0.22923725 0.09405324 0.03635829
 \end{verbatim}
 
 \begin{Shaded}
@@ -1054,7 +807,7 @@ test sample in the predict()-function.
 
 \begin{verbatim}
 ##         1         2         3         4         5         6 
-## 0.6311053 0.0952773 0.4777985 0.8080544 0.2818604 0.3935574
+## 0.6293632 0.1222070 0.4915309 0.8008039 0.2815743 0.4315283
 \end{verbatim}
 
 \subsection{Predicting scorepoints: Retrieving predictions from score.list generated in scorecard\_ply()}\label{predicting-scorepoints-retrieving-predictions-from-score.list-generated-in-scorecard_ply}
@@ -1072,12 +825,12 @@ scorecard.
 \begin{verbatim}
 ##    score
 ##    <num>
-## 1:   630
-## 2:   354
-## 3:   357
-## 4:   496
-## 5:   557
-## 6:   622
+## 1:   633
+## 2:   351
+## 3:   351
+## 4:   477
+## 5:   553
+## 6:   625
 \end{verbatim}
 
 \begin{Shaded}
@@ -1090,12 +843,12 @@ scorecard.
 \begin{verbatim}
 ##    score
 ##    <num>
-## 1:   350
-## 2:   551
-## 3:   395
-## 4:   285
-## 5:   456
-## 6:   420
+## 1:   349
+## 2:   531
+## 3:   390
+## 4:   287
+## 5:   455
+## 6:   408
 \end{verbatim}
 
 \newpage
@@ -1125,7 +878,7 @@ scorecard.
 ## $score
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-51-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1157,12 +910,12 @@ scorecard.
 ## Key: <datset>
 ##    datset        bin count cum_count   neg   pos cum_neg cum_pos count_distr
 ##    <fctr>     <fctr> <int>     <int> <int> <int>   <int>   <int>       <num>
-## 1:  train [-Inf,271)    12        12     2    10       2      10      0.0189
-## 2:  train  [271,323)    20        32     5    15       7      25      0.0315
-## 3:  train  [323,374)    61        93    20    41      27      66      0.0961
-## 4:  train  [374,426)   114       207    64    50      91     116      0.1795
-## 5:  train  [426,478)   133       340    92    41     183     157      0.2094
-## 6:  train  [478,530)   103       443    85    18     268     175      0.1622
+## 1:  train [-Inf,260)    11        11     1    10       1      10      0.0151
+## 2:  train  [260,314)    28        39     8    20       9      30      0.0385
+## 3:  train  [314,368)    65       104    21    44      30      74      0.0894
+## 4:  train  [368,421)   131       235    70    61     100     135      0.1802
+## 5:  train  [421,475)   149       384   102    47     202     182      0.2050
+## 6:  train  [475,529)   122       506    99    23     301     205      0.1678
 \end{verbatim}
 
 \begin{Shaded}
@@ -1174,7 +927,7 @@ scorecard.
 \begin{verbatim}
 ##    variable        dataset        psi
 ##      <char>         <char>      <num>
-## 1:    score train_validate 0.04239616
+## 1:    score train_validate 0.03247355
 \end{verbatim}
 
 \begin{Shaded}
@@ -1201,7 +954,7 @@ probability prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-54-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1223,12 +976,12 @@ probability prediction accuracy
 ## $train
 ##         RMSE       AUC      Gini
 ##        <num>     <num>     <num>
-## 1: 0.3987765 0.8022465 0.6044929
+## 1: 0.3998542 0.8018569 0.6037137
 ## 
 ## $validate
-##         RMSE       AUC     Gini
-##        <num>     <num>    <num>
-## 1: 0.4153243 0.7773915 0.554783
+##         RMSE      AUC     Gini
+##        <num>    <num>    <num>
+## 1: 0.4150501 0.776506 0.553012
 \end{verbatim}
 
 \begin{Shaded}
@@ -1241,16 +994,16 @@ probability prediction accuracy
 ## $train
 ##     label pred_0 pred_1     error
 ##    <char>  <num>  <num>     <num>
-## 1:      0    289    159 0.3549107
-## 2:      1     35    152 0.1871658
-## 3:  total    324    311 0.3055118
+## 1:      0    330    180 0.3529412
+## 2:      1     41    176 0.1889401
+## 3:  total    371    356 0.3039890
 ## 
 ## $validate
 ##     label pred_0 pred_1     error
 ##    <char>  <num>  <num>     <num>
-## 1:      0    168     84 0.3333333
-## 2:      1     25     88 0.2212389
-## 3:  total    193    172 0.2986301
+## 1:      0    122     68 0.3578947
+## 2:      1     17     66 0.2048193
+## 3:  total    139    134 0.3113553
 \end{verbatim}
 
 Excursion
@@ -1270,12 +1023,12 @@ Excursion
 ## $binomial_metric$train
 ##         RMSE       AUC      Gini
 ##        <num>     <num>     <num>
-## 1: 0.3987765 0.8022465 0.6044929
+## 1: 0.3998542 0.8018569 0.6037137
 ## 
 ## $binomial_metric$validate
-##         RMSE       AUC     Gini
-##        <num>     <num>    <num>
-## 1: 0.4153243 0.7773915 0.554783
+##         RMSE      AUC     Gini
+##        <num>    <num>    <num>
+## 1: 0.4150501 0.776506 0.553012
 \end{verbatim}
 
 \subsection{IS \& OoS testing scorepoint prediction accuracy: perf\_eva(.,score.list)}\label{is-oos-testing-scorepoint-prediction-accuracy-perf_eva.score.list}
@@ -1292,7 +1045,7 @@ scorepoint prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-59-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1312,14 +1065,14 @@ scorepoint prediction accuracy
 
 \begin{verbatim}
 ## $train
-##         AUC      Gini
-##       <num>     <num>
-## 1: 0.801966 0.6039319
+##          AUC      Gini
+##        <num>     <num>
+## 1: 0.8019563 0.6039125
 ## 
 ## $validate
 ##          AUC      Gini
 ##        <num>     <num>
-## 1: 0.7779007 0.5558014
+## 1: 0.7759036 0.5518072
 \end{verbatim}
 
 \begin{Shaded}
@@ -1332,16 +1085,16 @@ scorepoint prediction accuracy
 ## $train
 ##     label pred_0 pred_1     error
 ##    <char>  <num>  <num>     <num>
-## 1:      0    289    159 0.3549107
-## 2:      1     35    152 0.1871658
-## 3:  total    324    311 0.3055118
+## 1:      0    330    180 0.3529412
+## 2:      1     41    176 0.1889401
+## 3:  total    371    356 0.3039890
 ## 
 ## $validate
 ##     label pred_0 pred_1     error
 ##    <char>  <num>  <num>     <num>
-## 1:      0    168     84 0.3333333
-## 2:      1     25     88 0.2212389
-## 3:  total    193    172 0.2986301
+## 1:      0    122     68 0.3578947
+## 2:      1     17     66 0.2048193
+## 3:  total    139    134 0.3113553
 \end{verbatim}
 
 \newpage
