@@ -78,7 +78,6 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
-\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -112,13 +111,13 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdfauthor={Prof.~Walter S.A. Schwaiger (IMW/TU Wien)},
+  pdfauthor={Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \title{\begin{center} Predictive Analytics: Application in the Credit Risk Domain \\ Case Study Teaching (CST)-Vignette in cheat sheet style \\ ("group project cover sheet") \end{center}}
-\author{Prof.~Walter S.A. Schwaiger (IMW/TU Wien)}
-\date{Nov.~05, 2025 (Scorecard\_Intro\_2511.Rmd)}
+\author{Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha}
+\date{Nov.~27, 2025 (Scorecard\_Intro\_2511.Rmd)}
 
 \begin{document}
 \maketitle
@@ -131,130 +130,9 @@
 }
 \newpage
 
-\section{Contextualization: Credit risk management domain - Specification}\label{contextualization-credit-risk-management-domain---specification}
+\section{Data Loading and Preparation}\label{data-loading-and-preparation}
 
-\subsection{Methodological and linguistic overview}\label{methodological-and-linguistic-overview}
-
-\subsubsection{Empirical research methodology in the credit risk management domain}\label{empirical-research-methodology-in-the-credit-risk-management-domain}
-
-Two predicting models will be of special importance, i.e.~Generalized
-Linear Models (glm) and Score Card Models (scm). As will be shown, the
-scm-models add two special concepts to the glm-models, i.e.~the
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Classing/Binning/Grouping} concept, where the predictor variables
-  are partioned into bins
-\item
-  \textbf{Weight-of-Evidence (woe)} concept for evaluating the predictive
-  importance of the variables' bins (attributes)
-\end{enumerate}
-
-The empirical research methodology deals with the construction,
-calibration and validation of credit scoring models.
-
-\textbf{Hint}: ``Risk Model Management'' lecture at the TU Wien by Dr.~Thomas
-Lederer, where the focus lies on the \textbf{construction, calibration and
-validation (CCV)} framework for predictive analytics in the risk
-management domain.
-
-\subsubsection{Credit risk management domain language}\label{credit-risk-management-domain-language}
-
-`Vocabulary and Syntax' of domain language, i.e.~key domain concepts are
-
-\begin{itemize}
-\item
-  Credit scoring model: \textbf{Scorecard model}, \textbf{logistic regression
-  model}, decision tree model\ldots{}
-\item
-  Model \textbf{construction} step
-
-  \begin{itemize}
-  \item
-    Distinction between \textbf{binary response} (dependent) vs.
-    \textbf{interval/nominal/ordinal predictor} (independent) variable
-  \item
-    \textbf{Classing} predictor variables via \textbf{binning} interval
-    (numeric) variables and \textbf{grouping} nominal
-    (categorical/ordinal) variables
-  \item
-    Using the \textbf{Weight-of-Evidence (woe)} metric in the predictor
-    variables' classing
-  \end{itemize}
-\item
-  Model \textbf{calibration} step: Stastistical \textbf{estimation of the models
-  parameters} and statistical \textbf{testing of the model fit} via test
-  statistics (e.g.~Akaike Information Criteria abbreviated as \textbf{AIC})
-\item
-  Model \textbf{validation} step: Statistical \textbf{testing of the fitted
-  models prediction accuracy} via in-sample and out-of-sample
-  forecast accuracy tests (e.g.~Area Under Curve abbreviated as
-  \textbf{AUC} and \textbf{Gini} coefficient)
-\end{itemize}
-
-\subsection{Literature References}\label{literature-references}
-
-\textbf{Weight-of-Evidence (woe)}: Origins
-
-\begin{itemize}
-\item
-  \cite{Good}
-\item
-  \cite{Kullback}
-\end{itemize}
-
-\textbf{Scorecard Model}: Up-to-date article
-
-Yap/Ong/Husain: Using data mining to improve assessment of credit
-worthiness via credit scoring models, Expert Systems with Applications,
-38, 2011, 13274--13283
-
-\textbf{Scorecard Model - Reference Manual}: Package `scorecard', April 13,
-2024
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://cran.r-project.org/web/packages/scorecard/scorecard.pdf}
-\end{itemize}
-
-\textbf{Scorecard Model - Vignette}: Developing a Credit Scorecard (Shichen
-Xie, Michael Thomas)
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://cran.r-project.org/web/packages/scorecard/vignettes/demo.html}
-\end{itemize}
-
-\textbf{Credit Scoring Development Using R}, Ng Yong Kad, 11/9/2020:
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://rpubs.com/ngyongkad/scorecard}
-\end{itemize}
-
-\textbf{WoE, IV and Scorecards in Credit Risk Modelling}, OEB, March 2018:
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://rstudio-pubs-static.s3.amazonaws.com/376828_032c59adbc984b0ab892ce0026370352.html}
-\end{itemize}
-
-\textbf{Credit scorecard using Logistic Regression on R}:
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://stats.stackexchange.com/questions/419160/credit-scorecard-using-logistic-regression-on-r}
-\end{itemize}
-
-\section{Use Case Preparation: Loading and preparing data}\label{use-case-preparation-loading-and-preparing-data}
-
-\subsection{Loading libraries: scorecard, tidyverse, knitr}\label{loading-libraries-scorecard-tidyverse-knitr}
+\subsection{Loading libraries}\label{loading-libraries}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -264,10 +142,7 @@ Xie, Michael Thomas)
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Loading external data: germancredit}\label{loading-external-data-germancredit}
-
-The variables are distinguished among predictor (feature, independent)
-variables and response (label, dependent) variables.
+\subsection{Loading external data}\label{loading-external-data}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -275,67 +150,31 @@ variables and response (label, dependent) variables.
 \end{Highlighting}
 \end{Shaded}
 
-Variables: Names
+\subsection{Data Selection}\label{data-selection}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{germancredit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+To train our models to predict the creditworthiness, the following variables were selected as they capture key aspects of an applicant's financial situation.
 
-\begin{verbatim}
-##  [1] "status.of.existing.checking.account"                     
-##  [2] "duration.in.month"                                       
-##  [3] "credit.history"                                          
-##  [4] "purpose"                                                 
-##  [5] "credit.amount"                                           
-##  [6] "savings.account.and.bonds"                               
-##  [7] "present.employment.since"                                
-##  [8] "installment.rate.in.percentage.of.disposable.income"     
-##  [9] "personal.status.and.sex"                                 
-## [10] "other.debtors.or.guarantors"                             
-## [11] "present.residence.since"                                 
-## [12] "property"                                                
-## [13] "age.in.years"                                            
-## [14] "other.installment.plans"                                 
-## [15] "housing"                                                 
-## [16] "number.of.existing.credits.at.this.bank"                 
-## [17] "job"                                                     
-## [18] "number.of.people.being.liable.to.provide.maintenance.for"
-## [19] "telephone"                                               
-## [20] "foreign.worker"                                          
-## [21] "creditability"
-\end{verbatim}
+The five predictor variables are:
 
-\subsection{Selecting response and predictor variables for the use case: data.df}\label{selecting-response-and-predictor-variables-for-the-use-case-data.df}
+\subsubsection{status.of.existing.checking.account (categorical)}\label{status.of.existing.checking.account-categorical}
 
-For demonstrating special considerations the following variables from
-the germancredit data are chosen:
+This is a categorical variable that describes the applicant's checking account condition using qualitative labels such as ``no checking account'', ``\textless0 DM'', etc.
 
-\begin{itemize}
-\item
-  Response variable is (as always): \textbf{creditability} (binary)
-\item
-  Five predictor variables:
+\subsubsection{duration.in.month (numeric)}\label{duration.in.month-numeric}
 
-  \begin{itemize}
-  \item
-    \textbf{credit.amount} (numeric)
-  \item
-    \textbf{duration.in.month} (numeric)
-  \item
-    \textbf{credit.history} (factor)
-  \item
-    \textbf{purpose} (character)
-  \item
-    \textbf{property} (factor)
-  \end{itemize}
-\end{itemize}
+This is a numeric variable indicating the length of the loan contract in months, reflecting how long the applicant will take to repay off the credit.
 
-\textbf{Hint}: Consider the different primitive data types in R, i.e.~numeric
-(num), factor (Factor), character (chr) and integer (int).
+\subsubsection{credit.history (categorical)}\label{credit.history-categorical}
 
-Selecting the response and the five predictor variables
+This is another categorical variable that describes the applicant's past repayment behaviour, ranging from values of ``no credits taken'' and ``all credits in this bank paid back duly'' to ``critical account''.
+
+\subsubsection{savings.account.and.bonds (categorical)}\label{savings.account.and.bonds-categorical}
+
+This is another variable that categorises the applicant's savings level, both in their savings account and bonds. There are several categories such as ``unknown/no savings account'' to '' \textless{} 100 DM'' to separate those into groups.
+
+\subsubsection{purpose (categorical)}\label{purpose-categorical}
+
+Purpose reflects a categorical variable that gives insight into what the applicant intends to do with the credit. Values range from ``used car'' and ``new car'' to ``education'', etc.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -348,17 +187,9 @@ Selecting the response and the five predictor variables
 \NormalTok{purpose}
 \NormalTok{)}
 
-
 \NormalTok{iv.df }\OtherTok{\textless{}{-}} \FunctionTok{iv}\NormalTok{(data.df, }\AttributeTok{y =} \StringTok{"creditability"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\textbf{Hint}: Consider the different data types applied in R, i.e.~vector,
-matrix, array, data frame (df) and list. Theses types will be indicated
-in the names of the variables, e.g.~data.df is a data frame that
-contains the data.
-
-Exemplarily showing the variables' contents
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -694,7 +525,7 @@ WoE-based classing, i.e.~binning and grouping of predictor variables
 \end{Shaded}
 
 \begin{verbatim}
-## v Binning on 635 rows and 6 columns in 00:00:01
+## v Binning on 635 rows and 6 columns in 00:00:10
 \end{verbatim}
 
 \textbf{Hint}: The default binning method is method=``width''. Other methods are
@@ -733,7 +564,7 @@ Plotting the bins (including bin statistics)
 ## $status.of.existing.checking.account
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 \textbf{Hint}: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g.~a linear or u-curve structure; hence it should not be included in the scorecard model!
 
@@ -748,7 +579,7 @@ Plotting the bins (including bin statistics)
 ## $duration.in.month
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -761,7 +592,7 @@ Plotting the bins (including bin statistics)
 ## $credit.history
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -774,7 +605,7 @@ Plotting the bins (including bin statistics)
 ## $savings.account.and.bonds
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -787,7 +618,7 @@ Plotting the bins (including bin statistics)
 ## $purpose
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-21-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 \textbf{Hint}: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
 
@@ -857,8 +688,11 @@ Transforming splitted sample: Needed for train/validate analysis
 \end{Shaded}
 
 \begin{verbatim}
-## v Woe transformating on 635 rows and 5 columns in 00:00:00
-## v Woe transformating on 365 rows and 5 columns in 00:00:00
+## v Woe transformating on 635 rows and 5 columns in 00:00:10
+\end{verbatim}
+
+\begin{verbatim}
+## v Woe transformating on 365 rows and 5 columns in 00:00:10
 \end{verbatim}
 
 \begin{Shaded}
@@ -1291,7 +1125,7 @@ scorecard.
 ## $score
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-52-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-51-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1367,7 +1201,7 @@ probability prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-55-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-54-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1458,7 +1292,7 @@ scorepoint prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-60-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-59-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]

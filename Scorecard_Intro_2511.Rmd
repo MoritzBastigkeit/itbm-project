@@ -1,7 +1,7 @@
 ---
 title: '\begin{center} Predictive Analytics: Application in the Credit Risk Domain \\ Case Study Teaching (CST)-Vignette in cheat sheet style \\ ("group project cover sheet") \end{center}'
-author: "Prof. Walter S.A. Schwaiger (IMW/TU Wien)"
-date: "Nov. 05, 2025 (Scorecard_Intro_2511.Rmd)"
+author: "Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha"
+date: "Nov. 27, 2025 (Scorecard_Intro_2511.Rmd)"
 output:
   bookdown::pdf_document2:
  #pdf_document:
@@ -24,97 +24,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 \newpage
 
-# Contextualization: Credit risk management domain - Specification
+# Data Loading and Preparation
 
-## Methodological and linguistic overview
-
-### Empirical research methodology in the credit risk management domain
-
-Two predicting models will be of special importance, i.e. Generalized
-Linear Models (glm) and Score Card Models (scm). As will be shown, the
-scm-models add two special concepts to the glm-models, i.e. the
-
-1.  **Classing/Binning/Grouping** concept, where the predictor variables
-    are partioned into bins
-
-2.  **Weight-of-Evidence (woe)** concept for evaluating the predictive
-    importance of the variables' bins (attributes)
-
-The empirical research methodology deals with the construction,
-calibration and validation of credit scoring models.
-
-**Hint**: "Risk Model Management" lecture at the TU Wien by Dr. Thomas
-Lederer, where the focus lies on the **construction, calibration and
-validation (CCV)** framework for predictive analytics in the risk
-management domain.
-
-### Credit risk management domain language
-
-'Vocabulary and Syntax' of domain language, i.e. key domain concepts are
-
--   Credit scoring model: **Scorecard model**, **logistic regression
-    model**, decision tree model...
-
--   Model **construction** step
-
-    -   Distinction between **binary response** (dependent) vs.
-        **interval/nominal/ordinal predictor** (independent) variable
-
-    -   **Classing** predictor variables via **binning** interval
-        (numeric) variables and **grouping** nominal
-        (categorical/ordinal) variables
-
-    -   Using the **Weight-of-Evidence (woe)** metric in the predictor
-        variables' classing
-
--   Model **calibration** step: Stastistical **estimation of the models
-    parameters** and statistical **testing of the model fit** via test
-    statistics (e.g. Akaike Information Criteria abbreviated as **AIC**)
-
--   Model **validation** step: Statistical **testing of the fitted
-    models prediction accuracy** via in-sample and out-of-sample
-    forecast accuracy tests (e.g. Area Under Curve abbreviated as
-    **AUC** and **Gini** coefficient)
-
-## Literature References
-
-**Weight-of-Evidence (woe)**: Origins
-
--   \cite{Good}
-
--   \cite{Kullback}
-
-**Scorecard Model**: Up-to-date article
-
-Yap/Ong/Husain: Using data mining to improve assessment of credit
-worthiness via credit scoring models, Expert Systems with Applications,
-38, 2011, 13274–13283
-
-**Scorecard Model - Reference Manual**: Package ‘scorecard’, April 13,
-2024
-
--   <https://cran.r-project.org/web/packages/scorecard/scorecard.pdf>
-
-**Scorecard Model - Vignette**: Developing a Credit Scorecard (Shichen
-Xie, Michael Thomas)
-
--   <https://cran.r-project.org/web/packages/scorecard/vignettes/demo.html>
-
-**Credit Scoring Development Using R**, Ng Yong Kad, 11/9/2020:
-
--   <https://rpubs.com/ngyongkad/scorecard>
-
-**WoE, IV and Scorecards in Credit Risk Modelling**, OEB, March 2018:
-
--   <https://rstudio-pubs-static.s3.amazonaws.com/376828_032c59adbc984b0ab892ce0026370352.html>
-
-**Credit scorecard using Logistic Regression on R**:
-
--   <https://stats.stackexchange.com/questions/419160/credit-scorecard-using-logistic-regression-on-r>
-
-# Use Case Preparation: Loading and preparing data
-
-## Loading libraries: scorecard, tidyverse, knitr
+## Loading libraries
 
 ```{r}
 library(scorecard)
@@ -122,46 +34,35 @@ library(tidyverse)
 library(knitr)
 ```
 
-## Loading external data: germancredit
-
-The variables are distinguished among predictor (feature, independent)
-variables and response (label, dependent) variables.
+## Loading external data
 
 ```{r}
 data("germancredit") 
 ```
 
-Variables: Names
+## Data Selection
 
-```{r}
-germancredit %>% names()
-```
+To train our models to predict the creditworthiness, the following variables were selected as they capture key aspects of an applicant's financial situation.
 
-## Selecting response and predictor variables for the use case: data.df
+The five predictor variables are:
 
-For demonstrating special considerations the following variables from
-the germancredit data are chosen:
+\textbf(status.of.existing.checking.account) (categorical)
+This is a categorical variable that describes the applicant's checking account condition using qualitative labels such as "no checking account", "<0 DM", etc. 
 
--   Response variable is (as always): **creditability** (binary)
+\textbf(duration.in.month) (numeric)
+This is a numeric variable indicating the length of the loan contract in months, reflecting how long the applicant will take to repay off the credit.
 
--   Five predictor variables:
+\textbf(credit.history) (categorical)
+This is another categorical variable that describes the applicant's past repayment behaviour, ranging from values of "no credits taken" and "all credits in this bank paid back duly" to "critical account".
 
-    -   **credit.amount** (numeric)
+\textbf(savings.account.and.bonds) (categorical)
+This is another variable that categorises the applicant's savings level, both in their savings account and bonds. There are several categories such as "unknown/no savings account" to " < 100 DM" to separate those into groups.
 
-    -   **duration.in.month** (numeric)
+\textbf(purpose) (categorical)
+Purpose reflects a categorical variable that gives insight into what the applicant intends to do with the credit. Values range from "used car" and "new car" to "education", etc. 
 
-    -   **credit.history** (factor)
 
-    -   **purpose** (character)
-
-    -   **property** (factor)
-
-**Hint**: Consider the different primitive data types in R, i.e. numeric
-(num), factor (Factor), character (chr) and integer (int).
-
-Selecting the response and the five predictor variables
-
-```{r}
+```{r, include = FALSE}
 data.df <- germancredit %>% select(
 creditability,
 status.of.existing.checking.account,
@@ -171,130 +72,44 @@ savings.account.and.bonds,
 purpose
 )
 
-
 iv.df <- iv(data.df, y = "creditability")
-```
-
-**Hint**: Consider the different data types applied in R, i.e. vector,
-matrix, array, data frame (df) and list. Theses types will be indicated
-in the names of the variables, e.g. data.df is a data frame that
-contains the data.
-
-Exemplarily showing the variables' contents
-
-```{r}
-data.df %>%
-  select(
-    creditability,
-    status.of.existing.checking.account,
-    duration.in.month,
-    credit.history,
-    savings.account.and.bonds,
-    purpose
-  ) %>%
-  head()
 ```
 
 The following chunk contains the code for generating Table
 \@ref(tab:testTable).
 
-```{r testTable}
+```{r testTable, echo=FALSE}
 data.df[,1:3] %>% 
   head() %>% 
   kable(align = 'lccc',
         digits = 2,
-        caption = "data.df")
+        caption = "Exemplary View of the Data Table")
 ```
 
-```{r}
-data.df %>%
-  select(creditability,
-         status.of.existing.checking.account) %>%
-  head()  
+
+## Information Values
+In a first step, the information value of the predictor variables is regarded to get a general overview of the data quality. This information value (IV) measures how well each predictor variable can separate "good borrowers" from "bad borrowers" (in relation to creditability). In practical terms, a higher IV relates to stronger predictive power of the underlying variable, with general thresholds of being good predictors of values larger than 0.3. 
+
+```{r, echo = FALSE}
+data.df %>% 
+  iv(y="creditability") %>%
+  kable(align = 'lccc',
+        digits = 2,
+        caption = "Information Value of Predictor Variables")
 ```
 
-```{r}
-data.df %>%
-  select(creditability,
-         duration.in.month) %>%
-  head()
-```
+## Filtering and Splitting Data
 
-For checking the statistical relevance of the five predictor variables
-in the use case their information value is calclulated
+In the following step, the data is filtered to exclude rows with missing values and split into train and validation set. The split chosen is at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
-```{r}
-data.df %>% iv(y="creditability")
-```
-
-**Hint**: All predictor variable have info_value \> 0.02 so that they
-have relevance in predicting creditability
-
-## Filtering data and transforming data types: data_f.df
-
-For filtering missing values, information values and identical values
-the var_filter() function is applied
-
-```{r}
+```{r, echo = FALSE}
 data_f.df <- data.df %>% 
   var_filter("creditability")
-```
 
-Exemplarily showing the variables' contents
-
-```{r}
-data_f.df %>%
-  select(
-    creditability,
-    status.of.existing.checking.account,
-    duration.in.month,
-    credit.history,
-    savings.account.and.bonds,
-    purpose
-  ) %>%
-  head()
-
-```
-
-**Hint**: Consider the change of the data type of creditability from
-"factor" to "integer". This is important as now the **language of data
-science and machine learning** is applied, where the occurrence of the
-event is labeled with the number "1" as positive. Think of a medical
-test. A positive event means that something unwanted was found, so the
-positive test result is interpreted as "bad". The same reasoning applies
-in the credit risk context, where a positive occurrence of the default
-event is interpreted as "bad".
-
-## Splitting filtered data into train and validate samples: data_f.list
-
-For having two independent samples for training and evaluation the
-filtered data frame is split into a list that contains two data frames,
-i.e. for the train and the validate samples
-
-```{r}
 data_f.list <- data_f.df %>% 
   split_df("creditability",
-           ratios   = c(0.65, 0.35),
+           ratios   = c(0.75, 0.25),
            name_dfs = c("train", "validate"))
-```
-
-**Hint**: For the use case the splitting is set to 65/35 % and the
-splitted samples are named **train** and **evaluate** instead of
-**test** for making clear that it belongs to the **validation step** of
-the risk model management process.
-
-**Hint**: By default the splitting is 70/30 % for the train/validate
-samples, i.e. the argument is ratios=c(0.7,0.3) in the split_df()
-function. The standard names for the splitted samples are train and test
-in the function's argument name_dfs=c('train','test').
-
-Exemplarily showing the content of the data_f.list
-
-```{r}
-data_f.list %>% class()
-data_f.list %>% lapply(class)
-data_f.list %>% lapply(dim)
-data_f.list$train %>% str()
 ```
 
 ## Specifying dummy variable for credit defaults: default.list
