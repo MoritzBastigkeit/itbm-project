@@ -274,11 +274,11 @@ i.e. for the train and the validate samples
 ```{r}
 data_f.list <- data_f.df %>% 
   split_df("creditability",
-           ratios = c(0.75,0.25),
-           name_dfs = c('train','validate'))
+           ratios   = c(0.65, 0.35),
+           name_dfs = c("train", "validate"))
 ```
 
-**Hint**: For the use case the splitting is set to 75/25 % and the
+**Hint**: For the use case the splitting is set to 65/35 % and the
 splitted samples are named **train** and **evaluate** instead of
 **test** for making clear that it belongs to the **validation step** of
 the risk model management process.
@@ -346,7 +346,7 @@ bins.list %>% names()
 Plotting the bins (including bin statistics)
 
 ```{r fig.height=2.5, fig.align='center'}
-bins.list$credit.amount %>% 
+bins.list$status.of.existing.checking.account %>% 
   woebin_plot()
 ```
 
@@ -354,6 +354,21 @@ bins.list$credit.amount %>%
 
 ```{r fig.height=2.5, fig.align='center'}
 bins.list$duration.in.month %>% 
+  woebin_plot()
+```
+
+```{r fig.height=2.5, fig.align='center'}
+bins.list$credit.history %>% 
+  woebin_plot()
+```
+
+```{r fig.height=2.5, fig.align='center'}
+bins.list$savings.account.and.bonds %>% 
+  woebin_plot()
+```
+
+```{r fig.height=2.5, fig.align='center'}
+bins.list$purpose %>% 
   woebin_plot()
 ```
 
