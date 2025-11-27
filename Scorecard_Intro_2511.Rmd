@@ -418,9 +418,9 @@ data_woe.list %>% lapply(dim)
 ```
 
 ```{r}
-data_woe.list$train %>% 
-  select(creditability, credit.amount_woe, duration.in.month_woe) %>% 
-  head()
+#data_woe.list$train %>% 
+#  select(creditability, credit.amount_woe, duration.in.month_woe) %>% 
+#  head()
 ```
 
 \newpage
@@ -455,23 +455,23 @@ data_woe.glm %>% summary()
 ## Logistic regression of original predictors: glm(.,data_f.list\$train)
 
 ```{r}
-data_f.glm <- glm(creditability ~ ., 
-                  family = binomial(), 
-                  data = data_f.list$train %>% 
-                    select(creditability,
-                           credit.amount,
-                           duration.in.month,
-                           credit.history)) 
+#data_f.glm <- glm(creditability ~ ., 
+ #                 family = binomial(), 
+  #                data = data_f.list$train %>% 
+   #                 select(creditability,
+     #                      credit.amount,
+    #                       duration.in.month,
+   #                        credit.history)) 
 ```
 
 **Hint**: For simplicity only three original predictors are included in the logistic regression model  
 
 ```{r}
-data_f.glm$aic
+#data_f.glm$aic
 ```
 
 ```{r}
-data_f.glm$xlevels
+#data_f.glm$xlevels
 ```
 
 For getting a compact summary the function summary() is customized and formatted 
@@ -495,7 +495,7 @@ formatSummary <- function(model_summary) {
 ```
 
 ```{r}
-summary(data_f.glm) %>% formatSummary()
+#summary(data_f.glm) %>% formatSummary()
 ```
 
 \newpage

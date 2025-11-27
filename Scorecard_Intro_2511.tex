@@ -1,0 +1,1531 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage[]{natbib}
+\bibliographystyle{humannat}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdfauthor={Prof.~Walter S.A. Schwaiger (IMW/TU Wien)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{\begin{center} Predictive Analytics: Application in the Credit Risk Domain \\ Case Study Teaching (CST)-Vignette in cheat sheet style \\ ("group project cover sheet") \end{center}}
+\author{Prof.~Walter S.A. Schwaiger (IMW/TU Wien)}
+\date{Nov.~05, 2025 (Scorecard\_Intro\_2511.Rmd)}
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+
+\section{Contextualization: Credit risk management domain - Specification}\label{contextualization-credit-risk-management-domain---specification}
+
+\subsection{Methodological and linguistic overview}\label{methodological-and-linguistic-overview}
+
+\subsubsection{Empirical research methodology in the credit risk management domain}\label{empirical-research-methodology-in-the-credit-risk-management-domain}
+
+Two predicting models will be of special importance, i.e.~Generalized
+Linear Models (glm) and Score Card Models (scm). As will be shown, the
+scm-models add two special concepts to the glm-models, i.e.~the
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Classing/Binning/Grouping} concept, where the predictor variables
+  are partioned into bins
+\item
+  \textbf{Weight-of-Evidence (woe)} concept for evaluating the predictive
+  importance of the variables' bins (attributes)
+\end{enumerate}
+
+The empirical research methodology deals with the construction,
+calibration and validation of credit scoring models.
+
+\textbf{Hint}: ``Risk Model Management'' lecture at the TU Wien by Dr.~Thomas
+Lederer, where the focus lies on the \textbf{construction, calibration and
+validation (CCV)} framework for predictive analytics in the risk
+management domain.
+
+\subsubsection{Credit risk management domain language}\label{credit-risk-management-domain-language}
+
+`Vocabulary and Syntax' of domain language, i.e.~key domain concepts are
+
+\begin{itemize}
+\item
+  Credit scoring model: \textbf{Scorecard model}, \textbf{logistic regression
+  model}, decision tree model\ldots{}
+\item
+  Model \textbf{construction} step
+
+  \begin{itemize}
+  \item
+    Distinction between \textbf{binary response} (dependent) vs.
+    \textbf{interval/nominal/ordinal predictor} (independent) variable
+  \item
+    \textbf{Classing} predictor variables via \textbf{binning} interval
+    (numeric) variables and \textbf{grouping} nominal
+    (categorical/ordinal) variables
+  \item
+    Using the \textbf{Weight-of-Evidence (woe)} metric in the predictor
+    variables' classing
+  \end{itemize}
+\item
+  Model \textbf{calibration} step: Stastistical \textbf{estimation of the models
+  parameters} and statistical \textbf{testing of the model fit} via test
+  statistics (e.g.~Akaike Information Criteria abbreviated as \textbf{AIC})
+\item
+  Model \textbf{validation} step: Statistical \textbf{testing of the fitted
+  models prediction accuracy} via in-sample and out-of-sample
+  forecast accuracy tests (e.g.~Area Under Curve abbreviated as
+  \textbf{AUC} and \textbf{Gini} coefficient)
+\end{itemize}
+
+\subsection{Literature References}\label{literature-references}
+
+\textbf{Weight-of-Evidence (woe)}: Origins
+
+\begin{itemize}
+\item
+  \cite{Good}
+\item
+  \cite{Kullback}
+\end{itemize}
+
+\textbf{Scorecard Model}: Up-to-date article
+
+Yap/Ong/Husain: Using data mining to improve assessment of credit
+worthiness via credit scoring models, Expert Systems with Applications,
+38, 2011, 13274--13283
+
+\textbf{Scorecard Model - Reference Manual}: Package `scorecard', April 13,
+2024
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://cran.r-project.org/web/packages/scorecard/scorecard.pdf}
+\end{itemize}
+
+\textbf{Scorecard Model - Vignette}: Developing a Credit Scorecard (Shichen
+Xie, Michael Thomas)
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://cran.r-project.org/web/packages/scorecard/vignettes/demo.html}
+\end{itemize}
+
+\textbf{Credit Scoring Development Using R}, Ng Yong Kad, 11/9/2020:
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://rpubs.com/ngyongkad/scorecard}
+\end{itemize}
+
+\textbf{WoE, IV and Scorecards in Credit Risk Modelling}, OEB, March 2018:
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://rstudio-pubs-static.s3.amazonaws.com/376828_032c59adbc984b0ab892ce0026370352.html}
+\end{itemize}
+
+\textbf{Credit scorecard using Logistic Regression on R}:
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://stats.stackexchange.com/questions/419160/credit-scorecard-using-logistic-regression-on-r}
+\end{itemize}
+
+\section{Use Case Preparation: Loading and preparing data}\label{use-case-preparation-loading-and-preparing-data}
+
+\subsection{Loading libraries: scorecard, tidyverse, knitr}\label{loading-libraries-scorecard-tidyverse-knitr}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(scorecard)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Loading external data: germancredit}\label{loading-external-data-germancredit}
+
+The variables are distinguished among predictor (feature, independent)
+variables and response (label, dependent) variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"germancredit"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Variables: Names
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{germancredit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "status.of.existing.checking.account"                     
+##  [2] "duration.in.month"                                       
+##  [3] "credit.history"                                          
+##  [4] "purpose"                                                 
+##  [5] "credit.amount"                                           
+##  [6] "savings.account.and.bonds"                               
+##  [7] "present.employment.since"                                
+##  [8] "installment.rate.in.percentage.of.disposable.income"     
+##  [9] "personal.status.and.sex"                                 
+## [10] "other.debtors.or.guarantors"                             
+## [11] "present.residence.since"                                 
+## [12] "property"                                                
+## [13] "age.in.years"                                            
+## [14] "other.installment.plans"                                 
+## [15] "housing"                                                 
+## [16] "number.of.existing.credits.at.this.bank"                 
+## [17] "job"                                                     
+## [18] "number.of.people.being.liable.to.provide.maintenance.for"
+## [19] "telephone"                                               
+## [20] "foreign.worker"                                          
+## [21] "creditability"
+\end{verbatim}
+
+\subsection{Selecting response and predictor variables for the use case: data.df}\label{selecting-response-and-predictor-variables-for-the-use-case-data.df}
+
+For demonstrating special considerations the following variables from
+the germancredit data are chosen:
+
+\begin{itemize}
+\item
+  Response variable is (as always): \textbf{creditability} (binary)
+\item
+  Five predictor variables:
+
+  \begin{itemize}
+  \item
+    \textbf{credit.amount} (numeric)
+  \item
+    \textbf{duration.in.month} (numeric)
+  \item
+    \textbf{credit.history} (factor)
+  \item
+    \textbf{purpose} (character)
+  \item
+    \textbf{property} (factor)
+  \end{itemize}
+\end{itemize}
+
+\textbf{Hint}: Consider the different primitive data types in R, i.e.~numeric
+(num), factor (Factor), character (chr) and integer (int).
+
+Selecting the response and the five predictor variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df }\OtherTok{\textless{}{-}}\NormalTok{ germancredit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}
+\NormalTok{creditability,}
+\NormalTok{status.of.existing.checking.account,}
+\NormalTok{duration.in.month,}
+\NormalTok{credit.history,}
+\NormalTok{savings.account.and.bonds,}
+\NormalTok{purpose}
+\NormalTok{)}
+
+
+\NormalTok{iv.df }\OtherTok{\textless{}{-}} \FunctionTok{iv}\NormalTok{(data.df, }\AttributeTok{y =} \StringTok{"creditability"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: Consider the different data types applied in R, i.e.~vector,
+matrix, array, data frame (df) and list. Theses types will be indicated
+in the names of the variables, e.g.~data.df is a data frame that
+contains the data.
+
+Exemplarily showing the variables' contents
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    creditability,}
+\NormalTok{    status.of.existing.checking.account,}
+\NormalTok{    duration.in.month,}
+\NormalTok{    credit.history,}
+\NormalTok{    savings.account.and.bonds,}
+\NormalTok{    purpose}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   creditability status.of.existing.checking.account duration.in.month
+## 1          good                          ... < 0 DM                 6
+## 2           bad                   0 <= ... < 200 DM                48
+## 3          good                 no checking account                12
+## 4          good                          ... < 0 DM                42
+## 5           bad                          ... < 0 DM                24
+## 6          good                 no checking account                36
+##                                                credit.history
+## 1 critical account/ other credits existing (not at this bank)
+## 2                    existing credits paid back duly till now
+## 3 critical account/ other credits existing (not at this bank)
+## 4                    existing credits paid back duly till now
+## 5                             delay in paying off in the past
+## 6                    existing credits paid back duly till now
+##     savings.account.and.bonds             purpose
+## 1 unknown/ no savings account    radio/television
+## 2                ... < 100 DM    radio/television
+## 3                ... < 100 DM           education
+## 4                ... < 100 DM furniture/equipment
+## 5                ... < 100 DM           car (new)
+## 6 unknown/ no savings account           education
+\end{verbatim}
+
+The following chunk contains the code for generating Table
+\ref{tab:testTable}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{align =} \StringTok{\textquotesingle{}lccc\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+        \AttributeTok{caption =} \StringTok{"data.df"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:testTable}data.df}
+\centering
+\begin{tabular}[t]{l|c|c}
+\hline
+creditability & status.of.existing.checking.account & duration.in.month\\
+\hline
+good & ... < 0 DM & 6\\
+\hline
+bad & 0 <= ... < 200 DM & 48\\
+\hline
+good & no checking account & 12\\
+\hline
+good & ... < 0 DM & 42\\
+\hline
+bad & ... < 0 DM & 24\\
+\hline
+good & no checking account & 36\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(creditability,}
+\NormalTok{         status.of.existing.checking.account) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   creditability status.of.existing.checking.account
+## 1          good                          ... < 0 DM
+## 2           bad                   0 <= ... < 200 DM
+## 3          good                 no checking account
+## 4          good                          ... < 0 DM
+## 5           bad                          ... < 0 DM
+## 6          good                 no checking account
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(creditability,}
+\NormalTok{         duration.in.month) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   creditability duration.in.month
+## 1          good                 6
+## 2           bad                48
+## 3          good                12
+## 4          good                42
+## 5           bad                24
+## 6          good                36
+\end{verbatim}
+
+For checking the statistical relevance of the five predictor variables
+in the use case their information value is calclulated
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{iv}\NormalTok{(}\AttributeTok{y=}\StringTok{"creditability"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                               variable info_value
+##                                 <char>      <num>
+## 1: status.of.existing.checking.account  0.6660115
+## 2:                   duration.in.month  0.3345035
+## 3:                      credit.history  0.2932335
+## 4:           savings.account.and.bonds  0.1960096
+## 5:                             purpose  0.1691951
+\end{verbatim}
+
+\textbf{Hint}: All predictor variable have info\_value \textgreater{} 0.02 so that they
+have relevance in predicting creditability
+
+\subsection{Filtering data and transforming data types: data\_f.df}\label{filtering-data-and-transforming-data-types-data_f.df}
+
+For filtering missing values, information values and identical values
+the var\_filter() function is applied
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.df }\OtherTok{\textless{}{-}}\NormalTok{ data.df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{var\_filter}\NormalTok{(}\StringTok{"creditability"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v Variable filtering on 1000 rows and 5 columns in 00:00:00
+## v 0 variables are removed in total
+\end{verbatim}
+
+Exemplarily showing the variables' contents
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    creditability,}
+\NormalTok{    status.of.existing.checking.account,}
+\NormalTok{    duration.in.month,}
+\NormalTok{    credit.history,}
+\NormalTok{    savings.account.and.bonds,}
+\NormalTok{    purpose}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    creditability status.of.existing.checking.account duration.in.month
+##            <int>                              <fctr>             <num>
+## 1:             0                          ... < 0 DM                 6
+## 2:             1                   0 <= ... < 200 DM                48
+## 3:             0                 no checking account                12
+## 4:             0                          ... < 0 DM                42
+## 5:             1                          ... < 0 DM                24
+## 6:             0                 no checking account                36
+##                                                 credit.history
+##                                                         <fctr>
+## 1: critical account/ other credits existing (not at this bank)
+## 2:                    existing credits paid back duly till now
+## 3: critical account/ other credits existing (not at this bank)
+## 4:                    existing credits paid back duly till now
+## 5:                             delay in paying off in the past
+## 6:                    existing credits paid back duly till now
+##      savings.account.and.bonds             purpose
+##                         <fctr>              <char>
+## 1: unknown/ no savings account    radio/television
+## 2:                ... < 100 DM    radio/television
+## 3:                ... < 100 DM           education
+## 4:                ... < 100 DM furniture/equipment
+## 5:                ... < 100 DM           car (new)
+## 6: unknown/ no savings account           education
+\end{verbatim}
+
+\textbf{Hint}: Consider the change of the data type of creditability from
+``factor'' to ``integer''. This is important as now the \textbf{language of data
+science and machine learning} is applied, where the occurrence of the
+event is labeled with the number ``1'' as positive. Think of a medical
+test. A positive event means that something unwanted was found, so the
+positive test result is interpreted as ``bad''. The same reasoning applies
+in the credit risk context, where a positive occurrence of the default
+event is interpreted as ``bad''.
+
+\subsection{Splitting filtered data into train and validate samples: data\_f.list}\label{splitting-filtered-data-into-train-and-validate-samples-data_f.list}
+
+For having two independent samples for training and evaluation the
+filtered data frame is split into a list that contains two data frames,
+i.e.~for the train and the validate samples
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{split\_df}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
+           \AttributeTok{ratios =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{,}\FloatTok{0.25}\NormalTok{),}
+           \AttributeTok{name\_dfs =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}train\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}validate\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: For the use case the splitting is set to 75/25 \% and the
+splitted samples are named \textbf{train} and \textbf{evaluate} instead of
+\textbf{test} for making clear that it belongs to the \textbf{validation step} of
+the risk model management process.
+
+\textbf{Hint}: By default the splitting is 70/30 \% for the train/validate
+samples, i.e.~the argument is ratios=c(0.7,0.3) in the split\_df()
+function. The standard names for the splitted samples are train and test
+in the function's argument name\_dfs=c(`train',`test').
+
+Exemplarily showing the content of the data\_f.list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{class}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "list"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+## [1] "data.table" "data.frame"
+## 
+## $validate
+## [1] "data.table" "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(dim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+## [1] 727   6
+## 
+## $validate
+## [1] 273   6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'data.table' and 'data.frame':   727 obs. of  6 variables:
+##  $ status.of.existing.checking.account: Factor w/ 4 levels "... < 0 DM","0 <= ... < 200 DM",..: 1 1 1 4 4 4 2 2 1 1 ...
+##  $ duration.in.month                  : num  6 42 24 36 24 12 30 12 15 24 ...
+##  $ credit.history                     : Factor w/ 5 levels "no credits taken/ all credits paid back duly",..: 5 3 4 3 3 3 5 3 3 3 ...
+##  $ savings.account.and.bonds          : Factor w/ 5 levels "... < 100 DM",..: 5 1 1 5 3 4 1 1 1 2 ...
+##  $ purpose                            : chr  "radio/television" "furniture/equipment" "car (new)" "education" ...
+##  $ creditability                      : int  0 0 1 0 0 0 1 1 0 1 ...
+##  - attr(*, ".internal.selfref")=<externalptr>
+\end{verbatim}
+
+\subsection{Specifying dummy variable for credit defaults: default.list}\label{specifying-dummy-variable-for-credit-defaults-default.list}
+
+For being able to statistically analyze and test the results from the
+scorecard the default.list is established that contains the default
+values of the response variable
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{default.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) x}\SpecialCharTok{$}\NormalTok{creditability)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: The default.list is needed for calculating the population
+stability indes (PSI) with the function perf\_psi() and the gains table
+with the function gains\_table().
+
+Exemplarily showing the content of the default.list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{default.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 2
+##  $ train   : int [1:727] 0 0 1 0 0 0 1 1 0 1 ...
+##  $ validate: int [1:273] 1 0 0 1 0 1 1 0 0 1 ...
+\end{verbatim}
+
+\newpage
+
+\section{Weight-Of-Evidence (WoE)-based transformation of predictor variables}\label{weight-of-evidence-woe-based-transformation-of-predictor-variables}
+
+\subsection{WoE-based binning of train and validate samples: bins.list}\label{woe-based-binning-of-train-and-validate-samples-bins.list}
+
+WoE-based classing, i.e.~binning and grouping of predictor variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v Binning on 727 rows and 6 columns in 00:00:10
+\end{verbatim}
+
+\textbf{Hint}: The default binning method is method=``width''. Other methods are
+
+\begin{itemize}
+\item
+  ``frequ'' that support numerical variables as well as
+\item
+  ``tree'' and ``chimerge'' supporting both, i.e.~numerical and
+  categorical variables which are used in the optimal binning
+  approach.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "status.of.existing.checking.account" "duration.in.month"                  
+## [3] "credit.history"                      "savings.account.and.bonds"          
+## [5] "purpose"
+\end{verbatim}
+
+Plotting the bins (including bin statistics)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list}\SpecialCharTok{$}\NormalTok{credit.amount }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{woebin\_plot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## list()
+\end{verbatim}
+
+\textbf{Hint}: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g.~a linear or u-curve structure; hence it should not be included in the scorecard model!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list}\SpecialCharTok{$}\NormalTok{duration.in.month }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{woebin\_plot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $duration.in.month
+\end{verbatim}
+
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-18-1} \end{center}
+
+\textbf{Hint}: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
+
+\textbf{Excursion}: Manual bin-adjustments
+
+Bins can be altered manually by
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Saving the bin list generated in the woebin() function via e.g.
+  save\_as=``breaks2410.list''
+\item
+  Loading the saved R-file ``breaks2410.list.R'', editing the breaks as
+  needed and storing the file
+\item
+  Sourcing the edited and stored ``breaks2410.list.R'' file with the
+  ``source(\ldots)\$value'' function
+\item
+  Binning the data again with the ``woebin()'' function with the
+  additional argument ``break\_list''
+\end{enumerate}
+
+ad 1)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
+         \AttributeTok{save\_as =} \StringTok{"breaks2410.list"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+ad 3)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{breaksList }\OtherTok{\textless{}{-}} \FunctionTok{source}\NormalTok{(}\StringTok{"breaks2410.list.R"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{value}
+\end{Highlighting}
+\end{Shaded}
+
+ad 4)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
+         \AttributeTok{breaks\_list =} \StringTok{"breaksList"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: The above code chunks are not yet evaluated, as they are
+performed only when the original binning does not deliver beneficial
+results.
+
+\subsection{WoE-based transforming of predictor variables: data\_woe.list}\label{woe-based-transforming-of-predictor-variables-data_woe.list}
+
+\subsubsection{WoE-based transforming of train and validate data: data\_woe.list}\label{woe-based-transforming-of-train-and-validate-data-data_woe.list}
+
+Transforming splitted sample: Needed for train/validate analysis
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{woebin\_ply}\NormalTok{(x, bins.list))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## v Woe transformating on 727 rows and 5 columns in 00:00:10
+## v Woe transformating on 273 rows and 5 columns in 00:00:10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+## [1] "data.table" "data.frame"
+## 
+## $validate
+## [1] "data.table" "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(dim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+## [1] 727   6
+## 
+## $validate
+## [1] 273   6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data\_woe.list$train \%\textgreater{}\% }
+\CommentTok{\#  select(creditability, credit.amount\_woe, duration.in.month\_woe) \%\textgreater{}\% }
+\CommentTok{\#  head()}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\section{Generalized linear model (glm): Regressing predictors against responses}\label{generalized-linear-model-glm-regressing-predictors-against-responses}
+
+\subsection{Logistic regression of WoE-transformed predictors: glm(.,data\_woe.list\$train)}\label{logistic-regression-of-woe-transformed-predictors-glm.data_woe.listtrain}
+
+The WoE-based logistic regression is the preferred regression approach
+as it delivers the most compact regression models.
+
+\subsubsection{Constructing and calibrating the WoE-based logistic regression model}\label{constructing-and-calibrating-the-woe-based-logistic-regression-model}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.glm }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(creditability }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+                    \AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(), }
+                    \AttributeTok{data =}\NormalTok{ data\_woe.list}\SpecialCharTok{$}\NormalTok{train) }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Investigating the fitted regression model}\label{investigating-the-fitted-regression-model}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.glm}\SpecialCharTok{$}\NormalTok{aic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 711.2915
+\end{verbatim}
+
+Summary of regression: summary()
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_woe.glm }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = creditability ~ ., family = binomial(), data = data_woe.list$train)
+## 
+## Coefficients:
+##                                         Estimate Std. Error z value Pr(>|z|)
+## (Intercept)                             -0.84422    0.09532  -8.857  < 2e-16
+## status.of.existing.checking.account_woe  0.83286    0.12266   6.790 1.12e-11
+## duration.in.month_woe                    0.96608    0.17657   5.471 4.46e-08
+## credit.history_woe                       0.78853    0.16945   4.653 3.26e-06
+## savings.account.and.bonds_woe            0.86020    0.24723   3.479 0.000503
+## purpose_woe                              0.94490    0.22095   4.277 1.90e-05
+##                                            
+## (Intercept)                             ***
+## status.of.existing.checking.account_woe ***
+## duration.in.month_woe                   ***
+## credit.history_woe                      ***
+## savings.account.and.bonds_woe           ***
+## purpose_woe                             ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 886.32  on 726  degrees of freedom
+## Residual deviance: 699.29  on 721  degrees of freedom
+## AIC: 711.29
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\subsection{Logistic regression of original predictors: glm(.,data\_f.list\$train)}\label{logistic-regression-of-original-predictors-glm.data_f.listtrain}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data\_f.glm \textless{}{-} glm(creditability \textasciitilde{} ., }
+ \CommentTok{\#                 family = binomial(), }
+  \CommentTok{\#                data = data\_f.list$train \%\textgreater{}\% }
+   \CommentTok{\#                 select(creditability,}
+     \CommentTok{\#                      credit.amount,}
+    \CommentTok{\#                       duration.in.month,}
+   \CommentTok{\#                        credit.history)) }
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: For simplicity only three original predictors are included in the logistic regression model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data\_f.glm$aic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data\_f.glm$xlevels}
+\end{Highlighting}
+\end{Shaded}
+
+For getting a compact summary the function summary() is customized and formatted
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{formatSummary }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model\_summary) \{}
+\NormalTok{  aux\_coeff }\OtherTok{\textless{}{-}}\NormalTok{ model\_summary}\SpecialCharTok{$}\NormalTok{coefficients[, }\DecValTok{1}\NormalTok{]}
+\NormalTok{  aux\_prob }\OtherTok{\textless{}{-}}\NormalTok{ model\_summary}\SpecialCharTok{$}\NormalTok{coefficients[, }\DecValTok{4}\NormalTok{]}
+\NormalTok{  aux\_stars }\OtherTok{\textless{}{-}} \FunctionTok{symnum}\NormalTok{(aux\_prob, }
+                       \AttributeTok{corr =} \ConstantTok{FALSE}\NormalTok{, }
+                       \AttributeTok{na =} \ConstantTok{FALSE}\NormalTok{,}
+                       \AttributeTok{cutpoints =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.001}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.05}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+                       \AttributeTok{symbols =} \FunctionTok{c}\NormalTok{(}\StringTok{"***"}\NormalTok{, }\StringTok{"**"}\NormalTok{, }\StringTok{"*"}\NormalTok{, }\StringTok{"."}\NormalTok{, }\StringTok{" "}\NormalTok{))}
+  \FunctionTok{names}\NormalTok{(aux\_coeff) }\OtherTok{\textless{}{-}} \FunctionTok{str\_trunc}\NormalTok{(}\FunctionTok{names}\NormalTok{(aux\_coeff), }
+                                \AttributeTok{width =} \DecValTok{40}\NormalTok{)}
+\NormalTok{  aux\_result }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Estimate =}\NormalTok{ aux\_coeff, }
+                           \AttributeTok{Prob\_z =}\NormalTok{ aux\_prob, }
+                           \StringTok{"Stars"} \OtherTok{=}\NormalTok{ aux\_stars)}
+  \FunctionTok{return}\NormalTok{(aux\_result)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#summary(data\_f.glm) \%\textgreater{}\% formatSummary()}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\section{Building scorecard-models (scm) and calculating scorepoints}\label{building-scorecard-models-scm-and-calculating-scorepoints}
+
+Scorepoints are calculated by combing scorecard-model, which combines
+bin and glm information, with individual data
+
+\subsection{Building scm-models: Combining bins.list \& data\_woe.glm in scorecard()}\label{building-scm-models-combining-bins.list-data_woe.glm-in-scorecard}
+
+Building the scorecard via bin and glm information resulting from train
+sample
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scorecard.scm }\OtherTok{\textless{}{-}}\NormalTok{ bins.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{scorecard}\NormalTok{(data\_woe.glm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scorecard.scm }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "basepoints"                          "status.of.existing.checking.account"
+## [3] "duration.in.month"                   "credit.history"                     
+## [5] "savings.account.and.bonds"           "purpose"
+\end{verbatim}
+
+Investigating the content of the ``woe-based'' scorecard model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scorecard.scm}\SpecialCharTok{$}\NormalTok{basepoints}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      variable    bin    woe points
+##        <char> <lgcl> <lgcl>  <num>
+## 1: basepoints     NA     NA    449
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scorecard.scm}\SpecialCharTok{$}\NormalTok{duration.in.month[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             variable       bin count count_distr   neg   pos   posprob
+##               <char>    <char> <int>       <num> <int> <int>     <num>
+## 1: duration.in.month  [-Inf,8)    63  0.08665750    57     6 0.0952381
+## 2: duration.in.month    [8,16)   252  0.34662999   195    57 0.2261905
+## 3: duration.in.month   [16,34)   281  0.38651994   191    90 0.3202847
+## 4: duration.in.month   [34,44)    75  0.10316369    43    32 0.4266667
+## 5: duration.in.month [44, Inf)    56  0.07702889    24    32 0.5714286
+##           woe
+##         <num>
+## 1: -1.3967784
+## 2: -0.3754349
+## 3:  0.1020496
+## 4:  0.5590492
+## 5:  1.1421954
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scorecard.scm}\SpecialCharTok{$}\NormalTok{duration.in.month[,}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{9}\SpecialCharTok{:}\DecValTok{13}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             variable      bin_iv  total_iv breaks is_special_values points
+##               <char>       <num>     <num> <char>            <lgcl>  <num>
+## 1: duration.in.month 0.117489928 0.3165171      8             FALSE     97
+## 2: duration.in.month 0.044932100 0.3165171     16             FALSE     26
+## 3: duration.in.month 0.004106144 0.3165171     34             FALSE     -7
+## 4: duration.in.month 0.035304912 0.3165171     44             FALSE    -39
+## 5: duration.in.month 0.114683977 0.3165171    Inf             FALSE    -80
+\end{verbatim}
+
+\subsection{Calculating scorepoints: Combinig individual data.df \& scm-model in scorecard\_ply()}\label{calculating-scorepoints-combinig-individual-data.df-scm-model-in-scorecard_ply}
+
+Generating a score list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{scorecard\_ply}\NormalTok{(x, scorecard.scm)) }
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: The only\_total\_score=TRUE (= default argument) has to be used
+for providing two compatible lists for further processing. If scores to
+the different predictors are of interest, the two separate, i.e.~train
+and validate samples have to analyzed individually with the argument
+only\_total\_score=FALSE.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "train"    "validate"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    score
+##    <num>
+## 1:   633
+## 2:   351
+## 3:   351
+## 4:   477
+## 5:   553
+## 6:   625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list}\SpecialCharTok{$}\NormalTok{validate }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    score
+##    <num>
+## 1:   349
+## 2:   531
+## 3:   390
+## 4:   287
+## 5:   455
+## 6:   408
+\end{verbatim}
+
+\newpage
+
+\section{WoE-based predicting (forecasting) of probabilities and scorepoints}\label{woe-based-predicting-forecasting-of-probabilities-and-scorepoints}
+
+\subsection{Predicting probabilities: Combining data\_woe.list \& data\_woe.glm in predict()}\label{predicting-probabilities-combining-data_woe.list-data_woe.glm-in-predict}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predProb.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_woe.list }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{predict}\NormalTok{(data\_woe.glm,}
+                             \AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{,}
+\NormalTok{                             x))}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: Due to the fact that the data\_woe.glm was calibrated for the
+train sample two different types of prediction can be destinguished,
+i.e.~the in-sample (IS) prediction by using the train sample in the
+predict()-function, and the out-of-sample (OoS) prediction by using the
+test sample in the predict()-function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predProb.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "train"    "validate"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predProb.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# In{-}Sample prediction}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          1          2          3          4          5          6 
+## 0.03257030 0.62644835 0.62511261 0.22923725 0.09405324 0.03635829
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predProb.list}\SpecialCharTok{$}\NormalTok{validate }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# Out{-}of{-}Sample prediction}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1         2         3         4         5         6 
+## 0.6293632 0.1222070 0.4915309 0.8008039 0.2815743 0.4315283
+\end{verbatim}
+
+\subsection{Predicting scorepoints: Retrieving predictions from score.list generated in scorecard\_ply()}\label{predicting-scorepoints-retrieving-predictions-from-score.list-generated-in-scorecard_ply}
+
+The prediction of the scorepoints is alread incorported in the built
+scorecard.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    score
+##    <num>
+## 1:   633
+## 2:   351
+## 3:   351
+## 4:   477
+## 5:   553
+## 6:   625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score.list}\SpecialCharTok{$}\NormalTok{validate }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    score
+##    <num>
+## 1:   349
+## 2:   531
+## 3:   390
+## 4:   287
+## 5:   455
+## 6:   408
+\end{verbatim}
+
+\newpage
+
+\section{Scorecard Validation: Statistical testing of forecasting accuracy}\label{scorecard-validation-statistical-testing-of-forecasting-accuracy}
+
+\subsection{Checking stability of score and probility distributions: Population Stability Index (PSI)}\label{checking-stability-of-score-and-probility-distributions-population-stability-index-psi}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list }\OtherTok{\textless{}{-}} \FunctionTok{perf\_psi}\NormalTok{(}\AttributeTok{score =}\NormalTok{ score.list, }
+                     \AttributeTok{label =}\NormalTok{ default.list,}
+                     \AttributeTok{return\_distr\_dat =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Hint}: More details of per\_psi() function are given @
+\url{https://www.rdocumentation.org/packages/scorecard/versions/0.1.9/topics/perf_psi}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list}\SpecialCharTok{$}\NormalTok{pic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $score
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "pic" "psi" "dat"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list}\SpecialCharTok{$}\NormalTok{dat }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "score"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list}\SpecialCharTok{$}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{score[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Key: <datset>
+##    datset        bin count cum_count   neg   pos cum_neg cum_pos count_distr
+##    <fctr>     <fctr> <int>     <int> <int> <int>   <int>   <int>       <num>
+## 1:  train [-Inf,260)    11        11     1    10       1      10      0.0151
+## 2:  train  [260,314)    28        39     8    20       9      30      0.0385
+## 3:  train  [314,368)    65       104    21    44      30      74      0.0894
+## 4:  train  [368,421)   131       235    70    61     100     135      0.1802
+## 5:  train  [421,475)   149       384   102    47     202     182      0.2050
+## 6:  train  [475,529)   122       506    99    23     301     205      0.1678
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psi.list}\SpecialCharTok{$}\NormalTok{psi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    variable        dataset        psi
+##      <char>         <char>      <num>
+## 1:    score train_validate 0.03247355
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{perf\_psi}\NormalTok{(score, }\AttributeTok{label =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{x\_limits =} \ConstantTok{NULL}\NormalTok{,}
+  \AttributeTok{x\_tick\_break =} \DecValTok{50}\NormalTok{, }\AttributeTok{show\_plot =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{seed =} \DecValTok{186}\NormalTok{,}
+  \AttributeTok{return\_distr\_dat =} \ConstantTok{FALSE}\NormalTok{)}
+\CommentTok{\# e.g. \# x\_limits = c(250, 700),}
+\CommentTok{\#      \# x\_tick\_break = 50,}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{IS \& OoS testing probability prediction accuracy: perf\_eva(.,predProb.list)}\label{is-oos-testing-probability-prediction-accuracy-perf_eva.predprob.list}
+
+probability prediction accuracy
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ProbPredAccuracy }\OtherTok{\textless{}{-}} \FunctionTok{perf\_eva}\NormalTok{(}\AttributeTok{pred =}\NormalTok{ predProb.list,}
+                             \AttributeTok{label =}\NormalTok{ default.list,}
+                             \AttributeTok{binomial\_metric =} \FunctionTok{c}\NormalTok{(}\StringTok{"rmse"}\NormalTok{,}\StringTok{"auc"}\NormalTok{,}\StringTok{"gini"}\NormalTok{),}
+                             \AttributeTok{show\_plot=}\FunctionTok{c}\NormalTok{(}\StringTok{"roc"}\NormalTok{,}\StringTok{"ks"}\NormalTok{),}
+                             \AttributeTok{confusion\_matrix =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-52-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(ProbPredAccuracy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "binomial_metric"  "confusion_matrix" "pic"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ProbPredAccuracy}\SpecialCharTok{$}\NormalTok{binomial\_metric}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+##         RMSE       AUC      Gini
+##        <num>     <num>     <num>
+## 1: 0.3998542 0.8018569 0.6037137
+## 
+## $validate
+##         RMSE      AUC     Gini
+##        <num>    <num>    <num>
+## 1: 0.4150501 0.776506 0.553012
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ProbPredAccuracy}\SpecialCharTok{$}\NormalTok{confusion\_matrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+##     label pred_0 pred_1     error
+##    <char>  <num>  <num>     <num>
+## 1:      0    330    180 0.3529412
+## 2:      1     41    176 0.1889401
+## 3:  total    371    356 0.3039890
+## 
+## $validate
+##     label pred_0 pred_1     error
+##    <char>  <num>  <num>     <num>
+## 1:      0    122     68 0.3578947
+## 2:      1     17     66 0.2048193
+## 3:  total    139    134 0.3113553
+\end{verbatim}
+
+Excursion
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{perf\_eva}\NormalTok{(}\AttributeTok{pred =}\NormalTok{ predProb.list, }
+         \AttributeTok{label =}\NormalTok{ default.list,}
+         \AttributeTok{binomial\_metric =} \FunctionTok{c}\NormalTok{(}\StringTok{"rmse"}\NormalTok{,}\StringTok{"auc"}\NormalTok{,}\StringTok{"gini"}\NormalTok{),}
+         \AttributeTok{show\_plot=} \ConstantTok{FALSE}\NormalTok{,}
+         \AttributeTok{confusion\_matrix =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $binomial_metric
+## $binomial_metric$train
+##         RMSE       AUC      Gini
+##        <num>     <num>     <num>
+## 1: 0.3998542 0.8018569 0.6037137
+## 
+## $binomial_metric$validate
+##         RMSE      AUC     Gini
+##        <num>    <num>    <num>
+## 1: 0.4150501 0.776506 0.553012
+\end{verbatim}
+
+\subsection{IS \& OoS testing scorepoint prediction accuracy: perf\_eva(.,score.list)}\label{is-oos-testing-scorepoint-prediction-accuracy-perf_eva.score.list}
+
+scorepoint prediction accuracy
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ScorePredAccuracy }\OtherTok{\textless{}{-}} \FunctionTok{perf\_eva}\NormalTok{(}\AttributeTok{pred =}\NormalTok{ score.list,}
+                             \AttributeTok{label =}\NormalTok{ default.list,}
+                             \AttributeTok{binomial\_metric =} \FunctionTok{c}\NormalTok{(}\StringTok{"rmse"}\NormalTok{,}\StringTok{"auc"}\NormalTok{,}\StringTok{"gini"}\NormalTok{),}
+                             \AttributeTok{show\_plot=}\FunctionTok{c}\NormalTok{(}\StringTok{"roc"}\NormalTok{,}\StringTok{"ks"}\NormalTok{),}
+                             \AttributeTok{confusion\_matrix =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-57-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(ScorePredAccuracy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "binomial_metric"  "confusion_matrix" "pic"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ScorePredAccuracy}\SpecialCharTok{$}\NormalTok{binomial\_metric}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+##          AUC      Gini
+##        <num>     <num>
+## 1: 0.8019563 0.6039125
+## 
+## $validate
+##          AUC      Gini
+##        <num>     <num>
+## 1: 0.7759036 0.5518072
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ScorePredAccuracy}\SpecialCharTok{$}\NormalTok{confusion\_matrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $train
+##     label pred_0 pred_1     error
+##    <char>  <num>  <num>     <num>
+## 1:      0    330    180 0.3529412
+## 2:      1     41    176 0.1889401
+## 3:  total    371    356 0.3039890
+## 
+## $validate
+##     label pred_0 pred_1     error
+##    <char>  <num>  <num>     <num>
+## 1:      0    122     68 0.3578947
+## 2:      1     17     66 0.2048193
+## 3:  total    139    134 0.3113553
+\end{verbatim}
+
+\newpage
+
+\section{Appendix}\label{appendix}
+
+\subsection{Appendix: Essay style with formulas in LaTeX language}\label{appendix-essay-style-with-formulas-in-latex-language}
+
+\textbf{Group project assignment}: Write a scholarly essay with full
+sentences, correct citations and LaTeX formulas.
+
+\textbf{Example essay style}: From a statistical perspective the transition
+from the \(MPS\) to the VaR framework is related to switching the
+perspective from considering moments (parameters) of random variables,
+i.e.~\(\mu\) and \(\sigma\), to considering the quantiles and corresponding
+probabilities of these variables. Specifically, the VaR measure
+specifies the risk of a random variable (\(\tilde{P}\)) via the threshold
+quantile (\(VaR\)) that is exceeded into the negative direction (i.e.
+\(P \leq VaR\)) with the loss probability (\(\alpha\)) or respectively, is
+exceeded into the positive direction (i.e.~\(P > VaR\)) with the
+complementary probability, i.e.~the confidence level (\(1-\alpha\)).
+
+\subsection{Appendix: Generating tables, figures, cross references and citations}\label{appendix-generating-tables-figures-cross-references-and-citations}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.df[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{plot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{Scorecard_Intro_2511_files/figure-latex/testFigure-1} 
+
+}
+
+\caption{Amount vs. Duration}\label{fig:testFigure}
+\end{figure}
+
+Figure \ref{fig:testFigure} is a sample figure where the credit.amount
+is scatter plotted against the duration.in.month.
+
+Formulas without numbering \begin{align*}
+\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
+\end{align*}
+
+Formulas with numbering (and labeling which is needed for referencing)
+\begin{align} \label{eq:VaR}
+\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
+\end{align}
+
+Formula \eqref{eq:VaR} is a sample formula defining the Value at Risk.
+
+Always cite original literature to avoid plagiarism: e.g.
+\cite{SchwaigerIUF} or \citep{SchwaigerIUF}. Don't forget to cite page
+numbers as well for literal citations, e.g.~\cite[p. 100]{SchwaigerIUF}.
+
+\newpage
+
+\bibliography{literature.bib}
+
+\end{document}
