@@ -232,13 +232,18 @@ In order to build and assess these models, the Weight-of-Evidence (WoE) approach
 \label{woe_eq}
 WoE_i = \ln\left(\frac{Event_i\%}{NonEvent_i\%}\right)
 \end{equation}
-The resulting predictor variables were then used in two models, first a logistic regression and secondly a scorecard model, to compare the accuracy of each. Both models aim to predict the probability of default \(P(Y=1)\) for the given set of predictors with the logistic approach using a sigmoid function. Sigmoid functions are mathematical functions, usually shaped like an S, used for classification problems by taking real numbers as an input and transforming them to values between 0 and 1 (probabilities). The model takes the form\[P(default=1|X) = \frac{1}{1+e^{-(\beta_0+\beta_1X_1+...+\beta_kX_k)}}\] where the coefficients \(\beta\) represent the individual contribution of each variable to the likelihood of default.
+The resulting predictor variables were then used in two models, first a logistic regression and secondly a scorecard model, to compare the accuracy of each. Both models aim to predict the probability of default \(P(Y=1)\) for the given set of predictors with the logistic approach using a sigmoid function. Sigmoid functions are mathematical functions, usually shaped like an S, used for classification problems by taking real numbers as an input and transforming them to values between 0 and 1 (probabilities). The model takes the form
+\begin{equation}
+\label{logit_eq}
+P(\text{default}=1 \mid X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k)}}
+\end{equation}
+where the coefficients \(\beta\) represent the individual contribution of each variable to the likelihood of default.
 
 On the other hand, a scorecard model was implemented to serve as a more transparent comparison to the logistic regression. After the variables are initially binned and converted into their respective WoE values, each bin of each variable was assigned a fixed number of score points that reflect its contribution to the credit risk. This was done by using the \(scorecard()\) function from the eponymous package in R. For any individual applicant, the total credit score was then calculated by summing up the score points across their variables with higher scores representing lower risk of defaulting.
 
 To evaluate and the performance of these models, a selected number of accuracy metrics, namely Area Under the ROC Curve (AUC) and the Gini coefficient, was used. These metrics measure how well the model is able to differentiate between defaulters and non-defaulters. Furthermore, the Root Mean Squared Error (RSME) quantifies the models' accuracy in their predicted probabilities by quantifying the average deviation between predicted and actual outcomes (in the train set). Additionally, matrices summarizing the performance by reporting true positives, false positives, true negatives and false negatives were generated (confusion matrices). The stability or robustness of the models' scores and probability distributions were assessed with the Population Stability Index (PSI). This metric compares the distributions in the training set with those of the validation set to detect shifts in population characteristics across different samples. In this context, a low score is indicative of a stable model whereas high values suggest a potential drift or deterioration.
 
-\section{Data Selection}\label{data-selection}
+\section{Data Selection and Preparation}\label{data-selection-and-preparation}
 
 To train the models to accurately predict the creditworthiness, it is imperative to select predictor variables based on their relevance to the individuals' financial behaviour.
 
@@ -293,63 +298,21 @@ Purpose reflects a categorical variable that gives insight into what the applica
 \toprule
 Variable & Information Value\\
 \midrule
-\cellcolor{gray!10}{status.of.existing.checking.account} & \cellcolor{gray!10}{0.67}\\
+status.of.existing.checking.account & 0.67\\
 duration.in.month & 0.33\\
-\cellcolor{gray!10}{credit.history} & \cellcolor{gray!10}{0.29}\\
+credit.history & 0.29\\
 savings.account.and.bonds & 0.20\\
-\cellcolor{gray!10}{purpose} & \cellcolor{gray!10}{0.17}\\
+purpose & 0.17\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{verbatim}
-## v Variable filtering on 1000 rows and 5 columns in 00:00:00
-## v 0 variables are removed in total
-\end{verbatim}
-
 In the following steps, the data was filtered to exclude rows with missing values and split into train and validation set. The split chosen was at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
-\section{Weight-Of-Evidence (WoE)-based transformation of predictor variables}\label{weight-of-evidence-woe-based-transformation-of-predictor-variables}
+\section{Weight-Of-Evidence (WoE) Binning and Transformation}\label{weight-of-evidence-woe-binning-and-transformation}
 
-\subsection{WoE-based binning of train and validate samples: bins.list}\label{woe-based-binning-of-train-and-validate-samples-bins.list}
-
-WoE-based classing, i.e.~binning and grouping of predictor variables
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## v Binning on 635 rows and 6 columns in 00:00:00
-\end{verbatim}
-
-\textbf{Hint}: The default binning method is method=``width''. Other methods are
-
-\begin{itemize}
-\item
-  ``frequ'' that support numerical variables as well as
-\item
-  ``tree'' and ``chimerge'' supporting both, i.e.~numerical and
-  categorical variables which are used in the optimal binning
-  approach.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bins.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "status.of.existing.checking.account" "duration.in.month"                  
-## [3] "credit.history"                      "savings.account.and.bonds"          
-## [5] "purpose"
-\end{verbatim}
-
-Plotting the bins (including bin statistics)
+The binning process was conducted using the \textit{woebin()} function from the \textit{scorecard} package in R and applied separately to both training and validation set as to prevent information leakage, in which certain characteristics of the training set might bias the validation set. The used function supports both categorical and numerical variables with an algorithm selecting the most appropriate method based on the underlying data distribution. As for the selected predictor variables, the variable \textit{duration.in.months}, a continuous variable, was binned using the default ``width'' method, grouping ranges into intervals based on the distribution characteristics. On the other hand, the categorical variable \textit{credit.history} was grouped by merging categories with similar risk profiles until meaningful bins emerged.
+After determining the structure, both datasets were transformed by replacing the raw predictor values with the corresponding WoE scores. The resulting datasets therefore consisted exclusively of numerical variables with normalized differences across variables, which serve as a robust basis for the further applied methods of logistic regression and scorecard modelling. Furthermore, the transformation results in the beneficial outcome of transparency, as the WoE values are easily interpretable: higher WoE values indicate lower risk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -362,9 +325,7 @@ Plotting the bins (including bin statistics)
 ## $status.of.existing.checking.account
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1} \end{center}
-
-\textbf{Hint}: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g.~a linear or u-curve structure; hence it should not be included in the scorecard model!
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/variable plots-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -377,7 +338,7 @@ Plotting the bins (including bin statistics)
 ## $duration.in.month
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/variable plots-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -390,7 +351,7 @@ Plotting the bins (including bin statistics)
 ## $credit.history
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/variable plots-3} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -403,7 +364,7 @@ Plotting the bins (including bin statistics)
 ## $savings.account.and.bonds
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/variable plots-4} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -416,129 +377,11 @@ Plotting the bins (including bin statistics)
 ## $purpose
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/variable plots-5} \end{center}
 
-\textbf{Hint}: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
+\section{Logistic Regression Modelling}\label{logistic-regression-modelling}
 
-\textbf{Excursion}: Manual bin-adjustments
-
-Bins can be altered manually by
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Saving the bin list generated in the woebin() function via e.g.
-  save\_as=``breaks2410.list''
-\item
-  Loading the saved R-file ``breaks2410.list.R'', editing the breaks as
-  needed and storing the file
-\item
-  Sourcing the edited and stored ``breaks2410.list.R'' file with the
-  ``source(\ldots)\$value'' function
-\item
-  Binning the data again with the ``woebin()'' function with the
-  additional argument ``break\_list''
-\end{enumerate}
-
-ad 1)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
-         \AttributeTok{save\_as =} \StringTok{"breaks2410.list"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
-
-ad 3)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{breaksList }\OtherTok{\textless{}{-}} \FunctionTok{source}\NormalTok{(}\StringTok{"breaks2410.list.R"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{value}
-\end{Highlighting}
-\end{Shaded}
-
-ad 4)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bins.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list}\SpecialCharTok{$}\NormalTok{train }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{woebin}\NormalTok{(}\StringTok{"creditability"}\NormalTok{,}
-         \AttributeTok{breaks\_list =} \StringTok{"breaksList"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
-
-\textbf{Hint}: The above code chunks are not yet evaluated, as they are
-performed only when the original binning does not deliver beneficial
-results.
-
-\subsection{WoE-based transforming of predictor variables: data\_woe.list}\label{woe-based-transforming-of-predictor-variables-data_woe.list}
-
-\subsubsection{WoE-based transforming of train and validate data: data\_woe.list}\label{woe-based-transforming-of-train-and-validate-data-data_woe.list}
-
-Transforming splitted sample: Needed for train/validate analysis
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_woe.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{woebin\_ply}\NormalTok{(x, bins.list))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## v Woe transformating on 635 rows and 5 columns in 00:00:00
-\end{verbatim}
-
-\begin{verbatim}
-## v Woe transformating on 365 rows and 5 columns in 00:00:10
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_woe.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(class)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $train
-## [1] "data.table" "data.frame"
-## 
-## $validate
-## [1] "data.table" "data.frame"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_woe.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lapply}\NormalTok{(dim)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $train
-## [1] 635   6
-## 
-## $validate
-## [1] 365   6
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_woe.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{woebin\_ply}\NormalTok{(x, bins.list))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## v Woe transformating on 635 rows and 5 columns in 00:00:00
-\end{verbatim}
-
-\begin{verbatim}
-## v Woe transformating on 365 rows and 5 columns in 00:00:10
-\end{verbatim}
-
-\newpage
-
-\section{Generalized linear model (glm): Regressing predictors against responses}\label{generalized-linear-model-glm-regressing-predictors-against-responses}
+Following the WoE transformation of the datasets, a logistic regression model was employed to model the log-odds of an invidiual defaulting as a linear function of the selected predictor variables. As outlined in the chapter Methodology,
 
 \subsection{Logistic regression of WoE-transformed predictors: glm(.,data\_woe.list\$train)}\label{logistic-regression-of-woe-transformed-predictors-glm.data_woe.listtrain}
 
@@ -962,7 +805,7 @@ scorecard.
 ## $score
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1038,7 +881,7 @@ probability prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1129,7 +972,7 @@ scorepoint prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]

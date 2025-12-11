@@ -110,7 +110,12 @@ In order to build and assess these models, the Weight-of-Evidence (WoE) approach
 \label{woe_eq}
 WoE_i = \ln\left(\frac{Event_i\%}{NonEvent_i\%}\right)
 \end{equation}
-The resulting predictor variables were then used in two models, first a logistic regression and secondly a scorecard model, to compare the accuracy of each. Both models aim to predict the probability of default $P(Y=1)$ for the given set of predictors with the logistic approach using a sigmoid function. Sigmoid functions are mathematical functions, usually shaped like an S, used for classification problems by taking real numbers as an input and transforming them to values between 0 and 1 (probabilities). The model takes the form$$P(default=1|X) = \frac{1}{1+e^{-(\beta_0+\beta_1X_1+...+\beta_kX_k)}}$$ where the coefficients $\beta$ represent the individual contribution of each variable to the likelihood of default.
+The resulting predictor variables were then used in two models, first a logistic regression and secondly a scorecard model, to compare the accuracy of each. Both models aim to predict the probability of default $P(Y=1)$ for the given set of predictors with the logistic approach using a sigmoid function. Sigmoid functions are mathematical functions, usually shaped like an S, used for classification problems by taking real numbers as an input and transforming them to values between 0 and 1 (probabilities). The model takes the form 
+\begin{equation}
+\label{logit_eq}
+P(\text{default}=1 \mid X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k)}}
+\end{equation}
+where the coefficients $\beta$ represent the individual contribution of each variable to the likelihood of default.
 
 On the other hand, a scorecard model was implemented to serve as a more transparent comparison to the logistic regression. After the variables are initially binned and converted into their respective WoE values, each bin of each variable was assigned a fixed number of score points that reflect its contribution to the credit risk. This was done by using the $scorecard()$ function from the eponymous package in R. For any individual applicant, the total credit score was then calculated by summing up the score points across their variables with higher scores representing lower risk of defaulting. 
 
@@ -137,7 +142,7 @@ iv.df <- iv(data.df, y = "creditability")
 ```
 
 
-# Data Selection
+# Data Selection and Preparation
 
 To train the models to accurately predict the creditworthiness, it is imperative to select predictor variables based on their relevance to the individuals' financial behaviour. 
 
@@ -192,10 +197,11 @@ iv.table %>%
     booktabs = TRUE
   ) %>%
   kable_styling(
-    latex_options = c("hold_position", "striped"),
+    latex_options = "hold_position",
     full_width = FALSE
   )
-
+```
+```{r, include = FALSE}
 data_f.df <- data.df %>% 
   var_filter("creditability")
 
@@ -208,131 +214,51 @@ default.list <- data_f.list %>%
 
 ```
 
-
 In the following steps, the data was filtered to exclude rows with missing values and split into train and validation set. The split chosen was at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
+  
+# Weight-Of-Evidence (WoE) Binning and Transformation
+The binning process was conducted using the \textit{woebin()} function from the \textit{scorecard} package in R and applied separately to both training and validation set as to prevent information leakage, in which certain characteristics of the training set might bias the validation set. The used function supports both categorical and numerical variables with an algorithm selecting the most appropriate method based on the underlying data distribution. As for the selected predictor variables, the variable \textit{duration.in.months}, a continuous variable, was binned using the default "width" method, grouping ranges into intervals based on the distribution characteristics. On the other hand, the categorical variable \textit{credit.history} was grouped by merging categories with similar risk profiles until meaningful bins emerged. 
+After determining the structure, both datasets were transformed by replacing the raw predictor values with the corresponding WoE scores. The resulting datasets therefore consisted exclusively of numerical variables with normalized differences across variables, which serve as a robust basis for the further applied methods of logistic regression and scorecard modelling. Furthermore, the transformation results in the beneficial outcome of transparency, as the WoE values are easily interpretable: higher WoE values indicate lower risk.
 
-# Weight-Of-Evidence (WoE)-based transformation of predictor variables
 
-## WoE-based binning of train and validate samples: bins.list
-
-WoE-based classing, i.e. binning and grouping of predictor variables
-
-```{r}
+```{r woe, include=FALSE}
 bins.list <- data_f.list$train %>% 
   woebin("creditability") 
-```
-
-**Hint**: The default binning method is method="width". Other methods are
-
--   "frequ" that support numerical variables as well as
-
--   "tree" and "chimerge" supporting both, i.e. numerical and
-    categorical variables which are used in the optimal binning
-    approach.
-
-```{r}
 bins.list %>% names()
+
+data_woe.list <- data_f.list %>% 
+  lapply(function(x) woebin_ply(x, bins.list))
+
+data_woe.list %>% lapply(class)
+data_woe.list %>% lapply(dim)
+
+data_woe.list <- data_f.list %>% 
+  lapply(function(x) woebin_ply(x, bins.list))
+
 ```
 
-Plotting the bins (including bin statistics)
-
-```{r fig.height=2.5, fig.align='center'}
+```{r variable plots, fig.height=2.5, fig.align='center'}
 bins.list$status.of.existing.checking.account %>% 
   woebin_plot()
-```
 
-**Hint**: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g. a linear or u-curve structure; hence it should not be included in the scorecard model!
-
-```{r fig.height=2.5, fig.align='center'}
 bins.list$duration.in.month %>% 
   woebin_plot()
-```
 
-```{r fig.height=2.5, fig.align='center'}
 bins.list$credit.history %>% 
   woebin_plot()
-```
 
-```{r fig.height=2.5, fig.align='center'}
 bins.list$savings.account.and.bonds %>% 
   woebin_plot()
-```
 
-```{r fig.height=2.5, fig.align='center'}
 bins.list$purpose %>% 
   woebin_plot()
 ```
 
-**Hint**: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
 
-**Excursion**: Manual bin-adjustments
+# Logistic Regression Modelling
 
-Bins can be altered manually by
-
-1.  Saving the bin list generated in the woebin() function via e.g.
-    save_as="breaks2410.list"
-
-2.  Loading the saved R-file "breaks2410.list.R", editing the breaks as
-    needed and storing the file
-
-3.  Sourcing the edited and stored "breaks2410.list.R" file with the
-    "source(...)\$value" function
-
-4.  Binning the data again with the "woebin()" function with the
-    additional argument "break_list"
-
-ad 1)
-
-```{r eval=FALSE}
-bins.list <- data_f.list$train %>% 
-  woebin("creditability",
-         save_as = "breaks2410.list") 
-```
-
-ad 3)
-
-```{r eval=FALSE}
-breaksList <- source("breaks2410.list.R")$value
-```
-
-ad 4)
-
-```{r eval=FALSE}
-bins.list <- data_f.list$train %>% 
-  woebin("creditability",
-         breaks_list = "breaksList") 
-```
-
-**Hint**: The above code chunks are not yet evaluated, as they are
-performed only when the original binning does not deliver beneficial
-results.
-
-## WoE-based transforming of predictor variables: data_woe.list
-
-### WoE-based transforming of train and validate data: data_woe.list
-
-Transforming splitted sample: Needed for train/validate analysis
-
-```{r}
-data_woe.list <- data_f.list %>% 
-  lapply(function(x) woebin_ply(x, bins.list))
-```
-
-```{r}
-data_woe.list %>% lapply(class)
-data_woe.list %>% lapply(dim)
-```
-
-```{r}
-data_woe.list <- data_f.list %>% 
-  lapply(function(x) woebin_ply(x, bins.list))
-
-```
-
-\newpage
-
-# Generalized linear model (glm): Regressing predictors against responses
+Following the WoE transformation of the datasets, a logistic regression model was employed to model the log-odds of an invidiual defaulting as a linear function of the selected predictor variables. The WoE transformed  outlined in equation 2 in the chapter Methodology, 
 
 ## Logistic regression of WoE-transformed predictors: glm(.,data_woe.list\$train)
 

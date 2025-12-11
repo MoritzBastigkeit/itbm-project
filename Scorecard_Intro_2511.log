@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  11 DEC 2025 22:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  11 DEC 2025 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -577,11 +577,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/Users/valentinennser/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] (./Scorecard_Intro_2511.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 6.
+(Font)              <10> on input line 7.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 6.
+(Font)              <7> on input line 7.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 6.
+(Font)              <5> on input line 7.
 )
 \tf@toc=\write4
 \openout4 = `Scorecard_Intro_2511.toc'.
@@ -591,95 +591,95 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [4{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 272.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 277.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 305.
+) [5{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 318.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [5{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+)
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 320.
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1.pdf, id=110, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 365.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 319.
+<Scorecard_Intro_2511_files/figure-latex/variable plots-1.pdf, id=107, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/variable plots-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/variable plots-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/variable plots-1.pdf  used on input line 328.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-[6]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1.pdf, id=117, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 380.
+<Scorecard_Intro_2511_files/figure-latex/variable plots-2.pdf, id=108, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/variable plots-2.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/variable plots-2.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/variable plots-2.pdf  used on input line 341.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf, id=118, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 393.
+[6 <./Scorecard_Intro_2511_files/figure-latex/variable plots-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/variable plots-3.pdf, id=120, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/variable plots-3.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/variable plots-3.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/variable plots-3.pdf  used on input line 354.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-[7 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-4-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf, id=134, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 406.
+<Scorecard_Intro_2511_files/figure-latex/variable plots-4.pdf, id=121, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/variable plots-4.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/variable plots-4.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/variable plots-4.pdf  used on input line 367.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf, id=135, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 419.
+[7 <./Scorecard_Intro_2511_files/figure-latex/variable plots-2.pdf> <./Scorecard_Intro_2511_files/figure-latex/variable plots-3.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/variable plots-5.pdf, id=137, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/variable plots-5.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/variable plots-5.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/variable plots-5.pdf  used on input line 380.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-[8 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf>] [9 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf>] [10]
-Overfull \hbox (16.57768pt too wide) in paragraph at lines 543--543
+
+Overfull \hbox (16.57768pt too wide) in paragraph at lines 386--386
 []\T1/lmr/bx/n/12 Logistic re-gres-sion of WoE-transformed pre-dic-tors: glm(.,data_woe.list$train) 
  []
 
-[11] [12] [13] [14] [15]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 854.
+[8 <./Scorecard_Intro_2511_files/figure-latex/variable plots-4.pdf> <./Scorecard_Intro_2511_files/figure-latex/variable plots-5.pdf>] [9] [10] [11] [12] [13]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 697.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [16] [17]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf, id=203, 469.755pt x 216.81pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf  used on input line 965.
+) [14] [15]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf, id=187, 469.755pt x 216.81pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf  used on input line 808.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-[18 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-39-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf, id=214, 469.755pt x 325.215pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf  used on input line 1041.
+[16 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-27-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf, id=198, 469.755pt x 325.215pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf  used on input line 884.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[19] [20 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-42-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf, id=232, 469.755pt x 325.215pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf  used on input line 1132.
+[17] [18 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-30-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf, id=215, 469.755pt x 325.215pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf  used on input line 975.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[21] [22 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-47-1.pdf>] [23]
-<Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf, id=253, 289.08pt x 216.81pt>
+[19] [20 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-35-1.pdf>] [21]
+<Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf, id=237, 289.08pt x 216.81pt>
 File: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf Graphic file (type pdf)
 <use Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf  used on input line 1214.
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf  used on input line 1057.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-[24 <./Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>] (./Scorecard_Intro_2511.bbl) [25] (./Scorecard_Intro_2511.aux)
+[22 <./Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>] (./Scorecard_Intro_2511.bbl) [23] (./Scorecard_Intro_2511.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 14109 strings out of 469519
- 223865 string characters out of 5468342
- 645095 words of memory out of 5000000
- 42415 multiletter control sequences out of 15000+600000
- 676749 words of font info for 85 fonts, out of 8000000 for 9000
+ 14097 strings out of 469519
+ 223464 string characters out of 5468342
+ 644802 words of memory out of 5000000
+ 42409 multiletter control sequences out of 15000+600000
+ 682722 words of font info for 87 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,9n,93p,1121b,645s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,9n,93p,1121b,638s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Scorecard_Intro_2511.pdf (25 pages, 384177 bytes).
+Output written on Scorecard_Intro_2511.pdf (23 pages, 379861 bytes).
 PDF statistics:
- 448 PDF objects out of 1000 (max. 8388607)
- 364 compressed objects within 4 object streams
- 74 named destinations out of 1000 (max. 500000)
- 230 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 422 PDF objects out of 1000 (max. 8388607)
+ 340 compressed objects within 4 object streams
+ 66 named destinations out of 1000 (max. 500000)
+ 214 words of extra memory for PDF output out of 10000 (max. 10000000)
 
