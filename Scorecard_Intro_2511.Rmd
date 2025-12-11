@@ -1,5 +1,10 @@
 ---
-title: "Predictive Analytics: Application in the Credit Risk Domain: Case Study Teaching (CST)-Vignette in Cheat Sheet Style (Group Project Cover Sheet)"
+title: >
+  \begin{center}
+  Predictive Analytics: Application in the Credit Risk Domain \\
+  Case Study Teaching (CST)-Vignette in cheat sheet style \\
+  ("group project cover sheet")
+  \end{center}
 author: "Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha"
 date: "Nov. 27, 2025 (Scorecard_Intro_2511.Rmd)"
 site: bookdown::bookdown_site
@@ -16,11 +21,11 @@ header-includes:
   - \pretitle{\begin{center}\Large}
   - \posttitle{\par\end{center}}
 bibliography: literature.bib
-biblio-style: humannat
+biblio-style: apalike
 include-before:
-  \pagebreak
-editor_options: 
-  markdown: 
+  - \pagebreak
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -30,8 +35,74 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 \newpage
 
+# Abstract
+
+Credit risk assessment is a central task in retail banking, ensuring that
+financial institutions can effectively discriminate between creditworthy
+and non-creditworthy applicants. Modern credit scoring increasingly
+relies on data-driven methods that combine statistical modelling,
+machine learning techniques and domain-specific transformations to
+produce interpretable and stable credit-risk predictions.  
+This project applies a **Weight-of-Evidence (WoE)** and
+**Information Value (IV)**–driven scorecard modelling framework using
+the *German Credit* dataset. The workflow includes data preparation,
+IV-based feature assessment, supervised binning, WoE transformation,
+logistic regression modelling, scorecard generation and out-of-sample
+validation. Performance is evaluated through stability measures such as
+the **Population Stability Index (PSI)** and accuracy metrics including
+AUC, Gini and RMSE. The resulting scorecard provides a transparent,
+regulator-compliant and empirically robust tool for credit-risk
+prediction.
+
 # Introduction
+
+Credit risk modelling aims to quantify the likelihood that a borrower
+will fail to meet contractual repayment obligations. As banks, insurers
+and financial intermediaries increasingly rely on data-driven decision
+frameworks, scorecards have become the industry standard for credit
+underwriting due to their transparency, interpretability and regulatory
+acceptance \citep{HandHenley1997, Thomas2002}. In contrast to purely
+algorithmic black-box models, scorecards preserve a clear link between
+economic reasoning, data transformations and model parameters—an aspect
+that is essential for auditability and explainability in regulated
+environments.
+
+
+comment: my introduction, might merge it with this 
 A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
+
+The aim of this project is to build and validate a **predictive
+scorecard model** based on the *German Credit* dataset.
+To achieve this, the project adopts a structured analytical workflow
+aligned with established credit-risk modelling guidelines
+\citep{Anderson2007, Siddiqi2017}. The key methodological components are:
+
+1. **Data Filtering and Variable Selection** – Choosing a
+   subset of variables that capture behavioural and financial
+   characteristics of borrowers.
+2. **Information Value Analysis (IV)** – Quantifying the predictive strength
+   of candidate variables.
+3. **Supervised Binning and Weight-of-Evidence Transformation (WoE)** –
+   Creating monotonic predictor–default relationships and ensuring stable
+   logistic-regression estimation.
+4. **Logistic Regression Modelling** – Fitting a parsimonious and
+   interpretable model linking WoE-transformed predictors to the
+   probability of default.
+5. **Scorecard Generation** – Translating the regression coefficients and
+   bin structures into a practical scorecard with additive scorepoints.
+6. **Model Validation** – Assessing predictive accuracy (AUC, Gini, RMSE),
+   calibration, and population stability (PSI) for both in-sample (IS)
+   and out-of-sample (OoS) samples.
+
+Using WoE transformations is beneficial because it enforces
+monotonicity, reduces the influence of outliers and yields logistic
+models with minimal multicollinearity \citep{Siddiqi2017}. This
+ensures that the final scorecard is both empirically robust.
+
+Overall, this project demonstrates how predictive analytics can be
+applied to credit-risk modelling to produce a validated scorecard.
+The methodological steps should lead to a replicable blueprint for building
+credit-risk models.
 
 # Methodology
 In order to build and assess these models, the Weight-of-Evidence (WoE) approach was taken. In it, the raw features of individuals are transformed in that they are sorted in bins based on their predictive strength to distinguish between defaulters and non-defaulters. To calculate it, the logarithm of the ratio of non-defaulters to defaulters within a group is taken, resulting in a score that represents credit risk. In doing so, the WoE approach allows to convert categorical or numerical values into values that are then processed in a logistic regression or scorecard model. In the underlying general formula, the event is defined in the underlying case as being a \textit{good customer}, meaning that this individual repays their debt towards the bank, respectively in each group $i$.
@@ -64,6 +135,7 @@ purpose
 
 iv.df <- iv(data.df, y = "creditability")
 ```
+
 
 # Data Selection
 
@@ -134,7 +206,7 @@ data_f.df <- data.df %>%
 
 data_f.list <- data_f.df %>% 
   split_df("creditability",
-           ratios   = c(0.75, 0.25),
+           ratios   = c(0.65, 0.35),
            name_dfs = c("train", "validate"))
 default.list <- data_f.list %>% 
   lapply(function(x) x$creditability)
@@ -269,9 +341,9 @@ data_woe.list %>% lapply(dim)
 ```
 
 ```{r}
-#data_woe.list$train %>% 
-#  select(creditability, credit.amount_woe, duration.in.month_woe) %>% 
-#  head()
+data_woe.list <- data_f.list %>% 
+  lapply(function(x) woebin_ply(x, bins.list))
+
 ```
 
 \newpage
@@ -286,9 +358,11 @@ as it delivers the most compact regression models.
 ### Constructing and calibrating the WoE-based logistic regression model
 
 ```{r}
-data_woe.glm <- glm(creditability ~ ., 
-                    family = binomial(), 
-                    data = data_woe.list$train) 
+data_woe.glm <- glm(
+  creditability ~ .,
+  family = binomial(),
+  data = data_woe.list$train
+)
 ```
 
 ### Investigating the fitted regression model
@@ -300,29 +374,28 @@ data_woe.glm$aic
 Summary of regression: summary()
 
 ```{r}
-data_woe.glm %>% summary()
+summary(data_woe.glm)
 ```
 
 ## Logistic regression of original predictors: glm(.,data_f.list\$train)
 
 ```{r}
-#data_f.glm <- glm(creditability ~ ., 
- #                 family = binomial(), 
-  #                data = data_f.list$train %>% 
-   #                 select(creditability,
-     #                      credit.amount,
-    #                       duration.in.month,
-   #                        credit.history)) 
+
+data_f.glm <- glm(
+  creditability ~ status.of.existing.checking.account + duration.in.month + credit.history,
+  family = binomial(),
+  data = data_f.list$train
+)
 ```
 
 **Hint**: For simplicity only three original predictors are included in the logistic regression model  
 
 ```{r}
-#data_f.glm$aic
+data_f.glm$aic
 ```
 
 ```{r}
-#data_f.glm$xlevels
+data_f.glm$xlevels
 ```
 
 For getting a compact summary the function summary() is customized and formatted 
@@ -346,7 +419,7 @@ formatSummary <- function(model_summary) {
 ```
 
 ```{r}
-#summary(data_f.glm) %>% formatSummary()
+summary(data_f.glm) %>% formatSummary()
 ```
 
 \newpage
@@ -576,6 +649,12 @@ complementary probability, i.e. the confidence level ($1-\alpha$).
 data.df[1:100,2:3] %>% plot()
 ```
 
+<<<<<<< HEAD
+=======
+#Figure \@ref(fig:testFigure) is a sample figure where the credit.amount
+#is scatter plotted against the duration.in.month.
+
+>>>>>>> 410f71662f666a00263f04bcfe3deb1ee07f9ffa
 Formulas without numbering \begin{align*}
 \mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
 \end{align*}
