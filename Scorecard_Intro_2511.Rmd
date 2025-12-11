@@ -22,8 +22,6 @@ header-includes:
   - \posttitle{\par\end{center}}
 bibliography: literature.bib
 biblio-style: apalike
-include-before:
-  - \pagebreak
 editor_options:
   markdown:
     wrap: 72
@@ -55,6 +53,7 @@ regulator-compliant and empirically robust tool for credit-risk
 prediction.
 
 # Introduction
+A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
 
 Credit risk modelling aims to quantify the likelihood that a borrower
 will fail to meet contractual repayment obligations. As banks, insurers
@@ -66,10 +65,6 @@ algorithmic black-box models, scorecards preserve a clear link between
 economic reasoning, data transformations and model parameters—an aspect
 that is essential for auditability and explainability in regulated
 environments.
-
-
-comment: my introduction, might merge it with this 
-A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
 
 The aim of this project is to build and validate a **predictive
 scorecard model** based on the *German Credit* dataset.
@@ -117,7 +112,23 @@ P(\text{default}=1 \mid X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \cdots + 
 \end{equation}
 where the coefficients $\beta$ represent the individual contribution of each variable to the likelihood of default.
 
-On the other hand, a scorecard model was implemented to serve as a more transparent comparison to the logistic regression. After the variables are initially binned and converted into their respective WoE values, each bin of each variable was assigned a fixed number of score points that reflect its contribution to the credit risk. This was done by using the $scorecard()$ function from the eponymous package in R. For any individual applicant, the total credit score was then calculated by summing up the score points across their variables with higher scores representing lower risk of defaulting. 
+On the other hand, a scorecard model was implemented to serve as a more transparent comparison to the logistic regression. After the variables are initially binned and converted into their respective WoE values, each bin of each variable was assigned a fixed number of score points that reflect its contribution to the credit risk. The scorecard is derived from the logistic regression, which models the log-odds of default as:
+\begin{equation}
+\label{logodds_eq}
+\log\left(\frac{P(Y=1 \mid X)}{1 - P(Y=1 \mid X)}\right)
+= \beta_{0} + \sum_{j=1}^{k} \beta_{j} \, WoE_{j}
+\end{equation}
+Each bin-specific score is then calculated as the scaled product of the corresponding regression coefficient and WoE value, 
+\begin{equation}
+\label{score_bin_eq}
+\text{Score}_{j,b} = \text{Factor} \cdot \beta_{j} \cdot WoE_{j,b}
+\end{equation}
+and combined with a base score derived from the regressional intercept. The final score of each individual applicant is therefore calculated as 
+\begin{equation}
+\label{total_score_eq}
+\text{Total Score} = \text{BaseScore} + \sum_{j=1}^{k} \text{Score}_{j,b(j)}
+\end{equation}
+where $b(j)$ denotes the bin assigned to variable $X_j$. The full scorecard was implemented using the $scorecard()$ function from the eponymous package in R. 
 
 To evaluate and the performance of these models, a selected number of accuracy metrics, namely Area Under the ROC Curve (AUC) and the Gini coefficient, was used. These metrics measure how well the model is able to differentiate between defaulters and non-defaulters. Furthermore, the Root Mean Squared Error (RSME) quantifies the models' accuracy in their predicted probabilities by quantifying the average deviation between predicted and actual outcomes (in the train set). Additionally, matrices summarizing the performance by reporting true positives, false positives, true negatives and false negatives were generated (confusion matrices). The stability or robustness of the models' scores and probability distributions were assessed with the Population Stability Index (PSI). This metric compares the distributions in the training set with those of the validation set to detect shifts in population characteristics across different samples. In this context, a low score is indicative of a stable model whereas high values suggest a potential drift or deterioration.
 
@@ -238,79 +249,32 @@ data_woe.list <- data_f.list %>%
 
 ```
 
-```{r variable plots, fig.height=2.5, fig.align='center'}
-bins.list$status.of.existing.checking.account %>% 
-  woebin_plot()
-
-bins.list$duration.in.month %>% 
-  woebin_plot()
-
-bins.list$credit.history %>% 
-  woebin_plot()
-
-bins.list$savings.account.and.bonds %>% 
-  woebin_plot()
-
-bins.list$purpose %>% 
-  woebin_plot()
-```
 
 
-# Logistic Regression Modelling
+# Model Implementation
+## Logistic Regression
 
-Following the WoE transformation of the datasets, a logistic regression model was employed to model the log-odds of an invidiual defaulting as a linear function of the selected predictor variables. The WoE transformed  outlined in equation 2 in the chapter Methodology, 
+Following the WoE transformation of the datasets, a logistic regression model was employed to model the log-odds of an invidiual defaulting as a linear function of the selected predictor variables. The WoE transformed values are now used as the predictors $X_1, X_2,...X_k$ as outlined in equation 2 in the chapter Methodology. As each $X_i$ is expressed in WoE units, the coefficients $\beta_i$ directly represent the change in log-odds of default for each unit change in WoE, allowing for a more clear interpretation. The model was employed in R using the \textit{glm()} function.
 
-## Logistic regression of WoE-transformed predictors: glm(.,data_woe.list\$train)
-
-The WoE-based logistic regression is the preferred regression approach
-as it delivers the most compact regression models.
-
-### Constructing and calibrating the WoE-based logistic regression model
-
-```{r}
+```{r, include = FALSE}
 data_woe.glm <- glm(
   creditability ~ .,
   family = binomial(),
   data = data_woe.list$train
 )
-```
 
-### Investigating the fitted regression model
-
-```{r}
-data_woe.glm$aic
-```
-
-Summary of regression: summary()
-
-```{r}
-summary(data_woe.glm)
-```
-
-## Logistic regression of original predictors: glm(.,data_f.list\$train)
-
-```{r}
+# data_woe.glm$aic
+# summary(data_woe.glm)
 
 data_f.glm <- glm(
   creditability ~ status.of.existing.checking.account + duration.in.month + credit.history,
   family = binomial(),
   data = data_f.list$train
 )
-```
 
-**Hint**: For simplicity only three original predictors are included in the logistic regression model  
+# data_f.glm$aic
+# data_f.glm$xlevels
 
-```{r}
-data_f.glm$aic
-```
-
-```{r}
-data_f.glm$xlevels
-```
-
-For getting a compact summary the function summary() is customized and formatted 
-
-```{r}
 formatSummary <- function(model_summary) {
   aux_coeff <- model_summary$coefficients[, 1]
   aux_prob <- model_summary$coefficients[, 4]
@@ -326,223 +290,98 @@ formatSummary <- function(model_summary) {
                            "Stars" = aux_stars)
   return(aux_result)
 }
-```
 
-```{r}
 summary(data_f.glm) %>% formatSummary()
 ```
 
-\newpage
+## Scorecard Model
 
-# Building scorecard-models (scm) and calculating scorepoints
+The scorecard model was constructed following the regression analysis. After the variables from the German datasets were binned and transformed into WoE values, each bin was assigned a fixed score that reflect its contribution to the log-odds of default, with the number of points proportional to the product of the corresponding regression coefficient and its WoE value (Equation 4 in Methodology). All WoE binning plots for the selected variables are included in the Appendix for completeness.
 
-Scorepoints are calculated by combing scorecard-model, which combines
-bin and glm information, with individual data
-
-## Building scm-models: Combining bins.list & data_woe.glm in scorecard()
-
-Building the scorecard via bin and glm information resulting from train
-sample
-
-```{r}
+```{r, include = FALSE}
 scorecard.scm <- bins.list %>% scorecard(data_woe.glm)
-```
-
-```{r}
 scorecard.scm %>% names()
-```
-
-Investigating the content of the "woe-based" scorecard model
-
-```{r}
 scorecard.scm$basepoints
-```
-
-```{r}
 scorecard.scm$duration.in.month[,1:8]
-```
-
-```{r}
 scorecard.scm$duration.in.month[,c(1,9:13)]
-```
 
-## Calculating scorepoints: Combinig individual data.df & scm-model in scorecard_ply()
-
-Generating a score list
-
-```{r}
 score.list <- data_f.list %>% 
   lapply(function(x) scorecard_ply(x, scorecard.scm)) 
-```
 
-**Hint**: The only_total_score=TRUE (= default argument) has to be used
-for providing two compatible lists for further processing. If scores to
-the different predictors are of interest, the two separate, i.e. train
-and validate samples have to analyzed individually with the argument
-only_total_score=FALSE.
-
-```{r}
 score.list %>% names()
-```
-
-```{r}
 score.list$train %>%
   head()
-```
-
-```{r}
 score.list$validate %>%
   head()
 ```
 
-\newpage
 
-# WoE-based predicting (forecasting) of probabilities and scorepoints
-
-## Predicting probabilities: Combining data_woe.list & data_woe.glm in predict()
-
-```{r}
+```{r, include = FALSE}
 predProb.list <- data_woe.list %>% 
   lapply(function(x) predict(data_woe.glm,
                              type = 'response',
                              x))
-```
-
-**Hint**: Due to the fact that the data_woe.glm was calibrated for the
-train sample two different types of prediction can be destinguished,
-i.e. the in-sample (IS) prediction by using the train sample in the
-predict()-function, and the out-of-sample (OoS) prediction by using the
-test sample in the predict()-function.
-
-```{r}
 predProb.list %>% names()
-```
-
-```{r}
 predProb.list$train %>% head() # In-Sample prediction
-```
-
-```{r}
 predProb.list$validate %>% head() # Out-of-Sample prediction
-```
 
-## Predicting scorepoints: Retrieving predictions from score.list generated in scorecard_ply()
-
-The prediction of the scorepoints is alread incorported in the built
-scorecard.
-
-```{r}
 score.list$train %>% 
   head()
-```
-
-```{r}
 score.list$validate %>% 
   head()
-```
 
-\newpage
-
-# Scorecard Validation: Statistical testing of forecasting accuracy
-
-## Checking stability of score and probility distributions: Population Stability Index (PSI)
-
-```{r fig.height=2.5}
 psi.list <- perf_psi(score = score.list, 
                      label = default.list,
                      return_distr_dat = TRUE)
-```
 
-**Hint**: More details of per_psi() function are given \@
-<https://www.rdocumentation.org/packages/scorecard/versions/0.1.9/topics/perf_psi>
-
-```{r fig.height=3}
 psi.list$pic
-```
 
-```{r}
 psi.list %>% names()
 psi.list$dat %>% names()
 psi.list$dat$score[,1:9] %>% head()
 psi.list$psi
-```
 
-```{r eval=FALSE}
-perf_psi(score, label = NULL, title = NULL, x_limits = NULL,
-  x_tick_break = 50, show_plot = TRUE, seed = 186,
-  return_distr_dat = FALSE)
-# e.g. # x_limits = c(250, 700),
-#      # x_tick_break = 50,
-```
-
-## IS & OoS testing probability prediction accuracy: perf_eva(.,predProb.list)
-
-probability prediction accuracy
-
-```{r}
 ProbPredAccuracy <- perf_eva(pred = predProb.list,
                              label = default.list,
                              binomial_metric = c("rmse","auc","gini"),
                              show_plot=c("roc","ks"),
                              confusion_matrix = TRUE)
-```
-
-```{r}
 names(ProbPredAccuracy)
-```
-
-```{r}
 ProbPredAccuracy$binomial_metric
-```
-
-```{r}
 ProbPredAccuracy$confusion_matrix
-```
 
-Excursion
-
-```{r}
-perf_eva(pred = predProb.list, 
-         label = default.list,
-         binomial_metric = c("rmse","auc","gini"),
-         show_plot= FALSE,
-         confusion_matrix = FALSE)
-```
-
-## IS & OoS testing scorepoint prediction accuracy: perf_eva(.,score.list)
-
-scorepoint prediction accuracy
-
-```{r}
 ScorePredAccuracy <- perf_eva(pred = score.list,
                              label = default.list,
                              binomial_metric = c("rmse","auc","gini"),
                              show_plot=c("roc","ks"),
                              confusion_matrix = TRUE)
-```
-
-```{r}
 names(ScorePredAccuracy)
-```
-
-```{r}
 ScorePredAccuracy$binomial_metric
-```
-
-```{r}
 ScorePredAccuracy$confusion_matrix
 ```
-
-\newpage
 
 # Reporting of Empirical Results
 
 ## Selected Predictors — Structure of Probability of Default
 
-The selected predictors were determined earlier using the **Information Value (IV)** table already computed as:
+The selected predictors were determined and visualized earlier using the **Information Value (IV)**:
 
-```{r, echo=FALSE}
-kable(iv.table, caption = "Table: Information Value of Selected Variables")
+```{r dataIVTable2, echo = FALSE}
+iv.table <- data.df %>%
+  iv(y = "creditability")
+
+iv.table %>% 
+  kbl(
+    caption = "Information Value of Variables",
+    digits = 2,
+    col.names = c("Variable", "Information Value"),
+    align = c("l", "c"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
 ```
 
 *Interpretation:*  
@@ -555,10 +394,18 @@ kable(iv.table, caption = "Table: Information Value of Selected Variables")
 The WoE binning structure already produced earlier can be referenced directly:
 
 ```{r, echo=FALSE}
-kable(bins.list$duration.in.month, 
-      caption = "Table: Duration-in-Month Bin Structure (Counts, PD, WoE, Points)")
+bins.list$duration.in.month %>% 
+  kbl(
+    caption = "Duration-in-Month Bin Structure (Counts, PD, WoE, Points)",
+    digits = 3,
+    align = "lccccccc",   # adjust number of columns if needed
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
 ```
-
 *Interpretation:*  
 The PD (positive probability) across bins shows a **monotonic increase** with longer loan durations.  
 This is ideal behaviour for a scorecard variable and supports its inclusion in the model.
@@ -572,8 +419,18 @@ This is ideal behaviour for a scorecard variable and supports its inclusion in t
 The regression results have already been produced through:
 
 ```{r, echo=FALSE}
-kable(summary(data_woe.glm)$coefficients,
-      caption = "Table: WoE-based Logistic Regression Coefficients (Est., StdErr, z, p)")
+summary(data_woe.glm)$coefficients %>% 
+  kbl(
+    caption = "WoE-based Logistic Regression Coefficients (Estimate, Std. Error, z-value, p-value)",
+    digits = 4,
+    align = "lcccc",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
+
 ```
 
 **Key observations:**
@@ -586,8 +443,18 @@ kable(summary(data_woe.glm)$coefficients,
 These results were previously printed via:
 
 ```{r, echo=FALSE}
-kable(formatSummary(summary(data_f.glm)),
-      caption = "Table: Original-variable GLM (Selected Predictors)")
+formatSummary(summary(data_f.glm)) %>% 
+  kbl(
+    caption = "Original-variable GLM (Selected Predictors)",
+    digits = 4,
+    align = c("lccc"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
+
 ```
 
 The original-variable GLM confirms:
@@ -602,15 +469,34 @@ The original-variable GLM confirms:
 Metrics have already been generated by:
 
 ```{r, echo=FALSE}
-kable(ProbPredAccuracy$binomial_metric,
-      caption = "Table: Probability-Prediction Metrics (RMSE, AUC, Gini)")
+ProbPredAccuracy$binomial_metric %>% 
+  kbl(
+    caption = "Probability-Prediction Metrics (RMSE, AUC, Gini)",
+    digits = 4,
+    align = "lccc",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
 ```
 
 And for scorecard points:
 
 ```{r, echo=FALSE}
-kable(ScorePredAccuracy$binomial_metric,
-      caption = "Table: Score-Prediction Metrics (RMSE, AUC, Gini)")
+ScorePredAccuracy$binomial_metric %>% 
+  kbl(
+    caption = "Score-Prediction Metrics (RMSE, AUC, Gini)",
+    digits = 4,
+    align = "lccc",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
+
 ```
 
 **Interpretation:**
@@ -621,7 +507,17 @@ kable(ScorePredAccuracy$binomial_metric,
 ### Population Stability Index (PSI)
 
 ```{r, echo=FALSE}
-kable(psi.list$psi, caption = "Table: Population Stability Index (PSI)")
+psi.list$psi %>% 
+  kbl(
+    caption = "Population Stability Index (PSI)",
+    digits = 4,
+    align = "lc",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE
+  )
 ```
 
 A PSI around 0.04 indicates **very stable** population behaviour between train and validation samples.
@@ -645,46 +541,7 @@ A PSI around 0.04 indicates **very stable** population behaviour between train a
 - **Credit policy:** can adjust rules using transparent variable effects and score contributions.  
 - **Regulatory/validation teams:** benefit from WoE-based transparency and monotonicity.
 
-\newpage
-
-
 # Appendix
 
-## Appendix: Essay style with formulas in LaTeX language
-
-**Group project assignment**: Write a scholarly essay with full
-sentences, correct citations and LaTeX formulas.
-
-**Example essay style**: From a statistical perspective the transition
-from the $MPS$ to the VaR framework is related to switching the
-perspective from considering moments (parameters) of random variables,
-i.e. $\mu$ and $\sigma$, to considering the quantiles and corresponding
-probabilities of these variables. Specifically, the VaR measure
-specifies the risk of a random variable ($\tilde{P}$) via the threshold
-quantile ($VaR$) that is exceeded into the negative direction (i.e.
-$P \leq VaR$) with the loss probability ($\alpha$) or respectively, is
-exceeded into the positive direction (i.e. $P > VaR$) with the
-complementary probability, i.e. the confidence level ($1-\alpha$).
-
-## Appendix: Generating tables, figures, cross references and citations
-
-```{r testFigure, fig.cap="Amount vs. Duration", fig.width=4, fig.height=3, fig.align='center'}
-data.df[1:100,2:3] %>% plot()
-```
-
-Formulas without numbering \begin{align*}
-\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
-\end{align*}
-
-Formulas with numbering (and labeling which is needed for referencing)
-\begin{align} \label{eq:VaR}
-\mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
-\end{align}
-
-Formula \@ref(eq:VaR) is a sample formula defining the Value at Risk.
-
-Always cite original literature to avoid plagiarism: e.g.
-\cite{SchwaigerIUF} or \citep{SchwaigerIUF}. Don't forget to cite page
-numbers as well for literal citations, e.g. \cite[p. 100]{SchwaigerIUF}.
 
 \newpage
