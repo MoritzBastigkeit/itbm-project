@@ -195,12 +195,7 @@ iv.table %>%
     latex_options = c("hold_position", "striped"),
     full_width = FALSE
   )
-```
 
-
-In the following steps, the data was filtered to exclude rows with missing values and split into train and validation set. The split chosen was at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
-
-```{r, include = FALSE}
 data_f.df <- data.df %>% 
   var_filter("creditability")
 
@@ -213,19 +208,8 @@ default.list <- data_f.list %>%
 
 ```
 
-## Specifying dummy variable for credit defaults: default.list
 
-For being able to statistically analyze and test the results from the
-scorecard the default.list is established that contains the default
-values of the response variable
-
-```{r}
-
-```
-
-**Hint**: The default.list is needed for calculating the population
-stability indes (PSI) with the function perf_psi() and the gains table
-with the function gains_table().
+In the following steps, the data was filtered to exclude rows with missing values and split into train and validation set. The split chosen was at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
 
 # Weight-Of-Evidence (WoE)-based transformation of predictor variables
@@ -649,12 +633,6 @@ complementary probability, i.e. the confidence level ($1-\alpha$).
 data.df[1:100,2:3] %>% plot()
 ```
 
-<<<<<<< HEAD
-=======
-#Figure \@ref(fig:testFigure) is a sample figure where the credit.amount
-#is scatter plotted against the duration.in.month.
-
->>>>>>> 410f71662f666a00263f04bcfe3deb1ee07f9ffa
 Formulas without numbering \begin{align*}
 \mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha
 \end{align*}
