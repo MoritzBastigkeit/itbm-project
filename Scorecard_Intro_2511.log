@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  11 DEC 2025 23:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  12 DEC 2025 00:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -467,8 +467,7 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count337
-)
-No file Scorecard_Intro_2511.aux.
+) (./Scorecard_Intro_2511.aux)
 \openout1 = `Scorecard_Intro_2511.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
@@ -561,35 +560,19 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 101.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/Users/valentinennser/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
-No file Scorecard_Intro_2511.toc.
+{/Users/valentinennser/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] (./Scorecard_Intro_2511.toc
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 7.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 7.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 7.
+)
 \tf@toc=\write3
 \openout3 = `Scorecard_Intro_2511.toc'.
 
-[2]
-
-Package natbib Warning: Citation `HandHenley1997' on page 3 undefined on input line 136.
-
-
-Package natbib Warning: Citation `Thomas2002' on page 3 undefined on input line 136.
-
-
-Package natbib Warning: Citation `Anderson2007' on page 3 undefined on input line 149.
-
-
-Package natbib Warning: Citation `Siddiqi2017' on page 3 undefined on input line 149.
-
-
-Package natbib Warning: Citation `Siddiqi2017' on page 3 undefined on input line 180.
-
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 190.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 190.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 190.
-[3] [4{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 253.
+[2] [3] [4{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 237.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -597,37 +580,116 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [5{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [6]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 327.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 315.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (126.41199pt too wide) in paragraph at lines 339--350
- [][] 
+Underfull \hbox (badness 10000) in paragraph at lines 315--317
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--319
+
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 380--382
+
+ []
+
 [7]
+Underfull \hbox (badness 10000) in paragraph at lines 382--384
 
-! LaTeX Error: Not in outer par mode.
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.428 
-      
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
 
- 
+Underfull \hbox (badness 10000) in paragraph at lines 418--420
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 420--422
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 482--484
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 511--513
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--515
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 515--517
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 522--524
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 524--525
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 535--537
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 537--539
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 539--541
+
+ []
+
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf, id=124, 1445.4pt x 1445.4pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 546.
+(pdftex.def)             Requested size: 1445.39648pt x 1445.39648pt.
+(./Scorecard_Intro_2511.bbl [10 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf>]) [11] (./Scorecard_Intro_2511.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 13381 strings out of 469519
- 207053 string characters out of 5468342
- 635279 words of memory out of 5000000
- 41744 multiletter control sequences out of 15000+600000
+ 13469 strings out of 469519
+ 209211 string characters out of 5468342
+ 632205 words of memory out of 5000000
+ 41806 multiletter control sequences out of 15000+600000
  681780 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,9n,93p,1116b,481s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 89i,9n,93p,1116b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on Scorecard_Intro_2511.pdf (11 pages, 276625 bytes).
+PDF statistics:
+ 267 PDF objects out of 1000 (max. 8388607)
+ 219 compressed objects within 3 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+

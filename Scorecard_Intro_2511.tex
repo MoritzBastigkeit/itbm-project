@@ -109,24 +109,11 @@
 
 \section{Abstract}\label{abstract}
 
-Credit risk assessment is a central task in retail banking, ensuring that
-financial institutions can effectively discriminate between creditworthy
-and non-creditworthy applicants. Modern credit scoring increasingly
-relies on data-driven methods that combine statistical modelling,
-machine learning techniques and domain-specific transformations to
-produce interpretable and stable credit-risk predictions.\\
-This project applies a \textbf{Weight-of-Evidence (WoE)} and
-\textbf{Information Value (IV)}--driven scorecard modelling framework using
-the \emph{German Credit} dataset. The workflow includes data preparation,
-IV-based feature assessment, supervised binning, WoE transformation,
-logistic regression modelling, scorecard generation and out-of-sample
-validation. Performance is evaluated through stability measures such as
-the \textbf{Population Stability Index (PSI)} and accuracy metrics including
-AUC, Gini and RMSE. The resulting scorecard provides a transparent,
-regulator-compliant and empirically robust tool for credit-risk
-prediction.
+Credit risk assessment is a central task in retail banking, ensuring that financial institutions can effectively discriminate between creditworthy and non-creditworthy applicants. Modern credit scoring increasingly relies on data-driven methods that combine statistical modelling, machine learning techniques and domain-specific transformations to produce interpretable and stable credit-risk predictions. This project applies a \textbf{Weight-of-Evidence (WoE)} and \textbf{Information Value (IV)}--driven scorecard modelling framework using the \emph{German Credit} dataset. The workflow includes data preparation, IV-based feature assessment, supervised binning, WoE transformation, logistic regression modelling, scorecard generation and out-of-sample validation. Performance is evaluated through stability measures such as the \textbf{Population Stability Index (PSI)} and accuracy metrics including AUC, Gini and RMSE. The resulting scorecard provides a transparent, regulator-compliant and empirically robust tool for credit-risk prediction.
 
 \section{Introduction}\label{introduction}
+
+A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
 
 Credit risk modelling aims to quantify the likelihood that a borrower
 will fail to meet contractual repayment obligations. As banks, insurers
@@ -138,9 +125,6 @@ algorithmic black-box models, scorecards preserve a clear link between
 economic reasoning, data transformations and model parameters---an aspect
 that is essential for auditability and explainability in regulated
 environments.
-
-comment: my introduction, might merge it with this
-A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
 
 The aim of this project is to build and validate a \textbf{predictive
 scorecard model} based on the \emph{German Credit} dataset.
@@ -304,7 +288,7 @@ The scorecard model was constructed following the regression analysis. After the
 
 \subsection{Selected Predictors --- Structure of Probability of Default}\label{selected-predictors-structure-of-probability-of-default}
 
-The selected predictors were determined and visualized earlier using the \textbf{Information Value (IV)}:
+The selected predictors were determined and visualized earlier using the \textbf{Information Value (IV)} (Table 3).
 
 \begin{table}[!h]
 \centering
@@ -323,10 +307,17 @@ purpose & 0.17\\
 \end{tabular}
 \end{table}
 
-\emph{Interpretation:}\\
-- \texttt{status.of.existing.checking.account} shows the highest IV and is therefore the strongest predictor.\\
-- \texttt{duration.in.month} and \texttt{credit.history} show medium predictive power.\\
-- \texttt{savings.account.and.bonds} and \texttt{purpose} remain relevant and are retained in the modelling process.
+\emph{Interpretation:}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{status.of.existing.checking.account} shows the highest IV and is therefore the strongest predictor.\\
+\item
+  \texttt{duration.in.month} and \texttt{credit.history} show medium predictive power.\\
+\item
+  \texttt{savings.account.and.bonds} and \texttt{purpose} remain relevant and are retained in the modelling process.
+\end{itemize}
 
 \subsubsection{Structure of PD by Bins (example: duration.in.month)}\label{structure-of-pd-by-bins-example-duration.in.month}
 
@@ -336,20 +327,21 @@ The WoE binning structure already produced earlier can be referenced directly:
 \centering
 \caption{\label{tab:unnamed-chunk-6}Duration-in-Month Bin Structure (Counts, PD, WoE, Points)}
 \centering
-\begin{tabular}[t]{lccccccclccc}
+\begin{tabular}[t]{lccccccc}
 \toprule
-variable & bin & count & count\_distr & neg & pos & posprob & woe & bin\_iv & total\_iv & breaks & is\_special\_values\\
+variable & bin & count & count\_distr & posprob & woe & bin\_iv & total\_iv\\
 \midrule
-duration.in.month & {}[-Inf,8) & 56 & 0.088 & 50 & 6 & 0.107 & -1.247 & 0.099 & 0.312 & 8 & FALSE\\
-duration.in.month & {}[8,16) & 214 & 0.337 & 166 & 48 & 0.224 & -0.367 & 0.042 & 0.312 & 16 & FALSE\\
-duration.in.month & {}[16,26) & 204 & 0.321 & 145 & 59 & 0.289 & -0.026 & 0.000 & 0.312 & 26 & FALSE\\
-duration.in.month & {}[26,44) & 108 & 0.170 & 64 & 44 & 0.407 & 0.499 & 0.046 & 0.312 & 44 & FALSE\\
-duration.in.month & {}[44, Inf) & 53 & 0.083 & 23 & 30 & 0.566 & 1.139 & 0.124 & 0.312 & Inf & FALSE\\
+duration.in.month & {}[-Inf,8) & 56 & 0.088 & 0.107 & -1.247 & 0.099 & 0.312\\
+duration.in.month & {}[8,16) & 214 & 0.337 & 0.224 & -0.367 & 0.042 & 0.312\\
+duration.in.month & {}[16,26) & 204 & 0.321 & 0.289 & -0.026 & 0.000 & 0.312\\
+duration.in.month & {}[26,44) & 108 & 0.170 & 0.407 & 0.499 & 0.046 & 0.312\\
+duration.in.month & {}[44, Inf) & 53 & 0.083 & 0.566 & 1.139 & 0.124 & 0.312\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\emph{Interpretation:}\\
+\emph{Interpretation:}
+
 The PD (positive probability) across bins shows a \textbf{monotonic increase} with longer loan durations.\\
 This is ideal behaviour for a scorecard variable and supports its inclusion in the model.
 
@@ -381,9 +373,16 @@ purpose\_woe & 0.9840 & 0.2506 & 3.9274 & 1e-04\\
 \end{table}
 
 \textbf{Key observations:}
-- All coefficients are statistically significant (p-values shown in the table).\\
-- Signs and magnitudes align with expectations from the IV and bin structures.\\
-- The AIC reported earlier (\texttt{data\_woe.glm\$aic}) confirms model compactness.
+
+\begin{itemize}
+\tightlist
+\item
+  All coefficients are statistically significant (p-values shown in the table).\\
+\item
+  Signs and magnitudes align with expectations from the IV and bin structures.\\
+\item
+  The AIC reported earlier (\texttt{data\_woe.glm\$aic}) confirms model compactness.
+\end{itemize}
 
 \subsubsection{Original-variable Logistic Regression (subset)}\label{original-variable-logistic-regression-subset}
 
@@ -412,78 +411,82 @@ credit.historycritical account/ other... & -1.9179 & 0.0002 & ***\\
 \end{table}
 
 The original-variable GLM confirms:
-- Significant effects from checking-account categories\\
-- Duration remains highly significant\\
-- Demonstrates consistency with the WoE model
+
+\begin{itemize}
+\tightlist
+\item
+  Significant effects from checking-account categories\\
+\item
+  Duration remains highly significant\\
+\item
+  Demonstrates consistency with the WoE model
+\end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{c) Scorecard Validation --- Gini IS \& OoS}\label{c-scorecard-validation-gini-is-oos}
+\subsection{Scorecard Validation --- Gini IS \& OoS}\label{scorecard-validation-gini-is-oos}
 
 Metrics have already been generated by:
 
-\begin{table}[!h]
-\centering\caption{\label{tab:unnamed-chunk-9}Probability-Prediction Metrics (RMSE, AUC, Gini)}
 \begin{table}
+\caption{\label{tab:unnamed-chunk-9}Table: Probability-Prediction Metrics (RMSE, AUC, Gini)}
 
 \centering
-\begin{tabular}[t]{lcc}
-\toprule
+\begin{tabular}[t]{r|r|r}
+\hline
 RMSE & AUC & Gini\\
-\midrule
-0.3988 & 0.8022 & 0.6045\\
-\bottomrule
+\hline
+0.3987765 & 0.8022465 & 0.6044929\\
+\hline
 \end{tabular}
-\end{table}\begin{table}
-
 \centering
-\begin{tabular}[t]{lcc}
-\toprule
+\begin{tabular}[t]{r|r|r}
+\hline
 RMSE & AUC & Gini\\
-\midrule
-0.4153 & 0.7774 & 0.5548\\
-\bottomrule
+\hline
+0.4153243 & 0.7773915 & 0.554783\\
+\hline
 \end{tabular}
-\end{table}
 \end{table}
 
 And for scorecard points:
 
-\begin{table}[!h]
-\centering\caption{\label{tab:unnamed-chunk-10}Score-Prediction Metrics (RMSE, AUC, Gini)}
 \begin{table}
+\caption{\label{tab:unnamed-chunk-10}Table: Score-Prediction Metrics (RMSE, AUC, Gini)}
 
 \centering
-\begin{tabular}[t]{lc}
-\toprule
+\begin{tabular}[t]{r|r}
+\hline
 AUC & Gini\\
-\midrule
-0.802 & 0.6039\\
-\bottomrule
+\hline
+0.801966 & 0.6039319\\
+\hline
 \end{tabular}
-\end{table}\begin{table}
-
 \centering
-\begin{tabular}[t]{lc}
-\toprule
+\begin{tabular}[t]{r|r}
+\hline
 AUC & Gini\\
-\midrule
-0.7779 & 0.5558\\
-\bottomrule
+\hline
+0.7779007 & 0.5558014\\
+\hline
 \end{tabular}
-\end{table}
 \end{table}
 
 \textbf{Interpretation:}
-- \textbf{In-sample Gini \textasciitilde{} 0.60}\\
-- \textbf{Out-of-sample Gini \textasciitilde{} 0.55}\\
-- The small drop between IS and OoS indicates stable generalization.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{In-sample Gini \textasciitilde{} 0.60}\\
+\item
+  \textbf{Out-of-sample Gini \textasciitilde{} 0.55}\\
+\item
+  The small drop between IS and OoS indicates stable generalization.
+\end{itemize}
 
 \subsubsection{Population Stability Index (PSI)}\label{population-stability-index-psi}
 
 \begin{table}[!h]
-\centering
-\caption{\label{tab:unnamed-chunk-11}Population Stability Index (PSI)}
 \centering
 \begin{tabular}[t]{lcl}
 \toprule
@@ -501,23 +504,46 @@ A PSI around 0.04 indicates \textbf{very stable} population behaviour between tr
 \subsection{Summary \& Practical Benefits}\label{summary-practical-benefits}
 
 \textbf{Summary of Findings}
-- IV analysis confirms five strong and relevant predictors.\\
-- WoE transformation produces monotonic PD patterns and stable coefficients.\\
-- Logistic regression coefficients (all significant) validate predictor usefulness.\\
-- Scorecard performance is strong:\\
-- IS Gini about 0.60\\
-- OoS Gini about 0.55\\
-- PSI about 0.04 demonstrates population stability.
+
+\begin{itemize}
+\tightlist
+\item
+  IV analysis confirms five strong and relevant predictors.\\
+\item
+  WoE transformation produces monotonic PD patterns and stable coefficients.\\
+\item
+  Logistic regression coefficients (all significant) validate predictor usefulness.\\
+\item
+  Scorecard performance is strong:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    IS Gini about 0.60\\
+  \item
+    OoS Gini about 0.55\\
+  \end{itemize}
+\item
+  PSI about 0.04 demonstrates population stability.
+\end{itemize}
 
 \textbf{Who Benefits}
-- \textbf{Risk management:} receives model stability evidence (Gini, PSI, IV).\\
-- \textbf{Underwriting:} gains an interpretable scorecard with robust discriminatory power.\\
-- \textbf{Credit policy:} can adjust rules using transparent variable effects and score contributions.\\
-- \textbf{Regulatory/validation teams:} benefit from WoE-based transparency and monotonicity.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Risk management:} receives model stability evidence (Gini, PSI, IV).\\
+\item
+  \textbf{Underwriting:} gains an interpretable scorecard with robust discriminatory power.\\
+\item
+  \textbf{Credit policy:} can adjust rules using transparent variable effects and score contributions.\\
+\item
+  \textbf{Regulatory/validation teams:} benefit from WoE-based transparency and monotonicity.
+\end{itemize}
 
 \section{Appendix}\label{appendix}
 
-\newpage
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf}}
 
 \bibliography{literature.bib}
 

@@ -22,35 +22,21 @@ header-includes:
   - \posttitle{\par\end{center}}
 bibliography: literature.bib
 biblio-style: apalike
+include-before:
+  \pagebreak
 editor_options:
   markdown:
     wrap: 72
 ---
 
+\newpage
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-\newpage
-
 # Abstract
 
-Credit risk assessment is a central task in retail banking, ensuring that
-financial institutions can effectively discriminate between creditworthy
-and non-creditworthy applicants. Modern credit scoring increasingly
-relies on data-driven methods that combine statistical modelling,
-machine learning techniques and domain-specific transformations to
-produce interpretable and stable credit-risk predictions.  
-This project applies a **Weight-of-Evidence (WoE)** and
-**Information Value (IV)**–driven scorecard modelling framework using
-the *German Credit* dataset. The workflow includes data preparation,
-IV-based feature assessment, supervised binning, WoE transformation,
-logistic regression modelling, scorecard generation and out-of-sample
-validation. Performance is evaluated through stability measures such as
-the **Population Stability Index (PSI)** and accuracy metrics including
-AUC, Gini and RMSE. The resulting scorecard provides a transparent,
-regulator-compliant and empirically robust tool for credit-risk
-prediction.
+Credit risk assessment is a central task in retail banking, ensuring that financial institutions can effectively discriminate between creditworthy and non-creditworthy applicants. Modern credit scoring increasingly relies on data-driven methods that combine statistical modelling, machine learning techniques and domain-specific transformations to produce interpretable and stable credit-risk predictions.   This project applies a **Weight-of-Evidence (WoE)** and **Information Value (IV)**–driven scorecard modelling framework using the *German Credit* dataset. The workflow includes data preparation, IV-based feature assessment, supervised binning, WoE transformation, logistic regression modelling, scorecard generation and out-of-sample validation. Performance is evaluated through stability measures such as the **Population Stability Index (PSI)** and accuracy metrics including AUC, Gini and RMSE. The resulting scorecard provides a transparent, regulator-compliant and empirically robust tool for credit-risk prediction.
 
 # Introduction
 A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
@@ -364,7 +350,7 @@ ScorePredAccuracy$confusion_matrix
 
 ## Selected Predictors — Structure of Probability of Default
 
-The selected predictors were determined and visualized earlier using the **Information Value (IV)**:
+The selected predictors were determined and visualized earlier using the **Information Value (IV)** (Table 3).
 
 ```{r dataIVTable2, echo = FALSE}
 iv.table <- data.df %>%
@@ -385,6 +371,7 @@ iv.table %>%
 ```
 
 *Interpretation:*  
+
 - `status.of.existing.checking.account` shows the highest IV and is therefore the strongest predictor.  
 - `duration.in.month` and `credit.history` show medium predictive power.  
 - `savings.account.and.bonds` and `purpose` remain relevant and are retained in the modelling process.
@@ -395,10 +382,11 @@ The WoE binning structure already produced earlier can be referenced directly:
 
 ```{r, echo=FALSE}
 bins.list$duration.in.month %>% 
+  select(variable, bin, count, count_distr, posprob, woe, bin_iv, total_iv) %>% 
   kbl(
     caption = "Duration-in-Month Bin Structure (Counts, PD, WoE, Points)",
     digits = 3,
-    align = "lccccccc",   # adjust number of columns if needed
+    align = "lccccccccccc", 
     booktabs = TRUE
   ) %>%
   kable_styling(
@@ -407,6 +395,7 @@ bins.list$duration.in.month %>%
   )
 ```
 *Interpretation:*  
+
 The PD (positive probability) across bins shows a **monotonic increase** with longer loan durations.  
 This is ideal behaviour for a scorecard variable and supports its inclusion in the model.
 
@@ -433,7 +422,8 @@ summary(data_woe.glm)$coefficients %>%
 
 ```
 
-**Key observations:**
+**Key observations:** 
+
 - All coefficients are statistically significant (p-values shown in the table).  
 - Signs and magnitudes align with expectations from the IV and bin structures.  
 - The AIC reported earlier (`data_woe.glm$aic`) confirms model compactness.
@@ -454,62 +444,40 @@ formatSummary(summary(data_f.glm)) %>%
     latex_options = "hold_position",
     full_width = FALSE
   )
-
 ```
 
 The original-variable GLM confirms:
+
 - Significant effects from checking-account categories  
 - Duration remains highly significant  
 - Demonstrates consistency with the WoE model
 
 ---
 
-## c) Scorecard Validation — Gini IS & OoS
+## Scorecard Validation — Gini IS & OoS
 
 Metrics have already been generated by:
-
 ```{r, echo=FALSE}
-ProbPredAccuracy$binomial_metric %>% 
-  kbl(
-    caption = "Probability-Prediction Metrics (RMSE, AUC, Gini)",
-    digits = 4,
-    align = "lccc",
-    booktabs = TRUE
-  ) %>%
-  kable_styling(
-    latex_options = "hold_position",
-    full_width = FALSE
-  )
+kable(ProbPredAccuracy$binomial_metric,
+      caption = "Table: Probability-Prediction Metrics (RMSE, AUC, Gini)")
 ```
 
 And for scorecard points:
-
 ```{r, echo=FALSE}
-ScorePredAccuracy$binomial_metric %>% 
-  kbl(
-    caption = "Score-Prediction Metrics (RMSE, AUC, Gini)",
-    digits = 4,
-    align = "lccc",
-    booktabs = TRUE
-  ) %>%
-  kable_styling(
-    latex_options = "hold_position",
-    full_width = FALSE
-  )
-
+kable(ScorePredAccuracy$binomial_metric,
+      caption = "Table: Score-Prediction Metrics (RMSE, AUC, Gini)")
 ```
 
-**Interpretation:**
+**Interpretation:** 
+
 - **In-sample Gini ~ 0.60**  
 - **Out-of-sample Gini ~ 0.55**  
 - The small drop between IS and OoS indicates stable generalization.
 
 ### Population Stability Index (PSI)
-
 ```{r, echo=FALSE}
 psi.list$psi %>% 
   kbl(
-    caption = "Population Stability Index (PSI)",
     digits = 4,
     align = "lc",
     booktabs = TRUE
@@ -526,7 +494,8 @@ A PSI around 0.04 indicates **very stable** population behaviour between train a
 
 ## Summary & Practical Benefits
 
-**Summary of Findings**
+**Summary of Findings** 
+
 - IV analysis confirms five strong and relevant predictors.  
 - WoE transformation produces monotonic PD patterns and stable coefficients.  
 - Logistic regression coefficients (all significant) validate predictor usefulness.  
@@ -535,13 +504,36 @@ A PSI around 0.04 indicates **very stable** population behaviour between train a
   - OoS Gini about 0.55  
 - PSI about 0.04 demonstrates population stability.
 
-**Who Benefits**
+**Who Benefits** 
+
 - **Risk management:** receives model stability evidence (Gini, PSI, IV).  
 - **Underwriting:** gains an interpretable scorecard with robust discriminatory power.  
 - **Credit policy:** can adjust rules using transparent variable effects and score contributions.  
 - **Regulatory/validation teams:** benefit from WoE-based transparency and monotonicity.
 
 # Appendix
+```{r echo=FALSE, fig.height=20, fig.width=20}
+library(ggplot2)
+library(patchwork)
+get_plot <- function(x) {
+p <- woebin_plot(x)
+if (is.list(p)) p[[1]] else p
+}
 
+shrink <- theme(
+  axis.text = element_text(size = 12),
+  axis.title = element_text(size = 14),
+  legend.text = element_text(size = 12),
+  legend.title = element_text(size = 14)
+)
 
-\newpage
+p1 <- get_plot(bins.list$status.of.existing.checking.account) 
+p2 <- get_plot(bins.list$duration.in.month)
+p3 <- get_plot(bins.list$credit.history)
+p4 <- get_plot(bins.list$savings.account.and.bonds)
+p5 <- get_plot(bins.list$purpose)
+
+(p1 | p2) /
+(p3 | p4) /
+(p5 | patchwork::plot_spacer())
+```
