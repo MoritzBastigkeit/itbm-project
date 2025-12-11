@@ -107,15 +107,33 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \usepackage[]{natbib}
 \bibliographystyle{humannat}
+\usepackage{titling}
+\pretitle{\begin{center}\Large}
+\posttitle{\par\end{center}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
+  pdftitle={Predictive Analytics: Application in the Credit Risk Domain: Case Study Teaching (CST)-Vignette in Cheat Sheet Style (Group Project Cover Sheet)},
   pdfauthor={Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{\begin{center} Predictive Analytics: Application in the Credit Risk Domain \\ Case Study Teaching (CST)-Vignette in cheat sheet style \\ ("group project cover sheet") \end{center}}
+\title{Predictive Analytics: Application in the Credit Risk Domain: Case Study Teaching (CST)-Vignette in Cheat Sheet Style (Group Project Cover Sheet)}
 \author{Bastigkeit Moritz, Ennser Valentin, Grabherr Elias, Nafees Muhammad Talha}
 \date{Nov.~27, 2025 (Scorecard\_Intro\_2511.Rmd)}
 
@@ -130,106 +148,88 @@
 }
 \newpage
 
-\section{Data Loading and Preparation}\label{data-loading-and-preparation}
+\section{Introduction}\label{introduction}
 
-\subsection{Loading libraries}\label{loading-libraries}
+A central function of banks is to provide loans to individuals and companies. Credit scoring models are an essential tool for banks to assess the creditworthiness of lenders and predict how likely they are to meet their financial obligations. Popular models are based on the 3C's, 4C's, or 5C's, which stand for character, capital, collateral, capacity, and condition. However, with advancing technology, more novel approaches have emerged. In the subsequent paper, a credit scoring model is built and evaluated based on German data. The objective of the paper is to investigate the predictive value of demographic attributes. The objective of this study is not to enhance accuracy, but rather to offer insight into the structure of creditworthiness within the German context.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(scorecard)}
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(knitr)}
-\end{Highlighting}
-\end{Shaded}
+\section{Methodology}\label{methodology}
 
-\subsection{Loading external data}\label{loading-external-data}
+In order to build and assess these models, the Weight-of-Evidence (WoE) approach was taken. In it, the raw features of individuals are transformed in that they are sorted in bins based on their predictive strength to distinguish between defaulters and non-defaulters. To calculate it, the logarithm of the ratio of non-defaulters to defaulters within a group is taken, resulting in a score that represents credit risk. In doing so, the WoE approach allows to convert categorical or numerical values into values that are then processed in a logistic regression or scorecard model. In the underlying general formula, the event is defined in the underlying case as being a \textit{good customer}, meaning that this individual repays their debt towards the bank, respectively in each group \(i\).
+\begin{equation}
+\label{woe_eq}
+WoE_i = \ln\left(\frac{Event_i\%}{NonEvent_i\%}\right)
+\end{equation}
+The resulting predictor variables were then used in two models, first a logistic regression and secondly a scorecard model, to compare the accuracy of each. Both models aim to predict the probability of default \(P(Y=1)\) for the given set of predictors with the logistic approach using a sigmoid function. Sigmoid functions are mathematical functions, usually shaped like an S, used for classification problems by taking real numbers as an input and transforming them to values between 0 and 1 (probabilities). The model takes the form\[P(default=1|X) = \frac{1}{1+e^{-(\beta_0+\beta_1X_1+...+\beta_kX_k)}}\] where the coefficients \(\beta\) represent the individual contribution of each variable to the likelihood of default.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{data}\NormalTok{(}\StringTok{"germancredit"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
+On the other hand, a scorecard model was implemented to serve as a more transparent comparison to the logistic regression. After the variables are initially binned and converted into their respective WoE values, each bin of each variable was assigned a fixed number of score points that reflect its contribution to the credit risk. This was done by using the \(scorecard()\) function from the eponymous package in R. For any individual applicant, the total credit score was then calculated by summing up the score points across their variables with higher scores representing lower risk of defaulting.
 
-\subsection{Data Selection}\label{data-selection}
+To evaluate and the performance of these models, a selected number of accuracy metrics, namely Area Under the ROC Curve (AUC) and the Gini coefficient, was used. These metrics measure how well the model is able to differentiate between defaulters and non-defaulters. Furthermore, the Root Mean Squared Error (RSME) quantifies the models' accuracy in their predicted probabilities by quantifying the average deviation between predicted and actual outcomes (in the train set). Additionally, matrices summarizing the performance by reporting true positives, false positives, true negatives and false negatives were generated (confusion matrices). The stability or robustness of the models' scores and probability distributions were assessed with the Population Stability Index (PSI). This metric compares the distributions in the training set with those of the validation set to detect shifts in population characteristics across different samples. In this context, a low score is indicative of a stable model whereas high values suggest a potential drift or deterioration.
 
-To train our models to predict the creditworthiness, the following variables were selected as they capture key aspects of an applicant's financial situation.
+\section{Data Selection}\label{data-selection}
 
-The five predictor variables are:
+To train the models to accurately predict the creditworthiness, it is imperative to select predictor variables based on their relevance to the individuals' financial behaviour.
 
-\textbf(status.of.existing.checking.account) (categorical)
-This is a categorical variable that describes the applicant's checking account condition using qualitative labels such as ``no checking account'', ``\textless0 DM'', etc.
+To get a better understanding of the data structure, Table 1 gives an insight into the German dataset.
 
-\textbf(duration.in.month) (numeric)
+\begin{table}[!h]
+\centering
+\caption{\label{tab:dataTable}Exemplary View of the Data Table}
+\centering
+\begin{tabular}[t]{lcc}
+\toprule
+creditability & status.of.existing.checking.account & duration.in.month\\
+\midrule
+good & ... < 0 DM & 6\\
+bad & 0 <= ... < 200 DM & 48\\
+good & no checking account & 12\\
+good & ... < 0 DM & 42\\
+bad & ... < 0 DM & 24\\
+\addlinespace
+good & no checking account & 36\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The selection process focused on variables that reflect past repayment behaviour, financial stability, and loan characteristics. Restricting the model to these input variables aims to produce transparent and robust results that reflect the real world risk modeling practices. To do so, each variable from the German dataset was evaluated on its Information Value (IV) to determine how well they are suited in discriminating between good and bad borrowers (data quality). Variables with high scores were retained for the subsequent modeling and further investigated in their underlying structuring. In practical terms, a higher IV relates to stronger predictive power of the underlying variable, with general thresholds of being good predictors of values larger than 0.3. Table 2 visualizes the calculated IV scores for the selected variables.
+
+The five selected predictor variables are:
+
+\begin{itemize}
+
+\item \textbf{status.of.existing.checking.account} (categorical)
+This is a categorical variable that describes the applicant's checking account condition using qualitative labels such as "no checking account", "<0 DM", etc. 
+
+\item \textbf{duration.in.month} (numeric) \\
 This is a numeric variable indicating the length of the loan contract in months, reflecting how long the applicant will take to repay off the credit.
 
-\textbf(credit.history) (categorical)
-This is another categorical variable that describes the applicant's past repayment behaviour, ranging from values of ``no credits taken'' and ``all credits in this bank paid back duly'' to ``critical account''.
+\item \textbf{credit.history} (categorical) \\
+This is another categorical variable that describes the applicant's past repayment behaviour, ranging from values of "no credits taken" and "all credits in this bank paid back duly" to "critical account".
 
-\textbf(savings.account.and.bonds) (categorical)
-This is another variable that categorises the applicant's savings level, both in their savings account and bonds. There are several categories such as ``unknown/no savings account'' to '' \textless{} 100 DM'' to separate those into groups.
+\item \textbf{savings.account.and.bonds} (categorical) \\
+This is another variable that categorises the applicant's savings level, both in their savings account and bonds. There are several categories such as "unknown/no savings account" to " < 100 DM" to separate those into groups.
 
-\textbf(purpose) (categorical)
-Purpose reflects a categorical variable that gives insight into what the applicant intends to do with the credit. Values range from ``used car'' and ``new car'' to ``education'', etc.
+\item \textbf{purpose} (categorical) \\
+Purpose reflects a categorical variable that gives insight into what the applicant intends to do with the credit. Values range from "used car" and "new car" to "education", etc. 
+\end{itemize}
 
-The following chunk contains the code for generating Table
-\ref{tab:testTable}.
-
-\begin{table}
-
-\caption{\label{tab:testTable}Exemplary View of the Data Table}
+\begin{table}[!h]
 \centering
-\begin{tabular}[t]{l|c|c}
-\hline
-creditability & status.of.existing.checking.account & duration.in.month\\
-\hline
-good & ... < 0 DM & 6\\
-\hline
-bad & 0 <= ... < 200 DM & 48\\
-\hline
-good & no checking account & 12\\
-\hline
-good & ... < 0 DM & 42\\
-\hline
-bad & ... < 0 DM & 24\\
-\hline
-good & no checking account & 36\\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Information Values}\label{information-values}
-
-In a first step, the information value of the predictor variables is regarded to get a general overview of the data quality. This information value (IV) measures how well each predictor variable can separate ``good borrowers'' from ``bad borrowers'' (in relation to creditability). In practical terms, a higher IV relates to stronger predictive power of the underlying variable, with general thresholds of being good predictors of values larger than 0.3.
-
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-4}Information Value of Predictor Variables}
+\caption{\label{tab:dataIVTable}Information Value of Variables}
 \centering
-\begin{tabular}[t]{l|c}
-\hline
-variable & info\_value\\
-\hline
-status.of.existing.checking.account & 0.67\\
-\hline
+\begin{tabular}[t]{lc}
+\toprule
+Variable & Information Value\\
+\midrule
+\cellcolor{gray!10}{status.of.existing.checking.account} & \cellcolor{gray!10}{0.67}\\
 duration.in.month & 0.33\\
-\hline
-credit.history & 0.29\\
-\hline
+\cellcolor{gray!10}{credit.history} & \cellcolor{gray!10}{0.29}\\
 savings.account.and.bonds & 0.20\\
-\hline
-purpose & 0.17\\
-\hline
+\cellcolor{gray!10}{purpose} & \cellcolor{gray!10}{0.17}\\
+\bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Filtering and Splitting Data}\label{filtering-and-splitting-data}
-
-In the following step, the data is filtered to exclude rows with missing values and split into train and validation set. The split chosen is at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
-
-\begin{verbatim}
-## v Variable filtering on 1000 rows and 5 columns in 00:00:00
-## v 0 variables are removed in total
-\end{verbatim}
+In the following steps, the data was filtered to exclude rows with missing values and split into train and validation set. The split chosen was at a ratio of .75 to .25. This is being done to have two independent samples for training and validating the model at a later point.
 
 \subsection{Specifying dummy variable for credit defaults: default.list}\label{specifying-dummy-variable-for-credit-defaults-default.list}
 
@@ -237,32 +237,9 @@ For being able to statistically analyze and test the results from the
 scorecard the default.list is established that contains the default
 values of the response variable
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{default.list }\OtherTok{\textless{}{-}}\NormalTok{ data\_f.list }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) x}\SpecialCharTok{$}\NormalTok{creditability)}
-\end{Highlighting}
-\end{Shaded}
-
 \textbf{Hint}: The default.list is needed for calculating the population
 stability indes (PSI) with the function perf\_psi() and the gains table
 with the function gains\_table().
-
-Exemplarily showing the content of the default.list
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{default.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## List of 2
-##  $ train   : int [1:727] 0 0 1 0 0 0 1 1 0 1 ...
-##  $ validate: int [1:273] 1 0 0 1 0 1 1 0 0 1 ...
-\end{verbatim}
-
-\newpage
 
 \section{Weight-Of-Evidence (WoE)-based transformation of predictor variables}\label{weight-of-evidence-woe-based-transformation-of-predictor-variables}
 
@@ -278,7 +255,7 @@ WoE-based classing, i.e.~binning and grouping of predictor variables
 \end{Shaded}
 
 \begin{verbatim}
-## v Binning on 727 rows and 6 columns in 00:00:10
+## v Binning on 727 rows and 6 columns in 00:00:00
 \end{verbatim}
 
 \textbf{Hint}: The default binning method is method=``width''. Other methods are
@@ -317,7 +294,7 @@ Plotting the bins (including bin statistics)
 ## $status.of.existing.checking.account
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 \textbf{Hint}: credit.amount does not have an acceptable structure of the default rates (positive probability) over the bins like e.g.~a linear or u-curve structure; hence it should not be included in the scorecard model!
 
@@ -332,7 +309,7 @@ Plotting the bins (including bin statistics)
 ## $duration.in.month
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -345,7 +322,7 @@ Plotting the bins (including bin statistics)
 ## $credit.history
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -358,7 +335,7 @@ Plotting the bins (including bin statistics)
 ## $savings.account.and.bonds
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -371,7 +348,7 @@ Plotting the bins (including bin statistics)
 ## $purpose
 \end{verbatim}
 
-\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 \textbf{Hint}: duration.in.month has lineare structure of the default rates; hence it should be included in the scorecard model!
 
@@ -441,7 +418,7 @@ Transforming splitted sample: Needed for train/validate analysis
 \end{Shaded}
 
 \begin{verbatim}
-## v Woe transformating on 727 rows and 5 columns in 00:00:10
+## v Woe transformating on 727 rows and 5 columns in 00:00:00
 \end{verbatim}
 
 \begin{verbatim}
@@ -878,7 +855,7 @@ scorecard.
 ## $score
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -954,7 +931,7 @@ probability prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1045,7 +1022,7 @@ scorepoint prediction accuracy
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1133,9 +1110,6 @@ complementary probability, i.e.~the confidence level (\(1-\alpha\)).
 
 \caption{Amount vs. Duration}\label{fig:testFigure}
 \end{figure}
-
-Figure \ref{fig:testFigure} is a sample figure where the credit.amount
-is scatter plotted against the duration.in.month.
 
 Formulas without numbering \begin{align*}
 \mathrm{Pr}\{ \tilde{P} \leq VaR \} = \alpha

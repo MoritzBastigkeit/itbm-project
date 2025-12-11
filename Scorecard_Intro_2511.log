@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.6)  27 NOV 2025 19:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  11 DEC 2025 18:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Scorecard_Intro_2511.tex
 (./Scorecard_Intro_2511.tex
-LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-09-02>
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -63,7 +63,7 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks18
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2025/06/16 v2.17y AMS math features
+Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip51
 For additional information on amsmath, use the `?' option.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -123,8 +123,8 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \multlinegap=\skip52
 \multlinetaggap=\skip53
 \mathdisplay@stack=\toks23
-LaTeX Info: Redefining \[ on input line 2949.
-LaTeX Info: Redefining \] on input line 2950.
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
@@ -135,7 +135,7 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2024/12/21 v2.1c Standard LaTeX package
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks24
@@ -192,7 +192,7 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen168
 \FrameSep=\dimen169
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2024-12-18 v4.23 Multi-page Table package (DPC)
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTleft=\skip55
 \LTright=\skip56
 \LTpre=\skip57
@@ -229,7 +229,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count309
 \@thisrulewidth=\dimen183
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen184
 \ar@mcellbox=\box61
 \extrarowheight=\dimen185
@@ -277,6 +277,103 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibsep=\skip65
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count314
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip66
+\thanksmargin=\skip67
+\droptitle=\skip68
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip69
+\multirow@cntb=\count315
+\multirow@dima=\skip70
+\bigstrutjot=\dimen191
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen192
+\WF@size=\dimen193
+\c@WF@wrappedlines=\count316
+\WF@box=\box65
+\WF@everypar=\toks28
+Package: wrapfig 2003/01/31  v 3.6
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count317
+\float@exts=\toks29
+\float@box=\box66
+\@float@everytoks=\toks30
+\@floatcapt=\box67
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
+\everycr=\toks31
+\minrowclearance=\skip71
+\rownum=\count318
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2025-06-23 v0.14 Display of landscape pages in PDF
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2025-06-23 v0.14 Display of landscape pages in PDF (HO)
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box68
+\sift@deathcycles=\count319
+\@vwid@loff=\dimen194
+\@vwid@roff=\dimen195
+)
+==> First Aid for varwidth.sty applied!
+\c@taburow=\count320
+\tabu@nbcols=\count321
+\tabu@cnt=\count322
+\tabu@Xcol=\count323
+\tabu@alloc=\count324
+\tabu@nested=\count325
+\tabu@target=\dimen196
+\tabu@spreadtarget=\dimen197
+\tabu@naturalX=\dimen198
+\tabucolX=\dimen199
+\tabu@Xsum=\dimen256
+\extrarowdepth=\dimen257
+\abovetabulinesep=\dimen258
+\belowtabulinesep=\dimen259
+\tabustrutrule=\dimen260
+\tabu@thebody=\toks32
+\tabu@footnotes=\toks33
+\tabu@box=\box69
+\tabu@arstrutbox=\box70
+\tabu@hleads=\box71
+\tabu@vleads=\box72
+\tabu@cellskip=\skip72
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box73
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip73
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box74
+\UL@hyphenbox=\box75
+\UL@skip=\skip74
+\UL@hook=\toks34
+\UL@height=\dimen261
+\UL@pe=\count326
+\UL@pixel=\dimen262
+\ULC@box=\box76
+Package: ulem 2019/11/18
+\ULdepth=\dimen263
+) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen264
+\c@nlinenum=\count327
+\TeXr@lab=\toks35
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -308,13 +405,13 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count315
+\c@section@level=\count328
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen191
-\Hy@linkcounter=\count316
-\Hy@pagecounter=\count317
+\@linkdim=\dimen265
+\Hy@linkcounter=\count329
+\Hy@pagecounter=\count330
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -322,7 +419,7 @@ Now handling font encoding PD1 ...
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count318
+\Hy@SavedSpaceFactor=\count331
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -336,21 +433,21 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count319
+\c@Hy@tempcnt=\count332
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen192
+\XeTeXLinkMargin=\dimen266
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count320
-\Field@Width=\dimen193
-\Fld@charsize=\dimen194
+\Fld@menulength=\count333
+\Field@Width=\dimen267
+\Fld@charsize=\dimen268
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -358,15 +455,15 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count321
-\c@Item=\count322
-\c@Hfootnote=\count323
+\Hy@abspage=\count334
+\c@Item=\count335
+\c@Hfootnote=\count336
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count324
-\c@bookmark@seq@number=\count325
+\Fld@listcount=\count337
+\c@bookmark@seq@number=\count338
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
@@ -374,39 +471,39 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
-\Hy@SectionHShift=\skip66
+\Hy@SectionHShift=\skip75
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
-\BKM@id=\count326
+\BKM@id=\count339
 ))
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 122.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 140.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count327
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count340
 )
 No file Scorecard_Intro_2511.aux.
 \openout1 = `Scorecard_Intro_2511.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 140.
+LaTeX Font Info:    ... okay on input line 140.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -447,190 +544,146 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 122.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 124.
+Package hyperref Info: Link coloring OFF on input line 140.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 124.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 124.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 124.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 124.
+(Font)              <12> on input line 142.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 124.
+(Font)              <8> on input line 142.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 124.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 124.
+(Font)              <6> on input line 142.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 124.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 142.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-[1
+) [1
 
 {/Users/valentinennser/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
 No file Scorecard_Intro_2511.toc.
 \tf@toc=\write4
 \openout4 = `Scorecard_Intro_2511.toc'.
 
-
-
 [2]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 138.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 157.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 157.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 157.
+[3{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 199.
+(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 251.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 139.
-
-LaTeX Warning: Reference `tab:testTable' on page 3 undefined on input line 175.
-
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 181.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 181.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 181.
-
-
-[3]
-
-[4]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 288.
-(/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf, id=38, 469.755pt x 180.675pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 252.
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf, id=42, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 297.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+[5]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf, id=53, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 312.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf, id=54, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 325.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+[6 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-6-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1.pdf, id=69, 469.755pt x 180.675pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 338.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf, id=70, 469.755pt x 180.675pt>
 File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 <use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 320.
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 351.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-
-
-[5{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc} <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1.pdf, id=51, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 335.
-(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf, id=52, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 348.
-(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1.pdf, id=53, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 361.
-(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-
-
-[6 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-11-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-12-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1.pdf, id=68, 469.755pt x 180.675pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1.pdf  used on input line 374.
-(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-
-
-[7 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-13-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-14-1.pdf>]
-
-[8]
-Overfull \hbox (16.57768pt too wide) in paragraph at lines 491--491
+[7 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-8-1.pdf> <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-9-1.pdf>] [8 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-10-1.pdf>] [9]
+Overfull \hbox (16.57768pt too wide) in paragraph at lines 468--468
 []\T1/lmr/bx/n/12 Logistic re-gres-sion of WoE-transformed pre-dic-tors: glm(.,data_woe.list$train) 
  []
 
-
-
-[9]
-
-[10]
-
-[11]
-
-[12]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 770.
+[10] [11] [12] [13]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 747.
 (/Users/valentinennser/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-
-[13]
-
-[14]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf, id=133, 469.755pt x 216.81pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf  used on input line 881.
+) [14] [15]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf, id=144, 469.755pt x 216.81pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf  used on input line 858.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-
-
-[15 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-45-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf, id=147, 469.755pt x 325.215pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf  used on input line 957.
+[16 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-41-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf, id=158, 469.755pt x 325.215pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf  used on input line 934.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-
-[16]
-
-[17 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-48-1.pdf>]
-<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf, id=165, 469.755pt x 325.215pt>
-File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf Graphic file (type pdf)
-<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf  used on input line 1048.
+[17] [18 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-44-1.pdf>]
+<Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf, id=176, 469.755pt x 325.215pt>
+File: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf Graphic file (type pdf)
+<use Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf>
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf  used on input line 1025.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-
-[18]
-
-[19 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-53-1.pdf>]
-
-[20]
-<Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf, id=188, 289.08pt x 216.81pt>
+[19] [20 <./Scorecard_Intro_2511_files/figure-latex/unnamed-chunk-49-1.pdf>] [21]
+<Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf, id=199, 289.08pt x 216.81pt>
 File: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf Graphic file (type pdf)
 <use Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>
-Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf  used on input line 1130.
+Package pdftex.def Info: Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf  used on input line 1107.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-LaTeX Warning: Reference `fig:testFigure' on page 21 undefined on input line 1137.
+LaTeX Warning: Reference `eq:VaR' on page 22 undefined on input line 1123.
 
 
-LaTeX Warning: Reference `eq:VaR' on page 21 undefined on input line 1149.
+Package natbib Warning: Citation `SchwaigerIUF' on page 22 undefined on input line 1126.
 
 
-Package natbib Warning: Citation `SchwaigerIUF' on page 21 undefined on input line 1152.
+Package natbib Warning: Citation `SchwaigerIUF' on page 22 undefined on input line 1126.
 
 
-Package natbib Warning: Citation `SchwaigerIUF' on page 21 undefined on input line 1152.
+Package natbib Warning: Citation `SchwaigerIUF' on page 22 undefined on input line 1127.
 
-
-Package natbib Warning: Citation `SchwaigerIUF' on page 21 undefined on input line 1153.
-
-
-
-[21{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} <./Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>]
+[22 <./Scorecard_Intro_2511_files/figure-latex/testFigure-1.pdf>]
 No file Scorecard_Intro_2511.bbl.
 
 Package natbib Warning: There were undefined citations.
 
 (./Scorecard_Intro_2511.aux)
  ***********
-LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-09-02>
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
  ***********
 
 LaTeX Warning: There were undefined references.
@@ -640,18 +693,18 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 12500 strings out of 469729
- 197336 string characters out of 5476492
- 610047 words of memory out of 5000000
- 40681 multiletter control sequences out of 15000+600000
- 675395 words of font info for 84 fonts, out of 8000000 for 9000
+ 14066 strings out of 469519
+ 223122 string characters out of 5468342
+ 643342 words of memory out of 5000000
+ 42394 multiletter control sequences out of 15000+600000
+ 676749 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,9n,93p,1121b,625s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Scorecard_Intro_2511.pdf (21 pages, 337008 bytes).
+ 89i,9n,93p,1121b,638s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/valentinennser/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on Scorecard_Intro_2511.pdf (22 pages, 366227 bytes).
 PDF statistics:
- 354 PDF objects out of 1000 (max. 8388607)
- 287 compressed objects within 3 object streams
- 60 named destinations out of 1000 (max. 500000)
- 254 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 298 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
